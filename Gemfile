@@ -38,6 +38,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use responders gem for DRY-er code
 gem 'responders'
+# Use React for views
+gem 'react-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
