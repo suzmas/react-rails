@@ -16,7 +16,6 @@ var Body = React.createClass({
   },
 
   handleDelete(id) {
-    console.log(id);
     $.ajax({
       url: `api/v1/items/${id}`,
       type: 'DELETE',
