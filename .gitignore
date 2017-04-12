@@ -22,3 +22,6 @@
 
 # Ignore database.yml for user
 /config/database.yml
+
+# Ignore schema
+/db/schema.rb
