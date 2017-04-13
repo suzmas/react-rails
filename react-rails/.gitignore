@@ -19,18 +19,15 @@
 
 # Ignore Byebug command history file.
 .byebug_history
-<<<<<<< HEAD:react-rails/.gitignore
 # React on Rails
 npm-debug.log*
 node_modules
 
 # Generated js bundles
 /app/assets/webpack/*
-=======
 
 # Ignore database.yml for user
-/config/database.yml
+config/database.yml
 
 # Ignore schema
-/db/schema.rb
->>>>>>> 7bc99f0b7e4381ac46e71d8fe7744167a5a011db:.gitignore
+db/schema.rb
