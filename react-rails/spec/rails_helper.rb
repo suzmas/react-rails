@@ -28,6 +28,10 @@ require 'rspec/example_steps'
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+
+  # Next line will ensure that assets are built if webpack -w is not running to build the bundles
+  ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
