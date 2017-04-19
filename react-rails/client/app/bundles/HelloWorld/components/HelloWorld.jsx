@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import ReactBootstrap from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -39,6 +41,7 @@ export default class HelloWorld extends React.Component {
             onChange={(e) => this.updateName(e.target.value)}
           />
         </form>
+        <Button bsStyle="success" bsSize="large">Button</Button>
       </div>
     );
   }
