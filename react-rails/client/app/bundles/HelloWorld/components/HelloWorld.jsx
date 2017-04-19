@@ -22,6 +22,15 @@ export default class HelloWorld extends React.Component {
   updateName = (name) => {
     this.setState({ name });
   };
+// AIzaSyD5AvSyr-ErRWS52UO2CDBNT-5PO7c8O_o
+
+  searchLocations = () => {
+    let gplaceSearch =
+      'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=happy_hour&key=AIzaSyD5AvSyr-ErRWS52UO2CDBNT-5PO7c8O_o'
+    let locations = fetch(gplaceSearch).then((l) => {
+      console.log(l);
+    });
+  }
 
   render() {
     return (
@@ -41,7 +50,7 @@ export default class HelloWorld extends React.Component {
             onChange={(e) => this.updateName(e.target.value)}
           />
         </form>
-        <Button bsStyle="success" bsSize="large">Button</Button>
+        <Button bsStyle="success" bsSize="large" onClick={this.searchLocations()}>Button</Button>
       </div>
     );
   }
