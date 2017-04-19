@@ -27,8 +27,13 @@ export default class HelloWorld extends React.Component {
   searchLocations = () => {
     let gplaceSearch =
       'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=happyhour&key=AIzaSyClvd4-2tMUixA8GD-qSH_OGZI3X2mFiKY'
-    let locations = fetch(gplaceSearch).then((l) => {
-      console.log(l);
+    let locations = fetch(gplaceSearch, {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      "mode": "no-cors"
+    }).then((l) => {
+        console.log(l);
     });
   }
 
