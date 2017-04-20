@@ -33,3 +33,6 @@ config/database.yml
 
 # Ignore schema
 db/schema.rb
+
+# Ignore environment variables
+.env
