@@ -12,3 +12,9 @@ foreman start -f Procfile.dev
 ## Setup database
 
 - `rake db:setup`
+
+## Setup .env file
+
+- Create `.env` file in root
+- Add:
+  - `export GOOGLE_API_KEY=YOUR KEY HERE`
