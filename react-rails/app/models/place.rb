@@ -2,12 +2,14 @@ class Place < ApplicationRecord
   has_many :events
 
   # Geocoder
-  geocoded_by :full_address
-  after_validation :geocode
-
-  private
-
-    def full_address
-      "#{address1} #{address2}, #{city} #{state} #{zip}"
+  reverse_geocoded_by :latitude, :longitude do |obj, results|
+    if geo = results.first
+      obj.address1 = geo.address
+      obj.city = geo.city
+      obj.state = geo.state_code
+      obj.zip = geo.postal_code
     end
+  end
+
+  after_validation :reverse_geocode
 end
