@@ -21,6 +21,8 @@ foreman start -f Procfile.dev
 
 ## API
 
+- `/places/all` - Get all places and associated events
+
 - `/places/place/:id` - Get specific place
     - ### Optional Parameters:
         - all: 't' => get all events associated with place
