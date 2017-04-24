@@ -18,3 +18,13 @@ foreman start -f Procfile.dev
 - Create `.env` file in root
 - Add:
   - `export GOOGLE_API_KEY=YOUR KEY HERE`
+
+## API
+
+- `/places/all` - Get all places and associated events
+
+- `/places/place/:id` - Get specific place
+    - ### Optional Parameters:
+        - all: 't' => get all events associated with place
+
+- `/places/event/:id` - Get specific event
