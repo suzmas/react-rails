@@ -3,6 +3,12 @@ class PlacesController < ApplicationController
   def index
   end
 
+  def all
+    @places = Place.all
+
+    render json: @places, include: :events
+  end
+
   def place
     @place = Place.find(params[:id])
     if params[:all] == 't'
