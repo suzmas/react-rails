@@ -1,6 +1,9 @@
 class PlacesController < ApplicationController
 
   def index
+    @places_props = {
+      name: "Ur moms house"
+    }
   end
 
   def all
