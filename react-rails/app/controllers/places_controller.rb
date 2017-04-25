@@ -1,8 +1,12 @@
 class PlacesController < ApplicationController
 
   def index
+
+    @places = Place.all
+    place_props =  @places.to_json
+
     @places_props = {
-      name: "Ur moms house"
+      name: place_props
     }
   end
 

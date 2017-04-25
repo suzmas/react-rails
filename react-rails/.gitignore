@@ -36,3 +36,4 @@ db/schema.rb
 
 # Ignore environment variables
 .env
+.ENV
