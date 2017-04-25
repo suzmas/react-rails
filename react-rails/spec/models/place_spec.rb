@@ -14,8 +14,8 @@ RSpec.describe Place, type: :model do
     end
 
     it 'has a full address' do
-      place = Place.create(address1: '793 J St', city: 'San Diego', state: 'CA', zip: '92101')
-      expect(place.address1).to eq '793 J St'
+      place = Place.create(latitude: '32.709138', longitude: '-117.157579')
+      expect(place.address1).to eq '325 Seventh Ave, San Diego, CA 92101, USA'
       expect(place.city).to eq 'San Diego'
       expect(place.state).to eq 'CA'
       expect(place.zip).to eq '92101'
