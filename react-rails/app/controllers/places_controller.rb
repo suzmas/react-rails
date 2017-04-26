@@ -12,8 +12,18 @@ class PlacesController < ApplicationController
 
   def all
     @places = Place.all
+    @places = Place.place(params[:place].downcase).pluck(:id)
 
-    render json: @places, include: :events
+    @places = @places.map do |place|
+      {
+        Place.find(place).name => {
+          places: Place.find(place),
+          events: Event.where(place_id: place).day(params[:day])
+        }
+      }
+    end
+
+    render json: @places
   end
 
   def place
