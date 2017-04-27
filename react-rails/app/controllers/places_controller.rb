@@ -12,7 +12,9 @@ class PlacesController < ApplicationController
 
   def all
     @places = Place.all
-    @places = Place.place(params[:place].downcase).pluck(:id)
+    if !params[:place].nil?
+      @places = Place.place(params[:place].downcase).pluck(:id)
+    end
 
     @places = @places.map do |place|
       @events = Event.where(place_id: place)
