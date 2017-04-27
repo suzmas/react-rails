@@ -34,14 +34,10 @@ class PlacesController < ApplicationController
         @events = @events.merge(Event.drink(params[:drink]))
       end
 
-      {
-        @place.name => {
-          places: @place,
-          events: @events
-        }
-      }
+      (@events.length > 0) ? { @place.name => { places: @place, events: @events } } : {}
     end
 
+    @places = @places.select { |item| !item.empty? }
     render json: JSON.pretty_generate(JSON.parse(@places.to_json))
   end
 
