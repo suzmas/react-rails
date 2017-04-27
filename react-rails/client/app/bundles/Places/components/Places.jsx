@@ -32,14 +32,18 @@ export default class Places extends React.Component {
   placeList = () => {
     let places = this.props.name;
     places = JSON.parse(places);
+    console.log(places);
     for (let i = 0; i < places.length; i++ ) {
       console.log(places[i].name);
     }
+
+    places = places.map(function(place) {
+      return <p>{(place).name}</p>
+    });
     // map places to dom elements
-    return (
-      <div>
-      </div>
-    );
+    return (<div id="placediv">
+          {places}
+    </div>)
   }
 
 
