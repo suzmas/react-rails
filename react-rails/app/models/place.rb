@@ -12,4 +12,6 @@ class Place < ApplicationRecord
   end
 
   after_validation :reverse_geocode
+
+  scope :place, -> (place) { where("LOWER(places.name) LIKE ?", "%#{place}%") }
 end
