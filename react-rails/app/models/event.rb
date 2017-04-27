@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :place
 
-  scope :day, -> (day) { where("LOWER(events.dow) = ?", "#{day}") }
-  scope :food, -> (food) { where("events.has_food = ?", "#{food}") }
-  scope :drink, -> (drink) { where("events.has_drink = ?", "#{drink}") }
+  scope :day, -> (day) { where(dow: day) }
+  scope :food, -> (food) { where(has_food: food) }
+  scope :drink, -> (drink) { where(has_drink: drink) }
 end
