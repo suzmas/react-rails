@@ -12,11 +12,14 @@ class PlacesController < ApplicationController
 
   def all
     @places = Place.all
+
     if !params[:place].nil?
       @places = Place.place(params[:place].downcase).pluck(:id)
     end
 
     @places = @places.map do |place|
+
+      @place = Place.find(place)
       @events = Event.where(place_id: place)
 
       if !params[:day].nil?
@@ -30,11 +33,11 @@ class PlacesController < ApplicationController
       if !params[:drink].nil?
         @events = @events.merge(Event.drink(params[:drink]))
       end
+
       {
-        Place.find(place).name => {
-          places: Place.find(place),
+        @place.name => {
+          places: @place,
           events: @events
-          # events: Event.where(place_id: place).day(params[:day]).food(params[:food]).drink(params[:drink])
         }
       }
     end
