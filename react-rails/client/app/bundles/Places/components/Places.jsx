@@ -13,20 +13,6 @@ export default class Places extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
-
-    // How to set initial state in ES6 class syntax
-    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    this.state = { name: "bler" };
-  }
-
-  updateName = (name) => {
-    this.setState({ name });
-  };
-
-  logContents = () => {
-    const places = (this.props.name);
-    console.log(places);
-    console.log(JSON.parse(places));
   }
 
   placeList = () => {
@@ -37,13 +23,12 @@ export default class Places extends React.Component {
       console.log(places[i].name);
     }
 
-    places = places.map(function(place) {
-      return <p>{(place).name}</p>
-    });
     // map places to dom elements
-    return (<div id="placediv">
-          {places}
-    </div>)
+    places = places.map(function(place) {
+      return <li key={place.id}>{(place).name}</li>
+    });
+
+    return (<ul>{places}</ul>)
   }
 
 
@@ -52,24 +37,6 @@ export default class Places extends React.Component {
     return (
       <div>
         {this.placeList()}
-        <h3>
-          Hello, {this.state.name}!
-        </h3>
-        <hr />
-        <form >
-          <label htmlFor="name">
-            Say hello to:
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={this.state.name}
-            onChange={(e) => this.updateName(e.target.value)}
-          />
-        </form>
-        <Button bsStyle="success"
-                bsSize="large"
-                onClick={this.logContents()}>Button</Button>
       </div>
     );
   }
