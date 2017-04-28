@@ -19,9 +19,11 @@ export default class Place extends React.Component {
 
 
   placePanel = (place) => {
-    return (<Panel header= {place.name + ": " + place.address1} eventKey="1">
+    place = (<Panel header= {place.name + ": " + place.address1} eventKey="1">
       Events and stuff
       </Panel>)
+
+    return place
   }
 
   placeList = () => {
@@ -31,7 +33,8 @@ export default class Place extends React.Component {
 
     // map places to dom elements
     // places = places.map(function(place) {
-    //   return {this.placePanel(place)}
+    //   place = this.placePanel(place);
+    //   return place
     // });
     places = places.map(function(place) {
       return <p>{place.name}</p>
