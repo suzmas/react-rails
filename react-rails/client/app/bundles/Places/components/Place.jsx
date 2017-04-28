@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
-import ReactBootstrap from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
+import ReactBootstrap from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
+import {Panel, PanelGroup, Accordion} from 'react-bootstrap';
 
-export default class Places extends React.Component {
+
+export default class Place extends React.Component {
   static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
+    places: PropTypes.string.isRequired, // this is passed from the Rails view
   };
 
   /**
@@ -15,13 +17,15 @@ export default class Places extends React.Component {
     super(props);
   }
 
+
+  placePanel = (place) => {
+    return <p>{place}</p>
+  }
+
   placeList = () => {
-    let places = this.props.name;
+    let places = this.props.places;
     places = JSON.parse(places);
     console.log(places);
-    for (let i = 0; i < places.length; i++ ) {
-      console.log(places[i].name);
-    }
 
     // map places to dom elements
     places = places.map(function(place) {

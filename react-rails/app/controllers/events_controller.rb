@@ -2,11 +2,11 @@ class PlacesController < ApplicationController
 
   def index
 
-    @places = Place.all
-    place_props =  @places.to_json
+    @events = Event.all
+    event_props =  @events.to_json
 
     @places_props = {
-      places: place_props
+      name: place_props
     }
   end
 
