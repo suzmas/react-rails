@@ -6,10 +6,10 @@ import {Panel, PanelGroup, Accordion} from 'react-bootstrap';
 
 export default class Place extends React.Component {
   static propTypes = {
-    places: PropTypes.string.isRequired, // this is passed from the Rails view
+    all: PropTypes.string.isRequired, // this is passed from the Rails view
   };
 
-  /**
+  /*
    * @param props - Comes from your rails view.
    * @param _railsContext - Comes from React on Rails
    */
@@ -25,16 +25,17 @@ export default class Place extends React.Component {
   }
 
   placeList = () => {
-    let places = this.props.places;
+    let places = this.props.all;
     places = JSON.parse(places);
     console.log(places);
 
-    // map places to dom elements
-    // places = places.map(function(place) {
-    //   return {this.placePanel(place)}
-    // });
+    /* map places to dom elements; add keys so React knows which to change
+     * places = places.map(function(place) {
+     *  return {this.placePanel(place)}
+     * });
+     */
     places = places.map(function(place) {
-      return <p>{place.name}</p>
+      return <p key={place.place.id}>{place.place.name}</p>
     });
 
     return (<ul>{places}</ul>)
