@@ -22,7 +22,8 @@ foreman start -f Procfile.dev
 ## Props
 
 * `all_prop` -> Contains Place paired with its events.
-` all ->
+``` 
+  all ->
     place ->
       name (str)
       address1 (str)
@@ -43,14 +44,16 @@ foreman start -f Procfile.dev
       menu (json)
       has_food (bool)
       has_drink (bool)
-`
+```
 
 * `places_prop` -> Contains all Place.
-` places ->
+``` 
+  places ->
     (place - See above)
-`
+```
 
 * `events_prop` -> Contains all Event.
-` events ->
+``` 
+  events ->
     (events - See above)
-`
+```
