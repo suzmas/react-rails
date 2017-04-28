@@ -11,20 +11,46 @@ foreman start -f Procfile.dev
 
 ## Setup database
 
-- `rake db:setup`
+* `rake db:setup`
 
 ## Setup .env file
 
-- Create `.env` file in root
-- Add:
+* Create `.env` file in root
+* Add:
   - `export GOOGLE_API_KEY=YOUR KEY HERE`
 
-## API
+## Props
 
-- `/places/all` - Get all places and associated events
+* `all_prop` -> Contains Place paired with its events.
+` all ->
+    place ->
+      name (str)
+      address1 (str)
+      address2 (str)
+      city (str)
+      state (str)
+      zip (str)
+      phone (str)
+      latitude (float)
+      longitude (float)
 
-- `/places/place/:id` - Get specific place
-    - ### Optional Parameters:
-        - all: 't' => get all events associated with place
+    events ->
+      place_id (int)
+      name (str)
+      dow (str)
+      start_time (time)
+      end_time (time)
+      menu (json)
+      has_food (bool)
+      has_drink (bool)
+`
 
-- `/places/event/:id` - Get specific event
+* `places_prop` -> Contains all Place.
+` places ->
+    (place - See above)
+`
+
+* `events_prop` -> Contains all Event.
+` events ->
+    (events - See above)
+`
