@@ -19,7 +19,9 @@ export default class Place extends React.Component {
 
 
   placePanel = (place) => {
-    return <p>{place}</p>
+    return (<Panel header= {place.name + ": " + place.address1} eventKey="1">
+      Events and stuff
+      </Panel>)
   }
 
   placeList = () => {
@@ -28,8 +30,11 @@ export default class Place extends React.Component {
     console.log(places);
 
     // map places to dom elements
+    // places = places.map(function(place) {
+    //   return {this.placePanel(place)}
+    // });
     places = places.map(function(place) {
-      return <li key={place.id}>{(place).name}</li>
+      return <p>{place.name}</p>
     });
 
     return (<ul>{places}</ul>)
@@ -41,7 +46,7 @@ export default class Place extends React.Component {
     return (
       <div>
         {this.placeList()}
-        {this.placePanel("hey")}
+        {this.placePanel({name: "Suzan", address1: "NO"})}
       </div>
     );
   }
