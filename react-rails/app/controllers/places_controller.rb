@@ -1,59 +1,31 @@
 class PlacesController < ApplicationController
+  before_action :data
 
   def index
-
-    @places = Place.all
-    place_props =  @places.to_json
-
-    @places_props = {
-      places: place_props
-    }
   end
 
-  def all
-    @places = Place.all
+  private
 
-    if !params[:place].nil?
-      @places = Place.place(params[:place].downcase).pluck(:id)
+    def data
+      @all_prop = {
+        all: make_all.to_json
+      }
+
+      @places_prop = {
+        places: Place.all.to_json
+      }
+
+      @events_prop = {
+        events: Event.all.to_json
+      }
     end
 
-    @places = @places.map do |place|
+    def make_all
+      all = Place.all.map do |place|
+        @place = Place.find(place.id)
+        @events = Event.where(place_id: place.id)
 
-      @place = Place.find(place)
-      @events = Event.where(place_id: place)
-
-      if !params[:day].nil?
-        @events = @events.merge(Event.day(params[:day]))
+        { place: @place, events: @events }
       end
-
-      if !params[:food].nil?
-        @events = @events.merge(Event.food(params[:food]))
-      end
-
-      if !params[:drink].nil?
-        @events = @events.merge(Event.drink(params[:drink]))
-      end
-
-      (@events.length > 0) ? { @place.name => { places: @place, events: @events } } : {}
     end
-
-    @places = @places.select { |item| !item.empty? }
-    render json: JSON.pretty_generate(JSON.parse(@places.to_json))
-  end
-
-  def place
-    @place = Place.find(params[:id])
-    if params[:all] == 't'
-      @events = @place.events.all
-    end
-
-    render json: { place: @place, events: @events }
-  end
-
-  def event
-    @event = Event.find(params[:id])
-
-    render json: @event
-  end
-
 end
