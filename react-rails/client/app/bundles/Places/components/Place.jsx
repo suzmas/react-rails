@@ -17,16 +17,21 @@ export default class Place extends React.Component {
     super(props);
   }
 
-  logIt = (it) => {
-    console.log(it);
-    it = it.name;
-    let bler = `${it} is this`;
-    return bler;
+  eventsString = (events) => {
+    let stringArray = events.map(event => {
+      console.log(event.dow);
+      return (
+      `${event.dow}: ${event.start_time}-${event.end_time}`
+    )});
+
+    return stringArray.toString();
   }
 
-  placePanel = (place) => {
-    let panel = (<Panel header= {place.name} eventKey="1">
-      Events and stuff
+  placePanel = (place, events) => {
+    console.log(place.name);
+    let panel = (
+      <Panel header={place.name} eventKey="1">
+        {this.eventsString(events)}
       </Panel>)
 
     return panel
@@ -35,22 +40,13 @@ export default class Place extends React.Component {
   placeList = () => {
     let places = this.props.all;
     places = JSON.parse(places);
-    console.log("Here are the locations");
-    console.log(places);
 
     /* map places to dom elements; add keys so React knows which to change
-     * places = places.map(function(place) {
-     *  return {this.placePanel(place)}
-     * });
      */
     places = places.map(place => {
-      console.log(place.events);
-      console.log(this.logIt(place.place))
       return (
         <div>
-          <p key={place.place.id}>{place.place.name}</p>
-          {this.placePanel(place.place)}
-          <p key={place.place.name}>{place.events[0].dow}</p>
+          {this.placePanel(place.place, place.events)}
         </div>
       )
     });
@@ -64,7 +60,6 @@ export default class Place extends React.Component {
     return (
       <div>
         {this.placeList()}
-        {this.placePanel({name: "Suzan", address1: "NO"})}
       </div>
     );
   }
