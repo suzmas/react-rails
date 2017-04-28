@@ -17,18 +17,25 @@ export default class Place extends React.Component {
     super(props);
   }
 
+  logIt = (it) => {
+    console.log(it);
+    it = it.name;
+    let bler = `${it} is this`;
+    return bler;
+  }
 
   placePanel = (place) => {
-    place = (<Panel header= {place.name + ": " + place.address1} eventKey="1">
+    let panel = (<Panel header= {place.name} eventKey="1">
       Events and stuff
       </Panel>)
 
-    return place
+    return panel
   }
 
   placeList = () => {
     let places = this.props.all;
     places = JSON.parse(places);
+    console.log("Here are the locations");
     console.log(places);
 
     /* map places to dom elements; add keys so React knows which to change
@@ -36,8 +43,16 @@ export default class Place extends React.Component {
      *  return {this.placePanel(place)}
      * });
      */
-    places = places.map(function(place) {
-      return <p key={place.place.id}>{place.place.name}</p>
+    places = places.map(place => {
+      console.log(place.events);
+      console.log(this.logIt(place.place))
+      return (
+        <div>
+          <p key={place.place.id}>{place.place.name}</p>
+          {this.placePanel(place.place)}
+          <p key={place.place.name}>{place.events[0].dow}</p>
+        </div>
+      )
     });
 
     return (<ul>{places}</ul>)
