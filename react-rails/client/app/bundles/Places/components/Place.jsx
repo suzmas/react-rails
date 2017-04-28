@@ -41,6 +41,7 @@ export default class Place extends React.Component {
     return (
       <div>
         {this.placeList()}
+        {this.placePanel("hey")}
       </div>
     );
   }
