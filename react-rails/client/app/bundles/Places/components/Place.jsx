@@ -19,9 +19,11 @@ export default class Place extends React.Component {
 
 
   placePanel = (place) => {
-    return (<Panel header= {place.name + ": " + place.address1} eventKey="1">
+    place = (<Panel header= {place.name + ": " + place.address1} eventKey="1">
       Events and stuff
       </Panel>)
+
+    return place
   }
 
   placeList = () => {
