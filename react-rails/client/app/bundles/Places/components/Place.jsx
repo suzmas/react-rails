@@ -18,21 +18,20 @@ export default class Place extends React.Component {
   }
 
   eventsString = (events) => {
+    // simple data to stick in panel for now
     let stringArray = events.map(event => {
-      console.log(event.dow);
       return (
       `${event.dow}: ${event.start_time}-${event.end_time}`
     )});
 
-    return stringArray.toString();
+    return stringArray.toString()
   }
 
   placePanel = (place, events) => {
-    console.log(place.name);
     let panel = (
-      <Panel header={place.name} eventKey="1">
+      <Panel key={place.id} header={place.name} eventKey={place.id}>
         {this.eventsString(events)}
-      </Panel>)
+      </Panel>);
 
     return panel
   }
@@ -41,19 +40,15 @@ export default class Place extends React.Component {
     let places = this.props.all;
     places = JSON.parse(places);
 
-    /* map places to dom elements; add keys so React knows which to change
-     */
-    places = places.map(place => {
-      return (
-        <div>
-          {this.placePanel(place.place, place.events)}
-        </div>
-      )
-    });
+    let list =
+      <Accordion>
+        {places.map(place => {
+          return ( this.placePanel(place.place, place.events) )
+        })}
+      </Accordion>
 
-    return (<ul>{places}</ul>)
+    return list;
   }
-
 
 
   render() {
@@ -61,6 +56,6 @@ export default class Place extends React.Component {
       <div>
         {this.placeList()}
       </div>
-    );
+    )
   }
 }
