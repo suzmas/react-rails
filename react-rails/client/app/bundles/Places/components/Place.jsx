@@ -17,11 +17,27 @@ export default class Place extends React.Component {
     super(props);
   }
 
+
+  dateToTime(dateString) {
+      let a;
+      if (typeof dateString === 'string') {
+          a = /T(\w+:\w+)/.exec(dateString);
+      }
+      if (a[1].startsWith('0')) { a[1] = a[1].slice(1) }
+
+      return a[1];
+  }
+
+  // VIEW STUFF
+
   eventsString = (events) => {
     // simple data to stick in panel for now
     let stringArray = events.map(event => {
+      const start_time = this.dateToTime(event.start_time);
+      const end_time = this.dateToTime(event.end_time);
+
       return (
-      `${event.dow}: ${event.start_time}-${event.end_time}`
+      `${event.dow}: ${start_time}-${end_time}`
     )});
 
     return stringArray.toString()
