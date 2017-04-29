@@ -57,7 +57,7 @@ export default class Place extends React.Component {
     places = JSON.parse(places);
 
     let list =
-      <Accordion>
+      <Accordion style={{maxWidth: "500px"}}>
         {places.map(place => {
           return ( this.placePanel(place.place, place.events) )
         })}
