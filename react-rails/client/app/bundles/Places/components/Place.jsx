@@ -17,40 +17,45 @@ export default class Place extends React.Component {
     super(props);
   }
 
+  eventsString = (events) => {
+    // simple data to stick in panel for now
+    let stringArray = events.map(event => {
+      return (
+      `${event.dow}: ${event.start_time}-${event.end_time}`
+    )});
 
-  placePanel = (place) => {
-    place = (<Panel header= {place.name + ": " + place.address1} eventKey="1">
-      Events and stuff
-      </Panel>)
+    return stringArray.toString()
+  }
 
-    return place
+  placePanel = (place, events) => {
+    let panel = (
+      <Panel key={place.id} header={place.name} eventKey={place.id}>
+        {this.eventsString(events)}
+      </Panel>);
+
+    return panel
   }
 
   placeList = () => {
     let places = this.props.all;
     places = JSON.parse(places);
-    console.log(places);
 
-    /* map places to dom elements; add keys so React knows which to change
-     * places = places.map(function(place) {
-     *  return {this.placePanel(place)}
-     * });
-     */
-    places = places.map(function(place) {
-      return <p key={place.place.id}>{place.place.name}</p>
-    });
+    let list =
+      <Accordion>
+        {places.map(place => {
+          return ( this.placePanel(place.place, place.events) )
+        })}
+      </Accordion>
 
-    return (<ul>{places}</ul>)
+    return list;
   }
-
 
 
   render() {
     return (
       <div>
         {this.placeList()}
-        {this.placePanel({name: "Suzan", address1: "NO"})}
       </div>
-    );
+    )
   }
 }
