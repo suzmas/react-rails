@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactBootstrap from 'react-bootstrap';
-import {Navbar} from 'react-bootstrap';
+import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 
 
-export default class Place extends React.Component {
+export default class NavBar extends React.Component {
   static propTypes = {
   };
 
@@ -15,11 +15,12 @@ export default class Place extends React.Component {
     super(props);
   }
 
-    const navbarInstance = (
-    <Navbar>
+  navbarInstance() {
+    return (
+    <Navbar fixedTop="true">
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#">Brand</a>
+          <a href="#">COOL BRAND HERE</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
@@ -33,11 +34,12 @@ export default class Place extends React.Component {
         </Navbar.Form>
       </Navbar.Collapse>
     </Navbar>
-  );
+  )}
 
   render() {
     return (
       <div>
+        {this.navbarInstance()}
       </div>
     )
   }
