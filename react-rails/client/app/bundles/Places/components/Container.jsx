@@ -1,3 +1,5 @@
+import React from 'react';
+
 export class Container extends React.Component {
   render() {
     const style = {
@@ -13,5 +15,5 @@ export class Container extends React.Component {
 }
 
 export default GoogleApiComponent({
-  apiKey: ENV['GOOGLE_API_KEY']
+  apiKey: "AIzaSyClvd4-2tMUixA8GD-qSH_OGZI3X2mFiKY"
 })(Container)
