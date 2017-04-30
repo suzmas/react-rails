@@ -12,6 +12,7 @@
     "test": "rspec"
   },
   "dependencies": {
+    "google-maps-react": "^1.0.19",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
