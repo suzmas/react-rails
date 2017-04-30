@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+
 import ReactBootstrap from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
 import {Panel, PanelGroup, Accordion} from 'react-bootstrap';
+
+import NavBar from './Navbar';
 
 
 export default class Place extends React.Component {
@@ -70,6 +72,7 @@ export default class Place extends React.Component {
   render() {
     return (
       <div>
+        <NavBar />
         {this.placeList()}
       </div>
     )
