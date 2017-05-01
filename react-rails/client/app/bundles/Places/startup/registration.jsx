@@ -4,5 +4,5 @@ import Place from '../components/Place';
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
-  Place,
+  Place, 
 });

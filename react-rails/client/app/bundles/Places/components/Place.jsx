@@ -3,8 +3,8 @@ import React, { PropTypes } from 'react';
 import ReactBootstrap from 'react-bootstrap';
 import {Panel, PanelGroup, Accordion} from 'react-bootstrap';
 
-import NavBar from './Navbar';
-
+import NavBar from './navbar';
+import SimpleExample from './Map';
 
 export default class Place extends React.Component {
   static propTypes = {
@@ -74,6 +74,7 @@ export default class Place extends React.Component {
       <div>
         <NavBar />
         {this.placeList()}
+        <SimpleExample all={this.props.all} />
       </div>
     )
   }
