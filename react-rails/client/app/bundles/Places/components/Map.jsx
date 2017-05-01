@@ -28,23 +28,22 @@ export default class SimpleExample extends React.Component {
     return list
   }
 
-  makeCoords = () => {
+  getCoords = () => {
     let places = this.props.all;
     places = JSON.parse(places);
-    const bounds = latLngBounds([this.state.lat, this.state.lng]);
+    const bounds = latLngBounds();
 
     places
-      .map(place => { [place.place.latitude, place.place.longitude] })
+      .map(place => { return [place.place.latitude, place.place.longitude] })
       .map(data => { bounds.extend(data) })
 
     return bounds
   }
 
   render() {
-    const position = [this.state.lat, this.state.lng];
-    // const bounds = this.makeCoords();
+    const bounds = this.getCoords();
     return (
-      <Map center={position} zoom={this.state.zoom}>
+      <Map bounds={bounds}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
