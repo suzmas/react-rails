@@ -1,54 +1,54 @@
-import React, { PropTypes } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import {latLngBounds} from 'leaflet';
+import React from "react";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { latLngBounds } from "leaflet";
 
 export default class SimpleExample extends React.Component {
-  state = {
-    lat: 32.7157,
-    lng: -117.1611,
-    zoom: 15,
-  };
+    state = {
+        lat: 32.7157,
+        lng: -117.1611,
+        zoom: 15,
+    };
 
-  placeMarker = () => {
-    let places = this.props.all;
-    places = JSON.parse(places);
+    placeMarker = () => {
+        let places = this.props.all;
+        places = JSON.parse(places);
 
-    let list =
+        let list =
       places.map(place => {
-        var position = [place.place.latitude, place.place.longitude];
-        return (
+          var position = [place.place.latitude, place.place.longitude];
+          return (
           <Marker key={place.place.id} position={position}>
             <Popup>
               <span>Yes</span>
             </Popup>
           </Marker>
-        )
-      })
+          );
+      });
 
-    return list
-  }
+        return list;
+    }
 
-  getCoords = () => {
-    let places = this.props.all;
-    places = JSON.parse(places);
-    const bounds = latLngBounds();
+    getCoords = () => {
+        let places = this.props.all;
+        places = JSON.parse(places);
+        const bounds = latLngBounds();
 
-    places
-      .map(place => { return [place.place.latitude, place.place.longitude] })
-      .map(data => { bounds.extend(data) })
+        places
+      .map(place => { return [place.place.latitude, place.place.longitude]; })
+      .map(data => { bounds.extend(data); });
 
-    return bounds
-  }
+        return bounds;
+    }
 
-  render() {
-    const bounds = this.getCoords();
-    return (
+    render() {
+        const bounds = this.getCoords();
+        return (
       <Map bounds={bounds}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
         {this.placeMarker()};
       </Map>
-    );
-  }
+        );
+    }
 }
