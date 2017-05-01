@@ -4,8 +4,7 @@ import ReactBootstrap from 'react-bootstrap';
 import {Panel, PanelGroup, Accordion} from 'react-bootstrap';
 
 import NavBar from './navbar';
-import Map from './Map';
-
+import SimpleExample from './Map';
 
 export default class Place extends React.Component {
   static propTypes = {
@@ -75,7 +74,7 @@ export default class Place extends React.Component {
       <div>
         <NavBar />
         {this.placeList()}
-        <Map />
+        <SimpleExample all={this.props.all} />
       </div>
     )
   }
