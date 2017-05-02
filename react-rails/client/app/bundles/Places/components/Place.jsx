@@ -1,9 +1,10 @@
 import React, { PropTypes } from "react";
 
-import {Panel, Accordion} from "react-bootstrap"; // previously had PanelGroup
+// import {Panel, Accordion} from "react-bootstrap"; // previously had PanelGroup
 
 import NavBar from "./navbar";
 import SimpleExample from "./Map";
+import Item from "./Panel";
 
 export default class Place extends React.Component {
     static propTypes = {
@@ -21,64 +22,29 @@ export default class Place extends React.Component {
     // }
     constructor(props) {
         super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {data: ""};
     }
 
-
-    dateToTime(dateString) {
-        let a;
-        if (typeof dateString === "string") {
-            a = /T(\w+:\w+)/.exec(dateString);
-        }
-        if (a[1].startsWith("0")) { a[1] = a[1].slice(1); }
-
-        return a[1];
-    }
-
-  // VIEW STUFF
-
-    eventsString = (events) => {
-    // simple data to stick in panel for now
-        let stringArray = events.map(event => {
-            const start_time = this.dateToTime(event.start_time);
-            const end_time = this.dateToTime(event.end_time);
-
-            return (
-      `${event.dow}: ${start_time}-${end_time}`
-            );});
-
-        return stringArray.toString();
-    }
-
-    placePanel = (place, events) => {
-        let panel = (
-      <Panel key={place.id} header={place.name} eventKey={place.id}>
-        {this.eventsString(events)}
-      </Panel>);
-
-        return panel;
-    }
-
-    placeList = () => {
+    // Filters and changes data state
+    handleChange(text) {
         let places = this.props.all;
         places = JSON.parse(places);
 
-        let list =
-      <Accordion style={{maxWidth: "500px"}}>
-        {places.map(place => {
-            return ( this.placePanel(place.place, place.events) );
-        })}
-      </Accordion>;
-
-        return list;
+        let data = places
+        .filter(place => {
+            return place.place.name.toLowerCase().includes(text.toLowerCase().trim());
+        });
+        this.setState({data: data});
     }
 
-
     render() {
+        const text = "";
         return (
       <div>
-        <NavBar />
-        {this.placeList()}
-        <SimpleExample all={this.props.all} />
+        <NavBar text={text} onSearchChange={this.handleChange} />
+        <Item all={this.props.all} data={this.state.data}/>
+        <SimpleExample all={this.props.all} data={this.state.data} />
       </div>
         );
     }

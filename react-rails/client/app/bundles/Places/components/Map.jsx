@@ -10,8 +10,8 @@ export default class SimpleExample extends React.Component {
     };
 
     placeMarker = () => {
-        let places = this.props.all;
-        places = JSON.parse(places);
+        let places = this.props.data || JSON.parse(this.props.all);
+        // places = JSON.parse(places);
 
         let list =
       places.map(place => {
@@ -29,8 +29,8 @@ export default class SimpleExample extends React.Component {
     }
 
     getCoords = () => {
-        let places = this.props.all;
-        places = JSON.parse(places);
+        let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
+        // places = JSON.parse(places);
         const bounds = latLngBounds();
 
         places
