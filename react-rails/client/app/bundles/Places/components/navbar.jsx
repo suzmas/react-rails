@@ -13,11 +13,17 @@ export default class NavBar extends React.Component {
    */
   constructor(props, _railsContext) {
     super(props);
+
+    this.handleText = this.handleText.bind(this);
+  }
+
+  handleText(e) {
+    this.setState(e.target.value);
   }
 
   navbarInstance() {
     return (
-    <Navbar fixedTop="true">
+    <Navbar fixedTop={true}>
       <Navbar.Header>
         <Navbar.Brand>
           <a href="#">COOL BRAND HERE</a>
@@ -27,7 +33,7 @@ export default class NavBar extends React.Component {
       <Navbar.Collapse>
         <Navbar.Form pullLeft>
           <FormGroup>
-            <FormControl type="text" placeholder="Search" />
+            <FormControl type="text" placeholder="Search" onChange={this.handleText} />
           </FormGroup>
           {' '}
           <Button type="submit">Submit</Button>
