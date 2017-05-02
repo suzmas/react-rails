@@ -33,7 +33,7 @@ export default class Place extends React.Component {
 
         let data = places
         .filter(place => {
-            return place.place.name.toLowerCase().includes(text.toLowerCase());
+            return place.place.name.toLowerCase().includes(text.toLowerCase().trim());
         });
         this.setState({data: data});
     }
