@@ -2,7 +2,7 @@ import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { latLngBounds } from "leaflet";
 
-export default class SimpleExample extends React.Component {
+export default class PlaceMap extends React.Component {
     state = {
         lat: 32.7157,
         lng: -117.1611,
@@ -19,7 +19,7 @@ export default class SimpleExample extends React.Component {
           return (
           <Marker key={place.place.id} position={position}>
             <Popup>
-              <span>Yes</span>
+              <span>{place.place.name}</span>
             </Popup>
           </Marker>
           );
