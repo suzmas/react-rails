@@ -22,19 +22,18 @@ module.exports = {
     "rules": {
         "indent": [
             "error",
-            4
+            2
         ],
         "linebreak-style": [
             "error",
             "unix"
         ],
         "quotes": [
-            "error",
+            "warn",
             "double"
         ],
         "semi": [
-            "error",
-            "always"
+            "never"
         ],
         "strict": [2, "never"],
         "react/jsx-uses-react": 2,
