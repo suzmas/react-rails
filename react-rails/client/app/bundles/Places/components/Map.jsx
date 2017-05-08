@@ -11,7 +11,6 @@ export default class PlaceMap extends React.Component {
 
     placeMarker = () => {
         let places = this.props.data || JSON.parse(this.props.all);
-        // places = JSON.parse(places);
 
         let list =
       places.map(place => {
@@ -30,7 +29,6 @@ export default class PlaceMap extends React.Component {
 
     getCoords = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
-        // places = JSON.parse(places);
         const bounds = latLngBounds();
 
         places
@@ -43,7 +41,7 @@ export default class PlaceMap extends React.Component {
     render() {
         const bounds = this.getCoords();
         return (
-      <Map bounds={bounds}>
+      <Map bounds={bounds} style={{maxWidth: "45vw", float: "right"}}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
