@@ -29,11 +29,11 @@ export default class Place extends React.Component {
         this.setState({data: data});
     }
 
+
     render() {
-        const text = "";
         return (
       <div>
-        <NavBar text={text} onSearchChange={this.handleChange} />
+        <NavBar onSearchChange={this.handleChange} />
         <Grid>
         <Row>
 
@@ -42,7 +42,9 @@ export default class Place extends React.Component {
           </Col>
 
           <Col md={6}>
-            <PlaceMap all={this.props.all} data={this.state.data} />
+            <PlaceMap all={this.props.all}
+                      data={this.state.data}
+                      style={{position: "fixed", maxWidth: "100%"}}/>
           </Col>
 
         </Row>
