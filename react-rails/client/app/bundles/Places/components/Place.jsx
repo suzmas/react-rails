@@ -44,7 +44,7 @@ export default class Place extends React.Component {
           <Col md={6}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
-                      style={{position: "fixed", maxWidth: "100%"}}/>
+                      style={{position: "fixed", maxWidth: "40vw"}}/>
           </Col>
 
         </Row>
