@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {Grid, Row, Col} from "react-bootstrap";
 import NavBar from "./Navbar";
@@ -6,9 +7,6 @@ import PlaceMap from "./Map";
 import Item from "./Panel";
 
 export default class Place extends React.Component {
-    static propTypes = {
-        all: PropTypes.string.isRequired, // this is passed from the Rails view
-    };
 
     constructor(props) {
         super(props);
@@ -57,3 +55,7 @@ export default class Place extends React.Component {
         );
     }
 }
+
+Place.propTypes = {
+    all: PropTypes.string.isRequired, // this is passed from the Rails view
+};
