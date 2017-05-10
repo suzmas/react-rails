@@ -3,9 +3,6 @@ import {Navbar, FormGroup, FormControl, Button} from "react-bootstrap";
 
 
 export default class NavBar extends React.Component {
-    static propTypes = {
-    };
-
     constructor(props, _railsContext) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
