@@ -1,4 +1,5 @@
-import React from "react";
+import React, { PropTypes } from "react";
+
 import {Navbar, FormGroup, FormControl, Button} from "react-bootstrap";
 
 
@@ -14,10 +15,10 @@ export default class NavBar extends React.Component {
 
     navbarInstance() {
         return (
-    <Navbar fixedTop={true}>
+    <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}}>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#">COOL BRAND HERE</a>
+          <a style={{color: this.props.secondaryColor}} href="#">COOL BRAND HERE</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>

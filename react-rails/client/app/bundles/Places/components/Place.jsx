@@ -14,6 +14,7 @@ export default class Place extends React.Component {
         this.state = {data: ""};
     }
 
+
     // Filters and changes data state
     handleChange(text) {
         let places = this.props.all;
@@ -26,11 +27,15 @@ export default class Place extends React.Component {
         this.setState({data: data});
     }
 
+    style = {
+      primaryColor: "#2D767F",
+      secondaryColor: "#FFFFFF"
+    }
 
     render() {
         return (
       <div>
-        <NavBar onSearchChange={this.handleChange} />
+        <NavBar onSearchChange={this.handleChange} primaryColor={this.style.primaryColor} secondaryColor={this.style.secondaryColor} />
         <Grid>
         <Row>
 

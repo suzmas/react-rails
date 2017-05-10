@@ -1,4 +1,5 @@
-import React from "react";
+import React, { PropTypes } from "react";
+
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { latLngBounds } from "leaflet";
 
