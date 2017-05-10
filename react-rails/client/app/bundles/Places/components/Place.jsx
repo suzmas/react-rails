@@ -10,12 +10,12 @@ export default class Place extends React.Component {
         all: PropTypes.string.isRequired, // this is passed from the Rails view
     };
 
-
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {data: ""};
     }
+
 
     // Filters and changes data state
     handleChange(text) {
@@ -29,11 +29,15 @@ export default class Place extends React.Component {
         this.setState({data: data});
     }
 
+    style = {
+      primaryColor: "#2D767F",
+      secondaryColor: "#FFFFFF"
+    }
 
     render() {
         return (
       <div>
-        <NavBar onSearchChange={this.handleChange} />
+        <NavBar onSearchChange={this.handleChange} primaryColor={this.style.primaryColor} secondaryColor={this.style.secondaryColor} />
         <Grid>
         <Row>
 
