@@ -6,10 +6,6 @@ export default class NavBar extends React.Component {
     static propTypes = {
     };
 
-  /*
-   * @param props - Comes from your rails view.
-   * @param _railsContext - Comes from React on Rails
-   */
     constructor(props, _railsContext) {
         super(props);
         this.handleChange = this.handleChange.bind(this);

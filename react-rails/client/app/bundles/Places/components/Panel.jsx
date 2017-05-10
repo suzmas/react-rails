@@ -27,8 +27,17 @@ export default class Item extends React.Component {
     }
 
     placePanel = (place, events) => {
-        let panel = (
-      <Panel key={place.id} header={place.name} eventKey={place.id}>
+        const headerString = (
+          <div style={{fontSize: "12px"}}>
+            <h4>{place.name}</h4>
+            <p>{place.address1}</p>
+          </div>
+        );
+
+        const panel = (
+      <Panel key={place.id}
+             header={headerString}
+             eventKey={place.id}>
         {this.eventString(events)}
       </Panel>
     );
@@ -49,7 +58,7 @@ export default class Item extends React.Component {
 
     render() {
         return (
-      <Accordion style={{ maxWidth: "500px" }}>
+      <Accordion>
         {this.placeList()}
       </Accordion>
         );
