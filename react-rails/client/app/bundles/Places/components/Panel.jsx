@@ -58,7 +58,7 @@ export default class Item extends React.Component {
 
     render() {
         return (
-      <Accordion style={{ maxWidth: "50vw", float: "left" }}>
+      <Accordion>
         {this.placeList()}
       </Accordion>
         );

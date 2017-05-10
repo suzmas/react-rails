@@ -1,7 +1,6 @@
 import React, { PropTypes } from "react";
 
-// import {Panel, Accordion} from "react-bootstrap"; // previously had PanelGroup
-
+import {Grid, Row, Col} from "react-bootstrap";
 import NavBar from "./Navbar";
 import PlaceMap from "./Map";
 import Item from "./Panel";
@@ -35,8 +34,19 @@ export default class Place extends React.Component {
         return (
       <div>
         <NavBar text={text} onSearchChange={this.handleChange} />
-        <Item all={this.props.all} data={this.state.data}/>
-        <PlaceMap all={this.props.all} data={this.state.data} />
+        <Grid>
+        <Row>
+
+          <Col md={6}>
+            <Item all={this.props.all} data={this.state.data} />
+          </Col>
+
+          <Col md={6}>
+            <PlaceMap all={this.props.all} data={this.state.data} />
+          </Col>
+
+        </Row>
+        </Grid>
       </div>
         );
     }
