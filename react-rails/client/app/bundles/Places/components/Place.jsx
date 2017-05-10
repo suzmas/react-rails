@@ -27,10 +27,14 @@ export default class Place extends React.Component {
         this.setState({data: data});
     }
 
+
+    // TO DO:
+    // possibly remove this and import file w/ style objects
     style = {
       primaryColor: "#2D767F",
       secondaryColor: "#FFFFFF"
     }
+
 
     render() {
         return (
@@ -46,7 +50,7 @@ export default class Place extends React.Component {
           <Col md={6}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
-                      style={{position: "fixed", maxWidth: "40vw"}}/>
+                      style={{position: "fixed", maxWidth: "40vw", height: "93vh"}}/>
           </Col>
 
         </Row>
