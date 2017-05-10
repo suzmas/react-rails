@@ -27,10 +27,16 @@ export default class Item extends React.Component {
     }
 
     placePanel = (place, events) => {
-        let panel = (
+        const headerString = (
+          <div style={{fontSize: "12px"}}>
+            <h4>{place.name}</h4>
+            <p>{place.address1}</p>
+          </div>
+        );
+
+        const panel = (
       <Panel key={place.id}
-             header={`${place.name}`}
-             footer={`${place.address1}`}
+             header={headerString}
              eventKey={place.id}>
         {this.eventString(events)}
       </Panel>
