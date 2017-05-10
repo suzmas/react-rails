@@ -31,9 +31,6 @@ node_modules
 # Ignore database.yml for user
 config/database.yml
 
-# Ignore schema
-db/schema.rb
-
 # Ignore environment variables
 .env
 .ENV
