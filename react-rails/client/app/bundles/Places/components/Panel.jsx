@@ -1,4 +1,5 @@
-import React from "react";
+import React, { PropTypes } from "react";
+
 import {Panel, Accordion} from "react-bootstrap";
 
 export default class Item extends React.Component {
