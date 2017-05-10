@@ -24,17 +24,22 @@ export default class PlaceMap extends React.Component {
           </Marker>
           );
       });
-
         return list;
     }
 
     getCoords = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
+
         const bounds = latLngBounds();
 
         places
       .map(place => { return [place.place.latitude, place.place.longitude]; })
       .map(data => { bounds.extend(data); });
+
+      // control for error w/ identical LatLngBounds
+        if (places.length === 1) {
+          bounds._northEast.lat += .001;
+        }
 
         return bounds;
     }
