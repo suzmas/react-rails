@@ -41,7 +41,7 @@ export default class PlaceMap extends React.Component {
     render() {
         const bounds = this.getCoords();
         return (
-      <Map bounds={bounds}>
+      <Map bounds={bounds} style={{maxWidth: "100%"}}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
