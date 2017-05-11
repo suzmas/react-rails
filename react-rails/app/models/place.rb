@@ -8,6 +8,7 @@ class Place < ApplicationRecord
       obj.city = geo.city
       obj.state = geo.state_code
       obj.zip = geo.postal_code
+      obj.neighborhood = geo.neighborhood
     end
   end
 
