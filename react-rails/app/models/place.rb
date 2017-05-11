@@ -12,7 +12,13 @@ class Place < ApplicationRecord
     end
   end
 
+  # If geocoder !return neighborhood, set 'hood to city
+  def assign_neighborhood
+    self.neighborhood = self.city if self.neighborhood.nil?
+  end
+
   after_validation :reverse_geocode
+  after_validation :assign_neighborhood
 
   scope :place, -> (place) { where("LOWER(places.name) LIKE ?", "%#{place}%") }
 end
