@@ -42,6 +42,19 @@ export default class NavBar extends React.Component {
       )
     }
 
+    timeSelect = () => {
+      let timeVals =
+        ([1,2,3,4,5,6,7,8,9,10,11,12])
+          .map(i => {
+              return (
+                <option value={i} key={`${i}:00`}>
+                  {`${i}:00`}
+                </option>
+              )
+            })
+      return timeVals;
+    }
+
     createRange = () => {
       let range = [...Array(24).keys()];
       let options = range.map(i => {
@@ -55,9 +68,12 @@ export default class NavBar extends React.Component {
       return (
         <FormGroup>
           <FormControl componentClass="select" placeholder="select">
-            <option value="now">Now</option>
-            <option value="all">All Times</option>
-            { this.createRange() }
+            <option value="now">From</option>
+            { this.timeSelect() }
+          </FormControl>
+          <FormControl componentClass="select" placeholder="select">
+            <option value="all">To</option>
+            { this.timeSelect() }
           </FormControl>
         </FormGroup>
       )
@@ -68,7 +84,7 @@ export default class NavBar extends React.Component {
     <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}}>
       <Navbar.Header>
         <Navbar.Brand>
-          <a style={{color: this.props.secondaryColor}} href="#">COOL BRAND HERE</a>
+          <a style={{color: this.props.secondaryColor}} href="#">ANFERNE</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>

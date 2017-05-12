@@ -126,6 +126,6 @@ export default class Place extends React.Component {
     }
 }
 
-Place.propTypes = {
+Event.propTypes = {
     all: PropTypes.string.isRequired, // this is passed from the Rails view
 };
