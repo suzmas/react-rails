@@ -13,6 +13,43 @@ export default class NavBar extends React.Component {
         this.props.onSearchChange(e.target.value);
     }
 
+    placeKeyword = () => {
+      return (
+        <FormGroup>
+          <FormControl type="text" placeholder="Search" onChange={this.handleChange}/>
+        </FormGroup>
+      )
+    }
+
+    createOption = (index) => {
+      return (
+        <option value={index} key={`${index}:00`}>
+          {`${index}:00 - ${index + 1}:00`}
+        </option>
+      )
+    }
+
+    createRange = () => {
+      let range = [...Array(24).keys()];
+      let options = range.map(i => {
+        return this.createOption(i);
+      })
+
+      return options
+    }
+
+    placeTime = () => {
+      return (
+        <FormGroup>
+          <FormControl componentClass="select" placeholder="select">
+            <option value="now">Now</option>
+            <option value="all">All Times</option>
+            { this.createRange() }
+          </FormControl>
+        </FormGroup>
+      )
+    }
+
     navbarInstance() {
         return (
     <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}}>
@@ -24,9 +61,8 @@ export default class NavBar extends React.Component {
       </Navbar.Header>
       <Navbar.Collapse>
         <Navbar.Form pullLeft>
-          <FormGroup>
-            <FormControl type="text" placeholder="Search" onChange={this.handleChange}/>
-          </FormGroup>
+          { this.placeKeyword() }
+          { this.placeTime() }
           {" "}
           <Button type="submit">Submit</Button>
         </Navbar.Form>
