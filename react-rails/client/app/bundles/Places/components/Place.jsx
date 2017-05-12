@@ -11,20 +11,28 @@ export default class Place extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.state = {data: ""};
+        this.handlePosition = this.handlePosition.bind(this);
+        this.state = {data: "", lat: "", lng: ""};
     }
 
 
     // Filters and changes data state
     handleChange(text) {
-        let places = this.props.all;
-        places = JSON.parse(places);
+      let places = this.props.all;
+      places = JSON.parse(places);
 
-        let data = places
-        .filter(place => {
-            return place.place.name.toLowerCase().includes(text.toLowerCase().trim());
-        });
-        this.setState({data: data});
+      let data = places
+      .filter(place => {
+          return place.place.name.toLowerCase().includes(text.toLowerCase().trim());
+      });
+      this.setState({data: data});
+    }
+
+    handlePosition(pos) {
+      this.setState({
+        lat: pos.lat,
+        lng: pos.lng
+      })
     }
 
 
@@ -39,7 +47,11 @@ export default class Place extends React.Component {
     render() {
         return (
       <div>
-        <NavBar onSearchChange={this.handleChange} primaryColor={this.style.primaryColor} secondaryColor={this.style.secondaryColor} />
+        <NavBar
+          onSearchChange={this.handleChange}
+          position={this.handlePosition}
+          primaryColor={this.style.primaryColor}
+          secondaryColor={this.style.secondaryColor} />
         <Grid>
         <Row>
 

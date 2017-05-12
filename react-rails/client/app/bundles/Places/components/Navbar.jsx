@@ -7,10 +7,22 @@ export default class NavBar extends React.Component {
     constructor(props, _railsContext) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handlePosition = this.handlePosition.bind(this);
     }
 
     handleChange(e) {
         this.props.onSearchChange(e.target.value);
+    }
+
+    handlePosition() {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.props.position({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        }
+      );
     }
 
     placeKeyword = () => {
@@ -27,7 +39,7 @@ export default class NavBar extends React.Component {
           <InputGroup>
             <FormControl type="text" placeholder="Enter Location"/>
             <InputGroup.Button>
-              <Button><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
+              <Button onClick={this.handlePosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
             </InputGroup.Button>
           </InputGroup>
         </FormGroup>
