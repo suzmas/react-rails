@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-import {Navbar, FormGroup, FormControl, Button} from "react-bootstrap";
+import {Navbar, FormGroup, FormControl, Button, InputGroup} from "react-bootstrap";
 
 
 export default class NavBar extends React.Component {
@@ -24,7 +24,12 @@ export default class NavBar extends React.Component {
     placeLocation = () => {
       return (
         <FormGroup>
-          <FormControl type="text" placeholder="Enter Location"/>
+          <InputGroup>
+            <FormControl type="text" placeholder="Enter Location"/>
+            <InputGroup.Button>
+              <Button><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
+            </InputGroup.Button>
+          </InputGroup>
         </FormGroup>
       )
     }
