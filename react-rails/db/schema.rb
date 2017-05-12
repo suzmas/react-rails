@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 20170511063538) do
     t.index ["place_id"], name: "index_events_on_place_id", using: :btree
   end
 
+  create_table "items", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "places", force: :cascade do |t|
     t.string   "name"
     t.string   "address1"
