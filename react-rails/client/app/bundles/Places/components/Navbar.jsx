@@ -72,6 +72,8 @@ export default class NavBar extends React.Component {
           { this.placeKeyword() }
           { this.placeLocation() }
           { this.placeTime() }
+          <Button style={{color: this.props.primaryColor}}><i className="fa fa-cutlery" aria-hidden="true"></i></Button>
+          <Button style={{color: this.props.primaryColor}}><i className="fa fa-beer" aria-hidden="true"></i></Button>
           {" "}
           <Button type="submit">Submit</Button>
         </Navbar.Form>
