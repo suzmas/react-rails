@@ -34,6 +34,7 @@ foreman start -f Procfile.dev
       phone (str)
       latitude (float)
       longitude (float)
+      neighborhood (str)
 
     events ->
       place_id (int)
