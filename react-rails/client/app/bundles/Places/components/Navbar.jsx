@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-import {Navbar, FormGroup, FormControl, Button, InputGroup} from "react-bootstrap";
+import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap";
 
 
 export default class NavBar extends React.Component {
@@ -34,34 +34,17 @@ export default class NavBar extends React.Component {
       )
     }
 
-    createOption = (index) => {
-      return (
-        <option value={index} key={`${index}:00`}>
-          {`${index}:00 - ${index + 1}:00`}
-        </option>
-      )
-    }
-
     timeSelect = () => {
       let timeVals =
         ([1,2,3,4,5,6,7,8,9,10,11,12])
-          .map(i => {
-              return (
-                <option value={i} key={`${i}:00`}>
-                  {`${i}:00`}
-                </option>
-              )
-            })
+        .map(i => {
+            return (
+              <option value={i} key={`${i}:00`}>
+                {`${i}:00`}
+              </option>
+            )
+          })
       return timeVals;
-    }
-
-    createRange = () => {
-      let range = [...Array(24).keys()];
-      let options = range.map(i => {
-        return this.createOption(i);
-      })
-
-      return options
     }
 
     placeTime = () => {
