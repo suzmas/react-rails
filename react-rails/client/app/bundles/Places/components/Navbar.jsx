@@ -21,6 +21,14 @@ export default class NavBar extends React.Component {
       )
     }
 
+    placeLocation = () => {
+      return (
+        <FormGroup>
+          <FormControl type="text" placeholder="Enter Location"/>
+        </FormGroup>
+      )
+    }
+
     createOption = (index) => {
       return (
         <option value={index} key={`${index}:00`}>
@@ -62,6 +70,7 @@ export default class NavBar extends React.Component {
       <Navbar.Collapse>
         <Navbar.Form pullLeft>
           { this.placeKeyword() }
+          { this.placeLocation() }
           { this.placeTime() }
           {" "}
           <Button type="submit">Submit</Button>
