@@ -62,13 +62,14 @@ export default class NavBar extends React.Component {
     placeTime = () => {
       return (
         <FormGroup>
+          <ControlLabel>CLOCK HERE</ControlLabel>
           <FormControl componentClass="select" placeholder="select">
-            <option value="now">From</option>
+            <option value="now">Now</option>
             { this.timeSelect() }
           </FormControl>
           <FormControl componentClass="select" placeholder="select">
-            <option value="all">To</option>
-            { this.timeSelect() }
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
           </FormControl>
         </FormGroup>
       )
