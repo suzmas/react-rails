@@ -8,6 +8,12 @@ export default class NavBar extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handlePosition = this.handlePosition.bind(this);
+        this.handleBool = this.handleBool.bind(this);
+
+        this.state = {
+          hasFood: false,
+          hasDrink: false,
+        }
     }
 
     handleChange(e) {
@@ -23,6 +29,18 @@ export default class NavBar extends React.Component {
           });
         }
       );
+    }
+
+    handleBool(type) {
+      switch (type) {
+        case "food":
+          this.setState({hasFood: (this.state.hasFood) ? false : true});
+          break;
+        case "drink":
+          this.setState({hasDrink: (this.state.hasDrink) ? false: true});
+          break;
+      }
+
     }
 
     placeKeyword = () => {
@@ -75,6 +93,7 @@ export default class NavBar extends React.Component {
       )
     }
 
+    // more performant way to do onClick for button, will fix down the road
     navbarInstance() {
         return (
     <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}}>
@@ -89,8 +108,16 @@ export default class NavBar extends React.Component {
           { this.placeKeyword() }
           { this.placeLocation() }
           { this.placeTime() }
-          <Button style={{color: this.props.primaryColor}}><i className="fa fa-cutlery" aria-hidden="true"></i></Button>
-          <Button style={{color: this.props.primaryColor}}><i className="fa fa-beer" aria-hidden="true"></i></Button>
+          <Button
+            className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
+            onClick={() => this.handleBool("food")}>
+            <i className="fa fa-cutlery" aria-hidden="true"></i>
+          </Button>
+          <Button
+            className={(this.state.hasDrink) ? "btn-active": "btn-inactive"}
+            onClick={() => this.handleBool("drink")}>
+            <i className="fa fa-beer" aria-hidden="true"></i>
+          </Button>
           {" "}
           <Button type="submit">Submit</Button>
         </Navbar.Form>
