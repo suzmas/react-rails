@@ -29,8 +29,18 @@ export default class Place extends React.Component {
       this.setState({data: data});
     }
 
+    // Data transfer is correct, but need to use this for Events page for real test
     handleBool(obj) {
       console.log(obj.hasFood, obj.hasDrink);
+      let places = this.props.all;
+      places = JSON.parse(places);
+
+      let data = places
+        .filter(place => {
+          return place.events.filter( (event) => { return event.has_food === obj.hasFood; }).length > 3 &&
+            place.events.filter( (event) => { return event.has_drink === obj.hasDrink; }).length > 3;
+        });
+      this.setState({data: data});
     }
 
     handlePosition(pos) {
