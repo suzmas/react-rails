@@ -34,13 +34,16 @@ export default class NavBar extends React.Component {
     handleBool(type) {
       switch (type) {
         case "food":
-          this.setState({hasFood: (this.state.hasFood) ? false : true});
+          this.setState({hasFood: (this.state.hasFood) ? false : true}, function() {
+            this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink});
+          });
           break;
         case "drink":
-          this.setState({hasDrink: (this.state.hasDrink) ? false: true});
+          this.setState({hasDrink: (this.state.hasDrink) ? false: true}, function() {
+            this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink});
+          });
           break;
       }
-
     }
 
     placeKeyword = () => {

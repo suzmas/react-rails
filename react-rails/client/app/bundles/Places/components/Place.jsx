@@ -11,6 +11,7 @@ export default class Place extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handleBool = this.handleBool.bind(this);
         this.handlePosition = this.handlePosition.bind(this);
         this.state = {data: "", lat: "", lng: ""};
     }
@@ -26,6 +27,10 @@ export default class Place extends React.Component {
           return place.place.name.toLowerCase().includes(text.toLowerCase().trim());
       });
       this.setState({data: data});
+    }
+
+    handleBool(obj) {
+      console.log(obj.hasFood, obj.hasDrink);
     }
 
     handlePosition(pos) {
@@ -49,6 +54,7 @@ export default class Place extends React.Component {
       <div>
         <NavBar
           onSearchChange={this.handleChange}
+          onBoolChange={this.handleBool}
           position={this.handlePosition}
           primaryColor={this.style.primaryColor}
           secondaryColor={this.style.secondaryColor} />
