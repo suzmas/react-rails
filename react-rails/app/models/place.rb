@@ -21,4 +21,8 @@ class Place < ApplicationRecord
   after_validation :assign_neighborhood
 
   scope :place, -> (place) { where("LOWER(places.name) LIKE ?", "%#{place}%") }
+
+  def stuff
+    "Hello"
+  end
 end

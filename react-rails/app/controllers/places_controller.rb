@@ -4,6 +4,13 @@ class PlacesController < ApplicationController
   def index
   end
 
+  def location
+    lat = params[:lat]
+    lng = params[:lng]
+
+    render json: Place.near([lat, lng])
+  end
+  
   private
 
     def data
