@@ -35,6 +35,8 @@ foreman start -f Procfile.dev
       latitude (float)
       longitude (float)
       neighborhood (str)
+      distance (float)
+      bearing (str)
 
     events ->
       place_id (int)

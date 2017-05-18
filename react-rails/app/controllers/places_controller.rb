@@ -4,11 +4,18 @@ class PlacesController < ApplicationController
   def index
   end
 
+  def location
+    lat = params[:lat]
+    lng = params[:lng]
+
+    render json: make_all(lat, lng).to_json
+  end
+
   private
 
     def data
       @all_prop = {
-        all: make_all.to_json
+        all: make_all(32.7157, -117.1611).to_json
       }
 
       @places_prop = {
@@ -20,12 +27,11 @@ class PlacesController < ApplicationController
       }
     end
 
-    def make_all
-      all = Place.all.map do |place|
-        @place = Place.find(place.id)
-        @events = Event.where(place_id: place.id)
+    def make_all(lat, lng)
+      all = Place.near([lat, lng]).map do |place|
+        events = Event.where(place_id: place.id)
 
-        { place: @place, events: @events }
+        { place: place, events: events }
       end
     end
 end
