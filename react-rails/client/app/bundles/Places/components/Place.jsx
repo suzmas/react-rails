@@ -14,34 +14,17 @@ export default class Place extends React.Component {
         this.handleBool = this.handleBool.bind(this);
         this.handlePosition = this.handlePosition.bind(this);
         this.handleData = this.handleData.bind(this);
-        this.state = {data: "", lat: "", lng: "", text: "", hasFood: false, hasDrink: false};
+        this.state = { data: "", lat: "", lng: "", location: "", text: "", hasFood: false, hasDrink: false };
     }
 
 
     // Filters and changes data state
     handleChange(text) {
-      // let places = this.props.all;
-      // places = JSON.parse(places);
-      //
-      // let data = places
-      // .filter(place => {
-      //     return place.place.name.toLowerCase().includes(text.toLowerCase().trim());
-      // });
-      // this.setState({data: data});
       this.setState({text: text}, this.handleData());
     }
 
     // Data transfer is correct, but need to use this for Events page for real test
     handleBool(obj) {
-      // let places = this.props.all;
-      // places = JSON.parse(places);
-      //
-      // let data = places
-      //   .filter(place => {
-      //     return place.events.filter( (event) => { return event.has_food === obj.hasFood; }).length > 3 &&
-      //       place.events.filter( (event) => { return event.has_drink === obj.hasDrink; }).length > 3;
-      //   });
-      // this.setState({data: data});
       this.setState({hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData());
     }
 
@@ -53,17 +36,24 @@ export default class Place extends React.Component {
     }
 
     handleData() {
-      let places = this.props.all;
-      places = JSON.parse(places);
+      let places = this.state.location || JSON.parse(this.props.all);
 
       let data = places
         .filter(place => {
           return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim());
         })
-        .filter(place => {
-          return place.events.filter( (event) => { return event.has_food === this.state.hasFood; }).length > 3 &&
-            place.events.filter( (event) => { return event.has_drink === this.state.hasDrink; }).length > 3;
-        });
+
+        if (this.state.hasFood) {
+          data = data.filter(place => {
+            return place.events.filter(event => { return event.has_food });
+          })
+        }
+
+        if (this.state.hasDrink) {
+          data = data.filter(place => {
+            return place.events.filter(event => { return event.has_drink });
+          })
+        }
 
       this.setState({data: data});
     }
