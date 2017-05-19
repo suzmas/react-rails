@@ -28,7 +28,7 @@ class PlacesController < ApplicationController
     end
 
     def make_all(lat, lng)
-      all = Place.near([lat, lng]).map do |place|
+      all = Place.near([lat, lng], 30).map do |place|
         events = Event.where(place_id: place.id)
 
         { place: place, events: events }
