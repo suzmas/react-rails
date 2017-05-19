@@ -48,8 +48,7 @@ export default class Item extends React.Component {
 
     placeList = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
-        // places = JSON.parse(places);
-        console.log(places);
+        
         let list = places.map(place => {
           return this.placePanel(place.place, place.events);
         });

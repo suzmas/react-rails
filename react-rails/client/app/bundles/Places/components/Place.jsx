@@ -20,12 +20,12 @@ export default class Place extends React.Component {
 
     // Filters and changes data state
     handleChange(text) {
-      this.setState({text: text}, this.handleData());
+      this.setState({text: text}, this.handleData);
     }
 
     // Data transfer is correct, but need to use this for Events page for real test
     handleBool(obj) {
-      this.setState({hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData());
+      this.setState({hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData);
     }
 
     handlePosition(pos) {
@@ -38,22 +38,21 @@ export default class Place extends React.Component {
     handleData() {
       let places = this.state.location || JSON.parse(this.props.all);
 
-      let data = places
-        .filter(place => {
+      let data = places.filter(place => {
           return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim());
+      })
+
+      if (this.state.hasFood) {
+        data = data.filter(place => {
+          return place.events.filter(event => { return event.has_food });
         })
+      }
 
-        if (this.state.hasFood) {
-          data = data.filter(place => {
-            return place.events.filter(event => { return event.has_food });
-          })
-        }
-
-        if (this.state.hasDrink) {
-          data = data.filter(place => {
-            return place.events.filter(event => { return event.has_drink });
-          })
-        }
+      if (this.state.hasDrink) {
+        data = data.filter(place => {
+          return place.events.filter(event => { return event.has_drink });
+        })
+      }
 
       this.setState({data: data});
     }
