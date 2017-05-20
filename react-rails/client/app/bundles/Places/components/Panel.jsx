@@ -56,8 +56,8 @@ export default class Item extends React.Component {
         return list;
     }
 
-    handleSelect(e,k) {
-      console.log(e);
+    handleSelect = (e,k) => {
+      this.props.onSelectChange(e);
     }
 
     render() {

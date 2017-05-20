@@ -14,7 +14,8 @@ export default class Place extends React.Component {
         this.handleBool = this.handleBool.bind(this);
         this.handlePosition = this.handlePosition.bind(this);
         this.handleData = this.handleData.bind(this);
-        this.state = { data: "", lat: "", lng: "", location: "", text: "", hasFood: false, hasDrink: false };
+        this.handleSelectedPanel = this.handleSelectedPanel.bind(this);
+        this.state = { data: "", selectedPanel:"", lat: "", lng: "", location: "", text: "", hasFood: false, hasDrink: false };
     }
 
 
@@ -57,6 +58,11 @@ export default class Place extends React.Component {
       this.setState({data: data});
     }
 
+    handleSelectedPanel(id) {
+      this.setState({selectedPanel: id})
+      console.log(id);
+    }
+
     // TO DO:
     // possibly remove this and import file w/ style objects
     style = {
@@ -78,12 +84,13 @@ export default class Place extends React.Component {
         <Row>
 
           <Col md={6}>
-            <Item all={this.props.all} data={this.state.data} />
+            <Item all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
           </Col>
 
           <Col md={6}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
+                      selected={this.state.selectedPanel}
                       style={{position: "fixed", maxWidth: "40vw", height: "93vh"}}/>
           </Col>
 

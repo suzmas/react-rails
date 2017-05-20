@@ -15,6 +15,8 @@ export default class PlaceMap extends React.Component {
 
         let list =
       places.map(place => {
+          let active = "false";
+          if (this.props.selected === place.place.id) { active = "true" }
           var position = [place.place.latitude, place.place.longitude];
           return (
           <Marker key={place.place.id} position={position}>
