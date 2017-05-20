@@ -12,32 +12,33 @@ export default class Place extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleBool = this.handleBool.bind(this);
-        this.handlePosition = this.handlePosition.bind(this);
+        this.handleLocation = this.handleLocation.bind(this);
         this.handleData = this.handleData.bind(this);
         this.handleSelectedPanel = this.handleSelectedPanel.bind(this);
-        this.state = { data: "", selectedPanel:"", lat: "", lng: "", location: "", text: "", hasFood: false, hasDrink: false };
+        this.state = { data: "", selectedPanel:"", loc: {}, text: "", hasFood: false, hasDrink: false };
     }
 
 
     // Filters and changes data state
     handleChange(text) {
-      this.setState({text: text}, this.handleData);
+      this.setState({ text: text }, this.handleData);
     }
 
     // Data transfer is correct, but need to use this for Events page for real test
     handleBool(obj) {
-      this.setState({hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData);
+      this.setState({ hasFood: obj.hasFood, hasDrink: obj.hasDrink }, this.handleData);
     }
 
-    handlePosition(pos) {
-      this.setState({
-        lat: pos.lat,
-        lng: pos.lng
-      })
+    handleLocation(loc) {
+      this.setState({ loc: loc.loc }, this.handleData);
+    }
+
+    handleSelectedPanel(id) {
+      this.setState({selectedPanel: id})
     }
 
     handleData() {
-      let places = this.state.location || JSON.parse(this.props.all);
+      let places = this.state.loc || JSON.parse(this.props.all);
 
       let data = places.filter(place => {
           return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim());
@@ -55,11 +56,7 @@ export default class Place extends React.Component {
         })
       }
 
-      this.setState({data: data});
-    }
-
-    handleSelectedPanel(id) {
-      this.setState({selectedPanel: id})
+      this.setState({ data: data });
     }
 
     // TO DO:
@@ -76,9 +73,9 @@ export default class Place extends React.Component {
         <NavBar
           onSearchChange={this.handleChange}
           onBoolChange={this.handleBool}
-          position={this.handlePosition}
           primaryColor={this.style.primaryColor}
-          secondaryColor={this.style.secondaryColor} />
+          secondaryColor={this.style.secondaryColor}
+          onLocationChange={this.handleLocation}/>
         <Grid>
         <Row>
 

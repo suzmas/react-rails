@@ -5,8 +5,16 @@ class PlacesController < ApplicationController
   end
 
   def location
-    lat = params[:lat]
-    lng = params[:lng]
+    if (!params[:lat].nil? || !params[:lng].nil?)
+      lat = params[:lat]
+      lng = params[:lng]
+    end
+
+    if (!params[:loc].nil? && !params[:loc].empty?)
+      s = Geocoder.search(params[:loc])
+      lat = s[0].latitude
+      lng = s[0].longitude
+    end
 
     render json: make_all(lat, lng).to_json
   end
