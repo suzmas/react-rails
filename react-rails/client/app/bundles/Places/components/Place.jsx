@@ -60,7 +60,6 @@ export default class Place extends React.Component {
 
     handleSelectedPanel(id) {
       this.setState({selectedPanel: id})
-      console.log(id);
     }
 
     // TO DO:
