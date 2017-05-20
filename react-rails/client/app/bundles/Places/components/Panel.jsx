@@ -48,7 +48,7 @@ export default class Item extends React.Component {
 
     placeList = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
-        
+
         let list = places.map(place => {
           return this.placePanel(place.place, place.events);
         });
@@ -56,9 +56,13 @@ export default class Item extends React.Component {
         return list;
     }
 
+    handleSelect(e,k) {
+      console.log(e);
+    }
+
     render() {
         return (
-      <Accordion>
+      <Accordion onSelect={this.handleSelect}>
         {this.placeList()}
       </Accordion>
         );
