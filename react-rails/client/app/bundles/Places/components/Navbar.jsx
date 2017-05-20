@@ -22,26 +22,17 @@ export default class NavBar extends React.Component {
     }
 
     handlePosition() {
-      var lat = "";
-      var lng = "";
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          lat = position.coords.latitude;
-          lng = position.coords.longitude;
-          this.props.position({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
+          fetch(`/location?lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
+            .then(response => response.json())
+            .then(json => {
+              this.props.onLocationChange({loc: json});
+            })
         }
       );
 
-      console.log(lat, lng);
-      let query = `/name?lat=${lat}&lng=${lng}`;
-      fetch(query)
-        .then(response => response.json())
-        .then(json => {
-          console.log(json);
-        })
+      document.getElementById("search-bar").value = "Current Position";
     }
 
     /* TODO:

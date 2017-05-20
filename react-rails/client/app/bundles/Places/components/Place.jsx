@@ -12,34 +12,24 @@ export default class Place extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleBool = this.handleBool.bind(this);
-        this.handlePosition = this.handlePosition.bind(this);
-        this.handleData = this.handleData.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
-        this.state = { data: "", lat: "", lng: "", loc: "", text: "", hasFood: false, hasDrink: false };
+        this.handleData = this.handleData.bind(this);
+        this.state = { data: "", loc: {}, text: "", hasFood: false, hasDrink: false };
     }
 
 
     // Filters and changes data state
     handleChange(text) {
-      this.setState({text: text}, this.handleData);
+      this.setState({ text: text }, this.handleData);
     }
 
     // Data transfer is correct, but need to use this for Events page for real test
     handleBool(obj) {
-      this.setState({hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData);
-    }
-
-    handlePosition(pos) {
-      this.setState({
-        lat: pos.lat,
-        lng: pos.lng
-      })
+      this.setState({ hasFood: obj.hasFood, hasDrink: obj.hasDrink }, this.handleData);
     }
 
     handleLocation(loc) {
-      this.setState({
-        loc: loc.loc
-      })
+      this.setState({ loc: loc.loc }, this.handleData);
     }
 
     handleData() {
@@ -61,7 +51,7 @@ export default class Place extends React.Component {
         })
       }
 
-      this.setState({data: data});
+      this.setState({ data: data });
     }
 
     // TO DO:
@@ -78,7 +68,6 @@ export default class Place extends React.Component {
         <NavBar
           onSearchChange={this.handleChange}
           onBoolChange={this.handleBool}
-          position={this.handlePosition}
           primaryColor={this.style.primaryColor}
           secondaryColor={this.style.secondaryColor}
           onLocationChange={this.handleLocation}/>
