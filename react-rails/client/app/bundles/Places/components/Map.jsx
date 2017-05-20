@@ -15,13 +15,14 @@ export default class PlaceMap extends React.Component {
 
         let list =
       places.map(place => {
-          let style = {backgroundColor: "white"};
-          if (this.props.selected === place.place.id) { style.border = "2px solid black" }
+          let opacity = .8;
+          let zIndexOffset = 0;
+          if (this.props.selected === place.place.id) { opacity = 1; zIndexOffset = 1000 }
           var position = [place.place.latitude, place.place.longitude];
           return (
-          <Marker key={place.place.id} position={position}>
-            <Popup>
-              <span style={style}>{place.place.name}</span>
+          <Marker key={place.place.id} position={position} opacity={opacity} zIndexOffset={zIndexOffset}>
+            <Popup popupopen={true}>
+              <span>{place.place.name}</span>
             </Popup>
           </Marker>
           );
