@@ -14,7 +14,8 @@ export default class Place extends React.Component {
         this.handleBool = this.handleBool.bind(this);
         this.handlePosition = this.handlePosition.bind(this);
         this.handleData = this.handleData.bind(this);
-        this.state = { data: "", lat: "", lng: "", location: "", text: "", hasFood: false, hasDrink: false };
+        this.handleLocation = this.handleLocation.bind(this);
+        this.state = { data: "", lat: "", lng: "", loc: "", text: "", hasFood: false, hasDrink: false };
     }
 
 
@@ -35,8 +36,14 @@ export default class Place extends React.Component {
       })
     }
 
+    handleLocation(loc) {
+      this.setState({
+        loc: loc.loc
+      })
+    }
+
     handleData() {
-      let places = this.state.location || JSON.parse(this.props.all);
+      let places = this.state.loc || JSON.parse(this.props.all);
 
       let data = places.filter(place => {
           return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim());
@@ -73,7 +80,8 @@ export default class Place extends React.Component {
           onBoolChange={this.handleBool}
           position={this.handlePosition}
           primaryColor={this.style.primaryColor}
-          secondaryColor={this.style.secondaryColor} />
+          secondaryColor={this.style.secondaryColor}
+          onLocationChange={this.handleLocation}/>
         <Grid>
         <Row>
 

@@ -9,6 +9,7 @@ export default class NavBar extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handlePosition = this.handlePosition.bind(this);
         this.handleBool = this.handleBool.bind(this);
+        this.handleLocation = this.handleLocation.bind(this);
 
         this.state = {
           hasFood: false,
@@ -29,6 +30,17 @@ export default class NavBar extends React.Component {
           });
         }
       );
+    }
+
+    handleLocation(obj) {
+      let loc = document.getElementById("search-bar").value;
+      loc = loc.split(' ').join('+');
+      let query = `/location?loc=${loc}`
+      fetch(query)
+        .then(response => response.json())
+        .then(json => {
+          this.props.onLocationChange({loc: json});
+        })
     }
 
     handleBool(type) {
@@ -58,7 +70,7 @@ export default class NavBar extends React.Component {
       return (
         <FormGroup>
           <InputGroup>
-            <FormControl type="text" placeholder="Enter Location"/>
+            <FormControl id="search-bar" type="text" placeholder="Enter Location"/>
             <InputGroup.Button>
               <Button onClick={this.handlePosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
             </InputGroup.Button>
@@ -122,7 +134,7 @@ export default class NavBar extends React.Component {
             <i className="fa fa-beer" aria-hidden="true"></i>
           </Button>
           {" "}
-          <Button type="submit">Submit</Button>
+          <Button onClick={() => this.handleLocation()}type="submit">Submit</Button>
         </Navbar.Form>
       </Navbar.Collapse>
     </Navbar>
