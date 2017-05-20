@@ -19,6 +19,17 @@ class PlacesController < ApplicationController
     render json: make_all(lat, lng).to_json
   end
 
+  def name
+    if (!params[:lat].nil? || !params[:lng].nil?)
+      lat = params[:lat]
+      lng = params[:lng]
+    end
+
+    s = Geocoder.search("#{lat},#{lng}")
+    p s
+    render json: {address: s.address, city: s.city, state: s.state_code, zip: s.postal_code}
+  end
+
   private
 
     def data

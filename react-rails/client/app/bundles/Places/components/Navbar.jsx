@@ -22,16 +22,32 @@ export default class NavBar extends React.Component {
     }
 
     handlePosition() {
+      var lat = "";
+      var lng = "";
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          lat = position.coords.latitude;
+          lng = position.coords.longitude;
           this.props.position({
             lat: position.coords.latitude,
             lng: position.coords.longitude
           });
         }
       );
+
+      console.log(lat, lng);
+      let query = `/name?lat=${lat}&lng=${lng}`;
+      fetch(query)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+        })
     }
 
+    /* TODO:
+    ** Better query handling for things that may have &
+    ** Add way to include current position (already has lat/lng)
+    */
     handleLocation(obj) {
       let loc = document.getElementById("search-bar").value;
       loc = loc.split(' ').join('+');
