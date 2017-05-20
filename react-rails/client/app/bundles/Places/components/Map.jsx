@@ -13,13 +13,13 @@ export default class PlaceMap extends React.Component {
     placeMarker = () => {
         let places = this.props.data || JSON.parse(this.props.all);
 
+        let style = {border: "none"};
         let list =
       places.map(place => {
-          let active = "false";
-          if (this.props.selected === place.place.id) { active = "true" }
+          if (this.props.selected === place.place.id) { style.border = "2px solid black" }
           var position = [place.place.latitude, place.place.longitude];
           return (
-          <Marker key={place.place.id} position={position}>
+          <Marker key={place.place.id} position={position} style={style}>
             <Popup>
               <span>{place.place.name}</span>
             </Popup>
