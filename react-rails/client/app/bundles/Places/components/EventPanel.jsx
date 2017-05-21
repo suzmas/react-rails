@@ -1,4 +1,4 @@
-import React, { PropTypes } from "react";
+import React from "react";
 
 import {Panel, Accordion} from "react-bootstrap";
 
@@ -14,24 +14,11 @@ export default class EventPanel extends React.Component {
         return a[1];
     }
 
-    eventString = (events) => {
-        let stringArray = events.map(event => {
-            const start_time = this.dateToTime(event.start_time);
-            const end_time = this.dateToTime(event.end_time);
-
-            return (
-        `${event.dow}: ${start_time}-${end_time}`
-            );
-        });
-
-        return stringArray.join(", ");
-    }
-
     placePanel = (e) => {
         const headerString = (
           <div style={{fontSize: "12px"}}>
             <h4>{e.name}</h4>
-            <p>{`${e.dow}: ${this.dateToTime(e.start_time)} - ${this.dateToTime(e.end_time)}`}</p>
+            <p>{`${e.dow}: ${this.dateToTime(e.start_time)}-${this.dateToTime(e.end_time)}`}</p>
           </div>
         );
 
@@ -49,6 +36,7 @@ export default class EventPanel extends React.Component {
     placeList = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
         let allEvents = [];
+
         if (this.props.allEvents) {
           allEvents = this.props.allEvents;
         } else {
@@ -59,7 +47,6 @@ export default class EventPanel extends React.Component {
           });
         }
 
-        console.log(this.props.allEvents);
         let list = allEvents.map(event => {
           return this.placePanel(event);
         });
