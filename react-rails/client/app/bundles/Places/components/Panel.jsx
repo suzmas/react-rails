@@ -60,6 +60,10 @@ export default class Item extends React.Component {
       this.props.onSelectChange(e);
     }
 
+    handleExit = (e,k) => {
+      console.log("exit");
+    }
+
     render() {
         return (
       <Accordion onSelect={this.handleSelect}>

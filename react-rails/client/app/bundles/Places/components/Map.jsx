@@ -17,10 +17,10 @@ export default class PlaceMap extends React.Component {
         let list =
       places.map(place => {
           let zIndexOffset = 0;
-          let iconUrl = 'http://www.clker.com/cliparts/c/9/m/4/B/d/google-maps-grey-marker-w-shadow-hi.png'
-          if (this.props.selected === place.place.id) { zIndexOffset = 1000; iconUrl = 'http://www.myiconfinder.com/uploads/iconsets/56165014858e6dbadaf3ba00d782f125.png' }
+          let iconUrl = 'assets/inactive.png';
+          if (this.props.selected === place.place.id) { zIndexOffset = 1000; iconUrl = 'assets/active.png' }
           const position = [place.place.latitude, place.place.longitude];
-          let icon = L.icon({iconUrl: iconUrl, iconSize: 40});
+          let icon = L.icon({iconUrl: iconUrl, iconSize: 35});
           return (
           <Marker key={place.place.id} position={position} zIndexOffset={zIndexOffset} icon={icon}>
             <Popup>
