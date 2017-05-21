@@ -14,6 +14,7 @@ export default class EventPanel extends React.Component {
         return a[1];
     }
 
+    // May need to find a way to tie in place and event together in this panel
     placePanel = (e) => {
         const headerString = (
           <div style={{fontSize: "12px"}}>

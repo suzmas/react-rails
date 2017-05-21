@@ -7,7 +7,7 @@ import PlaceMap from "./Map";
 import PlacePanel from "./PlacePanel";
 import EventPanel from "./EventPanel";
 
-export default class Place extends React.Component {
+export default class View extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,6 +16,7 @@ export default class Place extends React.Component {
         this.handleLocation = this.handleLocation.bind(this);
         this.handleData = this.handleData.bind(this);
         this.handleSelectedPanel = this.handleSelectedPanel.bind(this);
+        this.handleViewChange = this.handleViewChange.bind(this);
         this.state = {
           data: "",
           allEvents: "",
@@ -49,6 +50,10 @@ export default class Place extends React.Component {
 
     handleTimeChange = (time) => {
       this.setState({activeHour: time})
+    }
+
+    handleViewChange(view) {
+      this.props.onViewChange(view)
     }
 
     filterTime = () => {
@@ -102,6 +107,12 @@ export default class Place extends React.Component {
 
 
     render() {
+        let panel= null;
+        if (this.props.view == "place") {
+          panel = <PlacePanel all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />;
+        } else if (this.props.view == "event") {
+          panel = <EventPanel all={this.props.all} data={this.state.data} allEvents={this.state.allEvents} onSelectChange={this.handleSelectedPanel} />;
+        }
         return (
       <div>
         <NavBar
@@ -110,23 +121,20 @@ export default class Place extends React.Component {
           primaryColor={this.style.primaryColor}
           secondaryColor={this.style.secondaryColor}
           onLocationChange={this.handleLocation}
-          onTimeChange={this.handleTimeChange}/>
+          onTimeChange={this.handleTimeChange}
+          onViewChange={this.handleViewChange}/>
         <Grid>
         <Row>
 
-          <Col md={4}>
-            <PlacePanel all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
+          <Col md={6}>
+            {panel}
           </Col>
 
-          <Col md={4}>
+          <Col md={6}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
                       selected={this.state.selectedPanel}
                       style={{position: "fixed", maxWidth: "40vw", height: "93vh"}}/>
-          </Col>
-
-          <Col md={4}>
-            <EventPanel all={this.props.all} data={this.state.data} allEvents={this.state.allEvents} onSelectChange={this.handleSelectedPanel} />
           </Col>
 
         </Row>
@@ -135,7 +143,3 @@ export default class Place extends React.Component {
         );
     }
 }
-
-Place.propTypes = {
-    all: PropTypes.string.isRequired, // this is passed from the Rails view
-};
