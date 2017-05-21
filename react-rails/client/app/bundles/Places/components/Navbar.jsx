@@ -32,7 +32,7 @@ export default class NavBar extends React.Component {
         }
       );
 
-      document.getElementById("search-bar").value = "Current Position";
+      document.getElementById("search-bar").value = "Current Location";
     }
 
     /* TODO:

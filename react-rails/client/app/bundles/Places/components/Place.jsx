@@ -15,7 +15,7 @@ export default class Place extends React.Component {
         this.handleLocation = this.handleLocation.bind(this);
         this.handleData = this.handleData.bind(this);
         this.handleSelectedPanel = this.handleSelectedPanel.bind(this);
-        this.state = { data: "", selectedPanel:"", loc: {}, text: "", hasFood: false, hasDrink: false };
+        this.state = { data: "", selectedPanel:"", loc: "", text: "", hasFood: false, hasDrink: false };
     }
 
 
