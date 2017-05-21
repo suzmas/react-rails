@@ -7,7 +7,7 @@ module.exports = {
       "jsx": true,
       "modules": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
@@ -33,6 +33,7 @@ module.exports = {
             "double"
         ],
         "semi": [
+            "error",
             "never"
         ],
         "strict": [2, "never"],
