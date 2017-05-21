@@ -16,7 +16,7 @@ export default class Place extends React.Component {
         this.handleLocation = this.handleLocation.bind(this);
         this.handleData = this.handleData.bind(this);
         this.handleSelectedPanel = this.handleSelectedPanel.bind(this);
-        this.state = { data: "", selectedPanel:"", loc: "", text: "", hasFood: false, hasDrink: false };
+        this.state = { data: "", allEvents: "", selectedPanel:"", loc: "", text: "", hasFood: false, hasDrink: false };
     }
 
 
@@ -45,9 +45,23 @@ export default class Place extends React.Component {
           return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim());
       })
 
+      let allEvents = [];
+
+      data.forEach(place => {
+        place.events.forEach(event => {
+          allEvents.push(event);
+        })
+      });
+
+      console.log(allEvents);
+
       if (this.state.hasFood) {
         data = data.filter(place => {
           return place.events.filter(event => { return event.has_food });
+        })
+
+        allEvents = allEvents.filter(event => {
+          return event.has_food
         })
       }
 
@@ -55,9 +69,12 @@ export default class Place extends React.Component {
         data = data.filter(place => {
           return place.events.filter(event => { return event.has_drink });
         })
+        allEvents = allEvents.filter(event => {
+          return event.has_drink
+        })
       }
 
-      this.setState({ data: data });
+      this.setState({ data: data, allEvents: allEvents });
     }
 
     // TO DO:
@@ -92,7 +109,7 @@ export default class Place extends React.Component {
           </Col>
 
           <Col md={4}>
-            <EventPanel all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
+            <EventPanel all={this.props.all} data={this.state.data} allEvents={this.state.allEvents} onSelectChange={this.handleSelectedPanel} />
           </Col>
 
         </Row>

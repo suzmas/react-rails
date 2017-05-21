@@ -49,13 +49,17 @@ export default class EventPanel extends React.Component {
     placeList = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
         let allEvents = [];
+        if (this.props.allEvents) {
+          allEvents = this.props.allEvents;
+        } else {
+          places.forEach(place => {
+            place.events.forEach(event => {
+              allEvents.push(event);
+            })
+          });
+        }
 
-        places.forEach(place => {
-          place.events.forEach(event => {
-            allEvents.push(event);
-          })
-        });
-
+        console.log(this.props.allEvents);
         let list = allEvents.map(event => {
           return this.placePanel(event);
         });
