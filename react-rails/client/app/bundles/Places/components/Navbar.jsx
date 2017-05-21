@@ -109,9 +109,8 @@ export default class NavBar extends React.Component {
 
     timeOfDayChange = () => {
       this.state.timeOfDay === "AM" ?
-        this.setState({timeOfDay: "PM"}) :
-        this.setState({timeOfDay: "AM"});
-      this.timeHourChange();
+        this.setState({timeOfDay: "PM"}, this.timeHourChange) :
+        this.setState({timeOfDay: "AM"}, this.timeHourChange);
     }
 
     placeTime = () => {
