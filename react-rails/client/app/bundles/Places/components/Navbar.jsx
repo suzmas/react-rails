@@ -97,9 +97,9 @@ export default class NavBar extends React.Component {
     }
 
     updateTime = (hour) => {
-      this.state.timeOfDay === "AM" ?
-        console.log(hour) :
-        console.log(hour * 2);
+      let time = this.state.timeOfDay === "AM" ?
+        hour : hour * 2;
+      this.props.onTimeChange(time);
     }
 
     timeHourChange = (e) => {

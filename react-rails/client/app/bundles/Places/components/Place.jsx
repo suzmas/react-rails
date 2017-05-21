@@ -45,10 +45,13 @@ export default class Place extends React.Component {
       this.setState({selectedPanel: id})
     }
 
+    handleTimeChange = (time) => {
+      this.setState({activeHour: time})
+    }
 
     filterTime = () => {
       const hoursOfDay = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-
+      // fill in data filter for event start - event end
     }
 
     handleData() {
@@ -91,7 +94,8 @@ export default class Place extends React.Component {
           onBoolChange={this.handleBool}
           primaryColor={this.style.primaryColor}
           secondaryColor={this.style.secondaryColor}
-          onLocationChange={this.handleLocation}/>
+          onLocationChange={this.handleLocation}
+          onTimeChange={this.handleTimeChange}/>
         <Grid>
         <Row>
 
