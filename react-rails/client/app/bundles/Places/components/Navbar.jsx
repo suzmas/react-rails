@@ -10,6 +10,7 @@ export default class NavBar extends React.Component {
         this.state = {
           hasFood: false,
           hasDrink: false,
+          timeOfDay: "AM",
         }
     }
 
@@ -82,7 +83,7 @@ export default class NavBar extends React.Component {
       )
     }
 
-    timeSelect = () => {
+    timeOptions = () => {
       let timeVals =
         ([1,2,3,4,5,6,7,8,9,10,11,12])
         .map(i => {
@@ -95,21 +96,43 @@ export default class NavBar extends React.Component {
       return timeVals;
     }
 
+    updateTime = (hour) => {
+      let time = this.state.timeOfDay === "AM" ?
+        hour : hour * 2;
+      this.props.onTimeChange(time);
+    }
+
+    timeHourChange = (e) => {
+      const hour = this.inputEl.value;
+      this.updateTime(hour);
+    }
+
+    timeOfDayChange = () => {
+      this.state.timeOfDay === "AM" ?
+        this.setState({timeOfDay: "PM"}, this.timeHourChange) :
+        this.setState({timeOfDay: "AM"}, this.timeHourChange);
+    }
+
     placeTime = () => {
       return (
         <FormGroup>
-          <ControlLabel>CLOCK HERE</ControlLabel>
-          <FormControl componentClass="select" placeholder="select">
+          <ControlLabel>
+            <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
+          </ControlLabel>
+          <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
+          inputRef={ el => this.inputEl = el }>
             <option value="now">Now</option>
-            { this.timeSelect() }
+            { this.timeOptions() }
           </FormControl>
-          <FormControl componentClass="select" placeholder="select">
+          <FormControl componentClass="select" placeholder="select"
+          onChange={this.timeOfDayChange}>
             <option value="AM">AM</option>
             <option value="PM">PM</option>
           </FormControl>
         </FormGroup>
       )
     }
+
 
     // more performant way to do onClick for button, will fix down the road
     navbarInstance() {
