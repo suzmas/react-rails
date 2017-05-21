@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 
 import {Panel, Accordion} from "react-bootstrap";
 
-export default class Item extends React.Component {
+export default class EventPanel extends React.Component {
 
     dateToTime(dateString) {
         let a;
@@ -27,19 +27,19 @@ export default class Item extends React.Component {
         return stringArray.join(", ");
     }
 
-    placePanel = (place, events) => {
+    placePanel = (e) => {
         const headerString = (
           <div style={{fontSize: "12px"}}>
-            <h4>{place.name}</h4>
-            <p>{place.address1}</p>
+            <h4>{e.name}</h4>
+            <p>{`${e.dow}: ${this.dateToTime(e.start_time)} - ${this.dateToTime(e.end_time)}`}</p>
           </div>
         );
 
         const panel = (
-      <Panel key={place.id}
+      <Panel key={e.id}
              header={headerString}
-             eventKey={place.id}>
-        {this.eventString(events)}
+             eventKey={e.id}>
+        {`Has Food: ${e.has_food} | Has Drink: ${e.has_drink}`}
       </Panel>
     );
 
@@ -48,9 +48,16 @@ export default class Item extends React.Component {
 
     placeList = () => {
         let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all);
+        let allEvents = [];
 
-        let list = places.map(place => {
-          return this.placePanel(place.place, place.events);
+        places.forEach(place => {
+          place.events.forEach(event => {
+            allEvents.push(event);
+          })
+        });
+
+        let list = allEvents.map(event => {
+          return this.placePanel(event);
         });
 
         return list;

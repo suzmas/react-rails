@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import {Grid, Row, Col} from "react-bootstrap";
 import NavBar from "./Navbar";
 import PlaceMap from "./Map";
-import Item from "./Panel";
+import PlacePanel from "./PlacePanel";
+import EventPanel from "./EventPanel";
 
 export default class Place extends React.Component {
 
@@ -79,15 +80,19 @@ export default class Place extends React.Component {
         <Grid>
         <Row>
 
-          <Col md={6}>
-            <Item all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
+          <Col md={4}>
+            <PlacePanel all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
           </Col>
 
-          <Col md={6}>
+          <Col md={4}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
                       selected={this.state.selectedPanel}
                       style={{position: "fixed", maxWidth: "40vw", height: "93vh"}}/>
+          </Col>
+
+          <Col md={4}>
+            <EventPanel all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
           </Col>
 
         </Row>
