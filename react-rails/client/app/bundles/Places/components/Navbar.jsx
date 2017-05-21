@@ -82,7 +82,7 @@ export default class NavBar extends React.Component {
       )
     }
 
-    timeSelect = () => {
+    timeOptions = () => {
       let timeVals =
         ([1,2,3,4,5,6,7,8,9,10,11,12])
         .map(i => {
@@ -95,13 +95,19 @@ export default class NavBar extends React.Component {
       return timeVals;
     }
 
+    timeChange = (e) => {
+      console.log(this.inputEl.value);
+    }
     placeTime = () => {
       return (
         <FormGroup>
-          <ControlLabel>CLOCK HERE</ControlLabel>
-          <FormControl componentClass="select" placeholder="select">
+          <ControlLabel>
+            <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
+          </ControlLabel>
+          <FormControl componentClass="select" placeholder="select" onChange={this.timeChange}
+          inputRef={ el => this.inputEl = el }>
             <option value="now">Now</option>
-            { this.timeSelect() }
+            { this.timeOptions() }
           </FormControl>
           <FormControl componentClass="select" placeholder="select">
             <option value="AM">AM</option>
@@ -109,6 +115,11 @@ export default class NavBar extends React.Component {
           </FormControl>
         </FormGroup>
       )
+    }
+
+    filterTime = () => {
+      const hoursOfDay = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+
     }
 
     // more performant way to do onClick for button, will fix down the road
