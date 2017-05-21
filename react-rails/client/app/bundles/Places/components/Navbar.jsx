@@ -62,6 +62,10 @@ export default class NavBar extends React.Component {
       }
     }
 
+    handleViewChange = (view) => {
+      this.props.onViewChange(view);
+    }
+
     placeKeyword = () => {
       return (
         <FormGroup>
@@ -161,6 +165,8 @@ export default class NavBar extends React.Component {
           </Button>
           {" "}
           <Button onClick={() => this.handleLocation()}type="submit">Submit</Button>
+          <Button onClick={() => this.handleViewChange("place")}>Places</Button>
+          <Button onClick={() => this.handleViewChange("event")}>Events</Button>
         </Navbar.Form>
       </Navbar.Collapse>
     </Navbar>

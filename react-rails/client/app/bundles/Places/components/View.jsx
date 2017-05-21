@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import {Grid, Row, Col} from "react-bootstrap";
 import NavBar from "./Navbar";
 import PlaceMap from "./Map";
-import Item from "./Panel";
+import PlacePanel from "./PlacePanel";
+import EventPanel from "./EventPanel";
 
-export default class Place extends React.Component {
+export default class View extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,8 +16,10 @@ export default class Place extends React.Component {
         this.handleLocation = this.handleLocation.bind(this);
         this.handleData = this.handleData.bind(this);
         this.handleSelectedPanel = this.handleSelectedPanel.bind(this);
+        this.handleViewChange = this.handleViewChange.bind(this);
         this.state = {
           data: "",
+          allEvents: "",
           selectedPanel:"",
           loc: "",
           text: "",
@@ -49,6 +52,10 @@ export default class Place extends React.Component {
       this.setState({activeHour: time})
     }
 
+    handleViewChange(view) {
+      this.props.onViewChange(view)
+    }
+
     filterTime = () => {
       const hoursOfDay = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
       // fill in data filter for event start - event end
@@ -61,9 +68,21 @@ export default class Place extends React.Component {
           return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim());
       })
 
+      let allEvents = [];
+
+      data.forEach(place => {
+        place.events.forEach(event => {
+          allEvents.push(event);
+        })
+      });
+
       if (this.state.hasFood) {
         data = data.filter(place => {
           return place.events.filter(event => { return event.has_food });
+        })
+
+        allEvents = allEvents.filter(event => {
+          return event.has_food
         })
       }
 
@@ -71,11 +90,12 @@ export default class Place extends React.Component {
         data = data.filter(place => {
           return place.events.filter(event => { return event.has_drink });
         })
+        allEvents = allEvents.filter(event => {
+          return event.has_drink
+        })
       }
 
-
-
-      this.setState({ data: data });
+      this.setState({ data: data, allEvents: allEvents });
     }
 
     // TO DO:
@@ -87,6 +107,12 @@ export default class Place extends React.Component {
 
 
     render() {
+        let panel= null;
+        if (this.props.view == "place") {
+          panel = <PlacePanel all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />;
+        } else if (this.props.view == "event") {
+          panel = <EventPanel all={this.props.all} data={this.state.data} allEvents={this.state.allEvents} onSelectChange={this.handleSelectedPanel} />;
+        }
         return (
       <div>
         <NavBar
@@ -95,12 +121,13 @@ export default class Place extends React.Component {
           primaryColor={this.style.primaryColor}
           secondaryColor={this.style.secondaryColor}
           onLocationChange={this.handleLocation}
-          onTimeChange={this.handleTimeChange}/>
+          onTimeChange={this.handleTimeChange}
+          onViewChange={this.handleViewChange}/>
         <Grid>
         <Row>
 
           <Col md={6}>
-            <Item all={this.props.all} data={this.state.data} onSelectChange={this.handleSelectedPanel} />
+            {panel}
           </Col>
 
           <Col md={6}>
@@ -116,7 +143,3 @@ export default class Place extends React.Component {
         );
     }
 }
-
-Place.propTypes = {
-    all: PropTypes.string.isRequired, // this is passed from the Rails view
-};
