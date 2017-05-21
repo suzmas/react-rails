@@ -6,10 +6,6 @@ import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "
 export default class NavBar extends React.Component {
     constructor(props, _railsContext) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handlePosition = this.handlePosition.bind(this);
-        this.handleBool = this.handleBool.bind(this);
-        this.handleLocation = this.handleLocation.bind(this);
 
         this.state = {
           hasFood: false,
@@ -17,11 +13,11 @@ export default class NavBar extends React.Component {
         }
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         this.props.onSearchChange(e.target.value);
     }
 
-    handlePosition() {
+    handlePosition = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           fetch(`/location?lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
@@ -39,7 +35,7 @@ export default class NavBar extends React.Component {
     ** Better query handling for things that may have &
     ** Add way to include current position (already has lat/lng)
     */
-    handleLocation(obj) {
+    handleLocation = (obj) => {
       let loc = document.getElementById("search-bar").value;
       loc = loc.split(' ').join('+');
       let query = `/location?loc=${loc}`
@@ -50,7 +46,7 @@ export default class NavBar extends React.Component {
         })
     }
 
-    handleBool(type) {
+    handleBool = (type) => {
       switch (type) {
         case "food":
           this.setState({hasFood: (this.state.hasFood) ? false : true}, function() {
