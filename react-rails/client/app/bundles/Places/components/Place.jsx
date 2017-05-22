@@ -51,10 +51,11 @@ export default class Place extends React.Component {
 
     // Refactor to use Date objects???
     filterTime = (data) => {
-      const hoursOfDay = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"];
+      const hoursOfDay = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"];
 
       data = data.filter(place => {
         return place.events.filter(event => {
+
           // parse out hour ints
           let startTime = (/T(\w+):\w+/.exec(event.start_time))[1]
           if (startTime.startsWith("0")) { startTime = startTime.slice(1); }
@@ -64,11 +65,8 @@ export default class Place extends React.Component {
           // mk array of event active hours
           const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
 
-          console.log(hoursOfEvent);
-          console.log(this.state.activeHour);
-          console.log(hoursOfEvent.includes((this.state.activeHour).toString()));
           return hoursOfEvent.includes((this.state.activeHour).toString());
-        })
+        }).length > 0;
       })
       return data;
     }
