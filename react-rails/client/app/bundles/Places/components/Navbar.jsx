@@ -125,6 +125,7 @@ export default class NavBar extends React.Component {
         </ControlLabel>
         <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
         inputRef={ el => this.inputEl = el }>
+          <option value="">When?</option>
           <option value="now">Now</option>
           { this.timeOptions() }
         </FormControl>

@@ -9,39 +9,34 @@ import EventPanel from "./EventPanel"
 export default class View extends React.Component {
   constructor(props) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleBool = this.handleBool.bind(this)
-    this.handleLocation = this.handleLocation.bind(this)
-    this.handleData = this.handleData.bind(this)
-    this.handleSelectedPanel = this.handleSelectedPanel.bind(this)
-    this.handleViewChange = this.handleViewChange.bind(this)
+
     this.state = {
       data: "",
       allEvents: "",
-      selectedPanel:"",
+      selectedPanel: "",
       loc: "",
       text: "",
       hasFood: false,
       hasDrink: false,
-      activeHour: ""
+      activeHour: "",
     }
   }
 
   // Filters and changes data state
-  handleChange(text) {
+  handleChange = (text) => {
     this.setState({ text: text }, this.handleData)
   }
 
   // Data transfer is correct, but need to use this for Events page for real test
-  handleBool(obj) {
+  handleBool = (obj) => {
     this.setState({ hasFood: obj.hasFood, hasDrink: obj.hasDrink }, this.handleData)
   }
 
-  handleLocation(loc) {
+  handleLocation = (loc) => {
     this.setState({ loc: loc.loc }, this.handleData)
   }
 
-  handleSelectedPanel(id) {
+  handleSelectedPanel = (id) => {
     this.setState({selectedPanel: id})
   }
 
@@ -49,23 +44,20 @@ export default class View extends React.Component {
     this.setState({activeHour: time}, this.handleData)
   }
 
-  handleViewChange(view) {
+  handleViewChange = (view) => {
     this.props.onViewChange(view)
   }
 
-
-  // Refactor to use Date objects???
   filterTime = (data) => {
-    const hoursOfDay = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"];
+    const hoursOfDay = [];
+    for (let i=0; i<25; i++) { hoursOfDay.push(i.toString()) }
 
     data = data.filter(place => {
       return place.events.filter(event => {
 
         // parse out hour ints
-        let startTime = (/T(\w+):\w+/.exec(event.start_time))[1]
-        if (startTime.startsWith("0")) { startTime = startTime.slice(1); }
-        let endTime = (/T(\w+):\w+/.exec(event.end_time))[1];
-        if (endTime.startsWith("0")) { endTime = endTime.slice(1); }
+        let startTime = new Date(event.start_time).getHours();
+        let endTime = new Date(event.end_time).getHours();
 
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
@@ -78,7 +70,7 @@ export default class View extends React.Component {
 
 
 
-  handleData() {
+  handleData = () => {
     console.log(this.state.activeHour);
     let places = this.state.loc || JSON.parse(this.props.all)
 
