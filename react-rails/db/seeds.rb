@@ -34,14 +34,31 @@ def make_bool
   (rand(2) == 1) ? true : false
 end
 
-days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-Place.all.each do |place|
-  days.each do |day|
-    r1 = rand(5) + 3
-    r2 = rand(5) + r1
-    place.events.create(
-      name: "Happy Hour",
-      dow: day,
+days = [
+  ['Monday', 'Wednesday', 'Friday'],
+  ['Tuesday', 'Thursday'],
+  ['Friday', 'Saturday', 'Sunday'],
+  ['Monday'],
+  ['Tuesday'],
+  ['Wednesday'],
+  ['Thursday'],
+  ['Friday'],
+  ['Saturday'],
+  ['Sunday']
+]
+
+Place.all.each_with_index do |place, index|
+  day = rand(days.length)
+  days[day].each do |value|
+    r1 = rand(22)
+    while true do
+      r2 = rand(6) + (r1 + 1)
+      break if r2 < 24
+    end
+
+    place.events.create!(
+      name: "Happy Hour #{index}",
+      dow: value,
       start_time: "#{r1}:00",
       end_time: "#{r2}:00",
       menu: make_menu(),
