@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup, Radio} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -101,9 +101,10 @@ export default class NavBar extends React.Component {
   }
 
   updateTime = (hour) => {
-    let time = this.state.timeOfDay === "AM" ? hour : hour * 2
+    if (hour === "") return
+    let time = this.state.timeOfDay === "AM" ? hour : hour * 2;
     if (hour === "now") { time = new Date().getHours() }
-    this.props.onTimeChange(time)
+    this.props.onTimeChange(time);
   }
 
   timeHourChange = () => {
@@ -123,17 +124,18 @@ export default class NavBar extends React.Component {
         <ControlLabel>
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
-        <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
-        inputRef={ el => this.inputEl = el }>
-          <option value="">When?</option>
-          <option value="now">Now</option>
-          { this.timeOptions() }
-        </FormControl>
-        <FormControl componentClass="select" placeholder="select"
-        onChange={this.timeOfDayChange}>
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </FormControl>
+        <InputGroup>
+          <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
+          inputRef={ el => this.inputEl = el }>
+            <option value="">When?</option>
+            <option value="now">Now</option>
+            { this.timeOptions() }
+          </FormControl>
+          <InputGroup.Addon onChange={this.timeOfDayChange}>
+            <Radio name="radioGroup" inline defaultChecked>AM</Radio>
+            <Radio name="radioGroup" inline>PM</Radio>
+          </InputGroup.Addon>
+        </InputGroup>
       </FormGroup>
     )
   }
