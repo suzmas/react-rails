@@ -46,7 +46,7 @@ export default class View extends React.Component {
   }
 
   handleTimeChange = (time) => {
-    this.setState({activeHour: time})
+    this.setState({activeHour: time}, this.handleData)
   }
 
   handleViewChange(view) {
@@ -79,6 +79,7 @@ export default class View extends React.Component {
 
 
   handleData() {
+    console.log(this.state.activeHour);
     let places = this.state.loc || JSON.parse(this.props.all)
 
     let data = places.filter(place => {
@@ -112,8 +113,7 @@ export default class View extends React.Component {
       })
     }
 
-    if (this.state.activeHour !== ("" || "NOW")) { data = this.filterTime(data); }
-
+    if (this.state.activeHour !== ("")) { data = this.filterTime(data); }
 
     this.setState({ data: data, allEvents: allEvents })
   }
