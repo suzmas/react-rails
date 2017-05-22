@@ -123,17 +123,23 @@ export default class NavBar extends React.Component {
         <ControlLabel>
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
-        <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
-        inputRef={ el => this.inputEl = el }>
-          <option value="">When?</option>
-          <option value="now">Now</option>
-          { this.timeOptions() }
-        </FormControl>
-        <FormControl componentClass="select" placeholder="select"
-        onChange={this.timeOfDayChange}>
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </FormControl>
+        <InputGroup>
+          <InputGroup.Addon>
+            <input type="radio" aria-label="..." />
+            <input type="radio" aria-label="..." />
+          </InputGroup.Addon>
+          <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
+          inputRef={ el => this.inputEl = el }>
+            <option value="">When?</option>
+            <option value="now">Now</option>
+            { this.timeOptions() }
+          </FormControl>
+          <FormControl componentClass="select" placeholder="select"
+          onChange={this.timeOfDayChange}>
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </FormControl>
+        </InputGroup>
       </FormGroup>
     )
   }
