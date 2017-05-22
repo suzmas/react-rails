@@ -15,6 +15,10 @@ export default class PlacePanel extends React.Component {
       a[1] = a[1].slice(1)
     }
 
+    // if (parseInt(a[1]) > 12) {
+    //   a[1] = (parseInt(a[1]) - 12).toString();
+    // }
+
     return a[1]
   }
 
