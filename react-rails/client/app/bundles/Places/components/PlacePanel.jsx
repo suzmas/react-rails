@@ -6,20 +6,22 @@ export default class PlacePanel extends React.Component {
 
   dateToTime(dateString) {
     let a = null
+    let amPm = "AM";
 
     if (typeof dateString === "string") {
-      a = /T(\w+:\w+)/.exec(dateString)
+      a = /T(\w+):\w+/.exec(dateString)
     }
 
     if (a[1].startsWith("0")) {
       a[1] = a[1].slice(1)
     }
 
-    // if (parseInt(a[1]) > 12) {
-    //   a[1] = (parseInt(a[1]) - 12).toString();
-    // }
+    if (parseInt(a[1]) > 12) {
+      a[1] = (parseInt(a[1]) - 12).toString();
+      amPm = "PM";
+    }
 
-    return a[1]
+    return `${a[1]}:00 ${amPm}`
   }
 
   eventString = (events) => {
@@ -28,7 +30,7 @@ export default class PlacePanel extends React.Component {
       const end_time = this.dateToTime(event.end_time)
 
       return (
-        `${event.dow}: ${start_time}-${end_time}`
+        `${event.dow}: ${start_time} - ${end_time}`
       )
     })
 

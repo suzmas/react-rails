@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup, Radio} from "react-bootstrap"
+import {Navbar, Nav, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -131,18 +131,22 @@ export default class NavBar extends React.Component {
         <ControlLabel>
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
-        <InputGroup>
           <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
           inputRef={ el => this.inputEl = el }>
             <option value="">When?</option>
             <option value="now">Now</option>
             { this.timeOptions() }
           </FormControl>
-          <InputGroup.Addon onChange={this.timeOfDayChange}>
-            <Radio name="radioGroup" inline defaultChecked>AM</Radio>
-            <Radio name="radioGroup" inline>PM</Radio>
-          </InputGroup.Addon>
-        </InputGroup>
+          <Button
+            className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
+            onClick={() => this.timeOfDayChange()}>
+            AM
+          </Button>
+          <Button
+            className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
+            onClick={() => this.timeOfDayChange()}>
+            PM
+          </Button>
       </FormGroup>
     )
   }
@@ -150,7 +154,7 @@ export default class NavBar extends React.Component {
   // more performant way to do onClick for button, will fix down the road
   navbarInstance() {
     return (
-      <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}}>
+      <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}} fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <a style={{color: this.props.secondaryColor}} href="#">ANFERNE</a>
@@ -158,7 +162,7 @@ export default class NavBar extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Navbar.Form pullLeft>
+          <Navbar.Form>
             { this.placeKeyword() }
             { this.placeLocation() }
             { this.placeTime() }

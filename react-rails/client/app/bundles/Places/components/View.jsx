@@ -56,8 +56,15 @@ export default class View extends React.Component {
       return place.events.filter(event => {
 
         // parse out hour ints
-        let startTime = new Date(event.start_time).getHours();
-        let endTime = new Date(event.end_time).getHours();
+        let startTime = (/T(\w+):\w+/.exec(event.start_time))[1];
+        if (startTime.startsWith("0")) {
+          startTime = startTime.slice(1)
+        }
+
+        let endTime = (/T(\w+):\w+/.exec(event.end_time))[1]
+        if (endTime.startsWith("0")) {
+          endTime = endTime.slice(1)
+        }
 
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
