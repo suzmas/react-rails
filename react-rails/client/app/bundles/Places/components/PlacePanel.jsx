@@ -76,8 +76,6 @@ export default class PlacePanel extends React.Component {
       return this.placePanel(place.place, place.events)
     })
 
-    console.log(list.length)
-
     return list
   }
 

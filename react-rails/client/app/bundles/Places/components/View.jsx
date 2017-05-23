@@ -62,9 +62,11 @@ export default class View extends React.Component {
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
 
+        console.log(place, place.place.name, startTime, endTime, hoursOfEvent, " - ", this.state.activeHour)
         return hoursOfEvent.includes((this.state.activeHour).toString());
       }).length > 0;
     })
+    console.log("DATA", data);
     return data;
   }
 
@@ -79,6 +81,8 @@ export default class View extends React.Component {
     })
 
     if (this.state.activeHour !== ("")) { data = this.filterTime(data); }
+
+    console.log("Runs", data);
 
     let allEvents = []
 
@@ -107,7 +111,6 @@ export default class View extends React.Component {
       })
     }
 
-    console.log(data);
     this.setState({ data: data, allEvents: allEvents })
   }
 
