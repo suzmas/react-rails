@@ -55,11 +55,28 @@ export default class PlacePanel extends React.Component {
   }
 
   placeList = () => {
-    let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all)
+    // let places = JSON.parse(this.props.all)
+    let places
+    if (this.props.data === "") {
+      places = JSON.parse(this.props.all)
+    } else if (this.props.data.length) {
+      places= this.props.data
+    } else {
+      places = []
+    }
+
+    // if (this.props.data !== "" && this.props.data.length) {
+    //   places = this.props.data
+    // } else if (this.props.data !== "") {
+    //   places = []
+    // }
+
 
     let list = places.map(place => {
       return this.placePanel(place.place, place.events)
     })
+
+    console.log(list.length)
 
     return list
   }
