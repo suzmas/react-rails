@@ -74,11 +74,18 @@ export default class NavBar extends React.Component {
     )
   }
 
+  handleEnter = (e) => {
+    console.log(e.keyCode);
+    if (e.keyCode === 13) {
+      this.handleLocation();
+    }
+  }
+
   placeLocation = () => {
     return (
       <FormGroup>
         <InputGroup>
-          <FormControl id="search-bar" type="text" placeholder="Enter Location"/>
+          <FormControl id="search-bar" type="text" placeholder="Enter Location" onKeyUp={this.handleEnter}/>
           <InputGroup.Button>
             <Button onClick={this.handlePosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
           </InputGroup.Button>
