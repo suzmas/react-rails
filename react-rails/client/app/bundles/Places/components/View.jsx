@@ -50,11 +50,11 @@ export default class View extends React.Component {
 
   filterTime = (data) => {
     const hoursOfDay = [];
+    let events = []
     for (let i=0; i<25; i++) { hoursOfDay.push(i.toString()) }
 
     data = data.filter(place => {
-      return place.events.filter(event => {
-
+      var e = place.events.filter(event => {
         // parse out hour ints
         let startTime = (/T(\w+):\w+/.exec(event.start_time))[1];
         if (startTime.startsWith("0")) {
@@ -69,35 +69,45 @@ export default class View extends React.Component {
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
 
-        console.log(place, place.place.name, startTime, endTime, hoursOfEvent, " - ", this.state.activeHour)
         return hoursOfEvent.includes((this.state.activeHour).toString());
-      }).length > 0;
+      });
+
+      events.push(e)
+      return e.length > 0
     })
-    console.log("DATA", data);
-    return data;
+
+    // Collect all events that pass time filter
+    let allEvents = []
+    events.forEach(group => {
+      group.forEach(event => {
+        allEvents.push(event)
+      })
+    })
+
+    return {data: data, allEvents: allEvents};
   }
 
 
 
   handleData = () => {
-    // console.log(this.state.activeHour);
     let places = this.state.loc || JSON.parse(this.props.all)
 
     let data = places.filter(place => {
       return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
     })
 
-    if (this.state.activeHour !== ("")) { data = this.filterTime(data); }
-
-    console.log("Runs", data);
-
     let allEvents = []
-
-    data.forEach(place => {
-      place.events.forEach(event => {
-        allEvents.push(event)
+    if (this.state.activeHour !== ("")) {
+       let tmp = this.filterTime(data)
+       data = tmp.data
+       allEvents = tmp.allEvents
+    } else {
+      data.forEach(place => {
+        place.events.forEach(event => {
+          allEvents.push(event)
+        })
       })
-    })
+    }
 
     if (this.state.hasFood) {
       data = data.filter(place => {

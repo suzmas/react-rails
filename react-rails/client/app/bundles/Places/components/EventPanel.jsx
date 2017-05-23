@@ -6,12 +6,35 @@ export default class EventPanel extends React.Component {
 
   dateToTime(dateString) {
     let a = null
-    if (typeof dateString === "string") {
-      a = /T(\w+:\w+)/.exec(dateString)
-    }
-    if (a[1].startsWith("0")) { a[1] = a[1].slice(1) }
+    let amPm = "AM";
 
-    return a[1]
+    if (typeof dateString === "string") {
+      a = /T(\w+):\w+/.exec(dateString)
+    }
+
+    if (a[1].startsWith("0")) {
+      a[1] = a[1].slice(1)
+    }
+
+    if (parseInt(a[1]) > 12) {
+      a[1] = (parseInt(a[1]) - 12).toString();
+      amPm = "PM";
+    }
+
+    return `${a[1]}:00 ${amPm}`
+  }
+
+  eventString = (events) => {
+    let stringArray = events.map(event => {
+      const start_time = this.dateToTime(event.start_time)
+      const end_time = this.dateToTime(event.end_time)
+
+      return (
+        `${event.dow}: ${start_time} - ${end_time}`
+      )
+    })
+
+    return stringArray.join(", ")
   }
 
   // May need to find a way to tie in place and event together in this panel
@@ -19,7 +42,7 @@ export default class EventPanel extends React.Component {
     const headerString = (
       <div style={{fontSize: "12px"}}>
         <h4>{e.name}</h4>
-        <p>{`${e.dow}: ${this.dateToTime(e.start_time)}-${this.dateToTime(e.end_time)}`}</p>
+        <p>{`${e.dow}: ${this.dateToTime(e.start_time)} - ${this.dateToTime(e.end_time)}`}</p>
       </div>
     )
 
