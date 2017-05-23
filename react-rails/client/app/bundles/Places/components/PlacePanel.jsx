@@ -5,18 +5,21 @@ import {Panel, Accordion} from "react-bootstrap"
 export default class PlacePanel extends React.Component {
 
   dateToTime(dateString) {
-    console.log(dateString);
-    let time = new Date(dateString).getHours();
-    console.log(new Date(dateString));
-    console.log(time);
-    let amPm = "AM";
+    let a = null
 
-    if (time > 12) {
-      time = parseInt(time) - 12;
-      amPm = "PM"
+    if (typeof dateString === "string") {
+      a = /T(\w+:\w+)/.exec(dateString)
     }
 
-    return `${time}:00 ${amPm}`;
+    if (a[1].startsWith("0")) {
+      a[1] = a[1].slice(1)
+    }
+
+    if (parseInt(a[1]) > 12) {
+      a[1] = (parseInt(a[1]) - 12).toString();
+    }
+
+    return a[1]
   }
 
   eventString = (events) => {
