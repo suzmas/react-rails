@@ -68,7 +68,7 @@ export default class View extends React.Component {
 
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
-        
+
         return hoursOfEvent.includes((this.state.activeHour).toString());
       }).length > 0;
     })
