@@ -75,11 +75,10 @@ export default class View extends React.Component {
 
         let activeHour = this.state.activeHour !== "" ?
           this.state.activeHour.toString()
-        : event.startTime
+        : startTime
 
         let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
-        console.log(activeDay)
-
+        
 
         return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
       })
@@ -108,18 +107,9 @@ export default class View extends React.Component {
       return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
     })
 
-    let allEvents = []
-    if (this.state.activeHour !== ("")) {
-      let tmp = this.filterTime(data)
-      data = tmp.data
-      allEvents = tmp.allEvents
-    } else {
-      data.forEach(place => {
-        place.events.forEach(event => {
-          allEvents.push(event)
-        })
-      })
-    }
+    let tmp = this.filterTime(data)
+    data = tmp.data
+    let allEvents = tmp.allEvents
 
     if (this.state.hasFood) {
       data = data.filter(place => {

@@ -93,18 +93,17 @@ export default class NavBar extends React.Component {
     )
   }
 
-  timeOptions = () => {
-    let timeVals =
-      ([1,2,3,4,5,6,7,8,9,10,11,12])
-      .map(i => {
-        return (
-          <option value={i} key={`${i}:00`}>
-            {`${i}:00`}
-          </option>
-        )
-      })
-    return timeVals
-  }
+  timeOptions = ([1,2,3,4,5,6,7,8,9,10,11,12])
+                .map(i => { return (
+                  <option value={i} key={`${i}:00`}>
+                    {`${i}:00`}
+                  </option>)})
+
+  dayOptions = (["Monday", "Tuesday", "Wednesday", "Thursday",
+    "Friday", "Saturday", "Sunday"]).map(i => { return (
+                                      <option value={i} key={i}>
+                                        {i}
+                                      </option>)})
 
   updateTime = (hour) => {
     if (hour === "") return
@@ -137,13 +136,13 @@ export default class NavBar extends React.Component {
         <FormControl componentClass="select" placeholder="select" onChange={this.dayChange}
         inputRef={ el => this.inputEl = el }>
           <option value="">On:</option>
-          <option value="Monday">Monday</option>
+          {this.dayOptions}
         </FormControl>
         <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
         inputRef={ el => this.inputEl = el }>
           <option value="">When?</option>
           <option value="now">Now</option>
-          { this.timeOptions() }
+          { this.timeOptions }
         </FormControl>
         <Button
           className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
