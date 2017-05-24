@@ -124,8 +124,8 @@ export default class NavBar extends React.Component {
       this.setState({timeOfDay: "AM"}, this.timeHourChange)
   }
 
-  timeDayChange = (e) => {
-    this.props.onDayChange(e)
+  dayChange = (e) => {
+    this.props.onDayChange(e.target.value)
   }
 
   placeTime = () => {
@@ -134,10 +134,10 @@ export default class NavBar extends React.Component {
         <ControlLabel>
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
-        <FormControl componentClass="select" placeholder="select" onChange={this.timeDayChange}
+        <FormControl componentClass="select" placeholder="select" onChange={this.dayChange}
         inputRef={ el => this.inputEl = el }>
           <option value="">On:</option>
-          <option value="now">Monday</option>
+          <option value="Monday">Monday</option>
         </FormControl>
         <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
         inputRef={ el => this.inputEl = el }>
@@ -147,12 +147,12 @@ export default class NavBar extends React.Component {
         </FormControl>
         <Button
           className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
-          onClick={() => this.timeOfDayChange()}>
+          onClick={this.timeOfDayChange}>
           AM
         </Button>
         <Button
           className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
-          onClick={() => this.timeOfDayChange()}>
+          onClick={this.timeOfDayChange}>
           PM
         </Button>
       </FormGroup>
