@@ -19,6 +19,7 @@ export default class View extends React.Component {
       hasFood: false,
       hasDrink: false,
       activeHour: "",
+      activeDay: "",
     }
   }
 
@@ -27,7 +28,6 @@ export default class View extends React.Component {
     this.setState({ text: text }, this.handleData)
   }
 
-  // Data transfer is correct, but need to use this for Events page for real test
   handleBool = (obj) => {
     this.setState({ hasFood: obj.hasFood, hasDrink: obj.hasDrink }, this.handleData)
   }
@@ -44,19 +44,23 @@ export default class View extends React.Component {
     this.setState({activeHour: time}, this.handleData)
   }
 
+  handleDayChange = (day) => {
+    this.setState({activeDay: day}, this.handleData)
+  }
+
   handleViewChange = (view) => {
     this.props.onViewChange(view)
   }
 
   filterTime = (data) => {
-    const hoursOfDay = [];
+    const hoursOfDay = []
     let events = []
     for (let i=0; i<25; i++) { hoursOfDay.push(i.toString()) }
 
     data = data.filter(place => {
       var e = place.events.filter(event => {
         // parse out hour ints
-        let startTime = (/T(\w+):\w+/.exec(event.start_time))[1];
+        let startTime = (/T(\w+):\w+/.exec(event.start_time))[1]
         if (startTime.startsWith("0")) {
           startTime = startTime.slice(1)
         }
@@ -67,10 +71,17 @@ export default class View extends React.Component {
         }
 
         // mk array of event active hours
-        const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime]);
+        const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime])
 
-        return hoursOfEvent.includes((this.state.activeHour).toString());
-      });
+        let activeHour = this.state.activeHour !== "" ?
+          this.state.activeHour.toString()
+        : startTime
+
+        let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
+        
+
+        return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
+      })
 
       events.push(e)
       return e.length > 0
@@ -84,7 +95,7 @@ export default class View extends React.Component {
       })
     })
 
-    return {data: data, allEvents: allEvents};
+    return {data: data, allEvents: allEvents}
   }
 
 
@@ -96,18 +107,9 @@ export default class View extends React.Component {
       return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
     })
 
-    let allEvents = []
-    if (this.state.activeHour !== ("")) {
-       let tmp = this.filterTime(data)
-       data = tmp.data
-       allEvents = tmp.allEvents
-    } else {
-      data.forEach(place => {
-        place.events.forEach(event => {
-          allEvents.push(event)
-        })
-      })
-    }
+    let tmp = this.filterTime(data)
+    data = tmp.data
+    let allEvents = tmp.allEvents
 
     if (this.state.hasFood) {
       data = data.filter(place => {
@@ -134,25 +136,23 @@ export default class View extends React.Component {
   // TO DO:
   // possibly remove this and import file w/ style objects
   style = {
-    primaryColor: "#2D767F",
+    primaryColor: "#51bdcb",
     secondaryColor: "#FFFFFF"
   }
 
 
   render() {
-    let panel= null
-    if (this.props.view == "place") {
+    let panel = null
+    this.props.view == "place" ?
       panel = <PlacePanel
         all={this.props.all}
         data={this.state.data}
         onSelectChange={this.handleSelectedPanel} />
-    } else if (this.props.view == "event") {
-      panel = <EventPanel
+    : panel = <EventPanel
         all={this.props.all}
         data={this.state.data}
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
-    }
     return (
       <div>
         <NavBar
@@ -162,6 +162,7 @@ export default class View extends React.Component {
           secondaryColor={this.style.secondaryColor}
           onLocationChange={this.handleLocation}
           onTimeChange={this.handleTimeChange}
+          onDayChange={this.handleDayChange}
           onViewChange={this.handleViewChange}/>
         <Grid>
         <Row>
