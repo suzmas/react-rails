@@ -20,7 +20,21 @@ export default class View extends React.Component {
       hasDrink: false,
       activeHour: "",
       page: 0,
+      prev: false,
+      next: false,
+      length: 0,
+      changed: false,
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({changed: true, page: 0}, this.handleData)
+    }
+  }
+
+  componentDidMount() {
+    this.handleData()
   }
 
   // Filters and changes data state
@@ -129,12 +143,25 @@ export default class View extends React.Component {
       })
     }
 
+    length = (this.props.view === "place") ? data.length : allEvents.length
     let start = this.state.page * 5
     let end = this.state.page * 5 + 5
     data = data.slice(start, end)
     allEvents = allEvents.slice(start, end)
 
-    this.setState({ data: data, allEvents: allEvents })
+    if (!this.state.changed) {
+      this.setState({page: 0, prev: true, next: false, length: length}, function() {
+        start = 0
+        end = start + 5
+        data = data.slice(start, end)
+        allEvents = allEvents.slice(start, end)
+        this.setState({data: data, allEvents: allEvents}, this.setButtons)
+        return
+      })
+    }
+
+    this.setState({ data: data, allEvents: allEvents, length: length}, this.setButtons)
+    this.setState({changed: false})
   }
 
   // TO DO:
@@ -146,14 +173,29 @@ export default class View extends React.Component {
 
   setPage = (str) => {
     if (str === "prev") {
-      this.setState({page: this.state.page - 1}, this.handleData)
+      this.setState({page: this.state.page - 1, changed: true}, this.handleData)
     } else {
-      this.setState({page: this.state.page + 1}, this.handleData)
+      this.setState({page: this.state.page + 1, changed: true}, this.handleData)
+    }
+  }
+
+  setButtons() {
+    console.log(this.state.page)
+    if (this.state.page === 0) {
+      this.setState({prev: true})
+    } else {
+      this.setState({prev: false})
+    }
+
+    if ((this.state.page + 1) * 5 >= this.state.length) {
+      this.setState({next: true})
+    } else {
+      this.setState({next: false})
     }
   }
 
   render() {
-    let panel= null
+    let panel
     if (this.props.view == "place") {
       panel = <PlacePanel
         all={this.props.all}
@@ -181,8 +223,8 @@ export default class View extends React.Component {
 
           <Col md={6}>
             {panel}
-            <Button onClick={() => this.setPage("prev")}>Prev</Button>
-            <Button onClick={() => this.setPage("next")}>Next</Button>
+            <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
+            <Button id="next-btn"onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
           </Col>
 
           <Col md={6}>
