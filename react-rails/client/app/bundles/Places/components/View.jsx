@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Grid, Row, Col} from "react-bootstrap"
+import {Grid, Row, Col, Button} from "react-bootstrap"
 import NavBar from "./Navbar"
 import PlaceMap from "./Map"
 import PlacePanel from "./PlacePanel"
@@ -19,6 +19,7 @@ export default class View extends React.Component {
       hasFood: false,
       hasDrink: false,
       activeHour: "",
+      page: 0,
     }
   }
 
@@ -128,6 +129,11 @@ export default class View extends React.Component {
       })
     }
 
+    let start = this.state.page * 5
+    let end = this.state.page * 5 + 5
+    data = data.slice(start, end)
+    allEvents = allEvents.slice(start, end)
+
     this.setState({ data: data, allEvents: allEvents })
   }
 
@@ -138,6 +144,13 @@ export default class View extends React.Component {
     secondaryColor: "#FFFFFF"
   }
 
+  setPage = (str) => {
+    if (str === "prev") {
+      this.setState({page: this.state.page - 1}, this.handleData)
+    } else {
+      this.setState({page: this.state.page + 1}, this.handleData)
+    }
+  }
 
   render() {
     let panel= null
@@ -168,6 +181,8 @@ export default class View extends React.Component {
 
           <Col md={6}>
             {panel}
+            <Button onClick={() => this.setPage("prev")}>Prev</Button>
+            <Button onClick={() => this.setPage("next")}>Next</Button>
           </Col>
 
           <Col md={6}>

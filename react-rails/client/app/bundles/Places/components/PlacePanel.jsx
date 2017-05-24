@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Panel, Accordion} from "react-bootstrap"
+import {Panel, Accordion, Button} from "react-bootstrap"
 
 export default class PlacePanel extends React.Component {
 
@@ -57,7 +57,6 @@ export default class PlacePanel extends React.Component {
   }
 
   placeList = () => {
-    // let places = JSON.parse(this.props.all)
     let places
     if (this.props.data === "") {
       places = JSON.parse(this.props.all)
