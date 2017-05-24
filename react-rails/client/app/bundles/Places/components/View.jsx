@@ -70,10 +70,13 @@ export default class View extends React.Component {
           endTime = endTime.slice(1)
         }
 
+        let dayOfWeek = this.state.activeDay !== "" ? this.state.activeDay : event.dow
+        console.log(dayOfWeek)
+
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime])
 
-        return hoursOfEvent.includes((this.state.activeHour).toString())
+        return ((hoursOfEvent.includes((this.state.activeHour).toString())) && (event.dow === dayOfWeek))
       })
 
       events.push(e)
