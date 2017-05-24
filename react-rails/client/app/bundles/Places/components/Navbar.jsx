@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, Nav, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -76,7 +76,7 @@ export default class NavBar extends React.Component {
 
   handleEnter = (e) => {
     if (e.keyCode === 13) {
-      this.handleLocation();
+      this.handleLocation()
     }
   }
 
@@ -108,14 +108,14 @@ export default class NavBar extends React.Component {
 
   updateTime = (hour) => {
     if (hour === "") return
-    let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`;
+    let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
     if (hour === "now") { time = new Date().getHours() }
-    this.props.onTimeChange(time);
+    this.props.onTimeChange(time)
   }
 
   timeHourChange = () => {
-    const hour = this.inputEl.value;
-    this.updateTime(hour);
+    const hour = this.inputEl.value
+    this.updateTime(hour)
   }
 
   timeOfDayChange = () => {
@@ -124,28 +124,37 @@ export default class NavBar extends React.Component {
       this.setState({timeOfDay: "AM"}, this.timeHourChange)
   }
 
+  timeDayChange = (e) => {
+    this.props.onDayChange(e)
+  }
+
   placeTime = () => {
     return (
       <FormGroup>
         <ControlLabel>
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
-          <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
-          inputRef={ el => this.inputEl = el }>
-            <option value="">When?</option>
-            <option value="now">Now</option>
-            { this.timeOptions() }
-          </FormControl>
-          <Button
-            className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
-            onClick={() => this.timeOfDayChange()}>
-            AM
-          </Button>
-          <Button
-            className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
-            onClick={() => this.timeOfDayChange()}>
-            PM
-          </Button>
+        <FormControl componentClass="select" placeholder="select" onChange={this.timeDayChange}
+        inputRef={ el => this.inputEl = el }>
+          <option value="">On:</option>
+          <option value="now">Monday</option>
+        </FormControl>
+        <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
+        inputRef={ el => this.inputEl = el }>
+          <option value="">When?</option>
+          <option value="now">Now</option>
+          { this.timeOptions() }
+        </FormControl>
+        <Button
+          className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
+          onClick={() => this.timeOfDayChange()}>
+          AM
+        </Button>
+        <Button
+          className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
+          onClick={() => this.timeOfDayChange()}>
+          PM
+        </Button>
       </FormGroup>
     )
   }
@@ -200,6 +209,7 @@ NavBar.propTypes = {
   onBoolChange: PropTypes.func,
   onViewChange: PropTypes.func,
   onTimeChange: PropTypes.func,
+  onDayChange: PropTypes.func,
   primaryColor: PropTypes.string,
   secondaryColor: PropTypes.string,
 }
