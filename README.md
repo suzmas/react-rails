@@ -13,6 +13,9 @@ foreman start -f Procfile.dev
 
 * `rake db:setup`
 
+* For Testing:
+    - `rake db:seed RAILS_ENV=test --trace`
+
 ## Setup .env file
 
 * Create `.env` file in root

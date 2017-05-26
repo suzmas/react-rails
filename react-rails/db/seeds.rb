@@ -2,6 +2,9 @@ require 'rest-client'
 require 'json'
 
 case Rails.env
+##################
+##  DEVELOPMENT ##
+##################
 when "development"
   response = RestClient.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json',
     params: {
@@ -69,22 +72,31 @@ when "development"
       )
     end
   end
+
+##################
+###    TEST    ###
+##################
 when "test"
   @p1 = Place.create(
     name: "Thrusters Lounge",
     latitude: "32.798243",
     longitude: "-117.255700"
   )
+  p "Created #{@p1.name}"
+
   @p2 = Place.create(
     name: "Tacos El Gordo",
     latitude: "32.630186",
     longitude: "-117.093245"
   )
+  p "Created #{@p2.name}"
+
   @p3 = Place.create(
     name: "Alexander's",
     latitude: "32.740912",
     longitude: "-117.129128"
   )
+  p "Created #{@p3.name}"
 
   @e1 = @p1.events.create(
     name: "Whiskey Hour",
@@ -95,6 +107,8 @@ when "test"
     has_food: false,
     has_drink: true,
   )
+  p "Created #{@e1.name}"
+
   @e2 = @p1.events.create(
     name: "Power Hour",
     dow: "Wednesday",
@@ -104,6 +118,8 @@ when "test"
     has_food: false,
     has_drink: true,
   )
+  p "Created #{@e2.name}"
+
   @e3 = @p1.events.create(
     name: "Day Fade",
     dow: "Sunday",
@@ -113,6 +129,8 @@ when "test"
     has_food: false,
     has_drink: true,
   )
+  p "Created #{@e3.name}"
+
   @e4 = @p2.events.create(
     name: "Taco Tuesday!",
     dow: "Tuesday",
@@ -122,6 +140,8 @@ when "test"
     has_food: true,
     has_drink: false,
   )
+  p "Created #{@e4.name}"
+
   @e5 = @p3.events.create(
     name: "Al Pastor, All day",
     dow: "Fridays",
@@ -131,6 +151,8 @@ when "test"
     has_food: true,
     has_drink: false,
   )
+  p "Created #{@e5.name}"
+
   @e6 = @p3.events.create(
     name: "Pizza and Beer",
     dow: "Monday",
@@ -140,6 +162,8 @@ when "test"
     has_food: true,
     has_drink: true,
   )
+  p "Created #{@e6.name}"
+
   @e7 = @p3.events.create(
     name: "Penne Friday",
     dow: "Thursday",
@@ -149,4 +173,5 @@ when "test"
     has_food: true,
     has_drink: false,
   )
+  p "Created #{@e7.name}"
 end
