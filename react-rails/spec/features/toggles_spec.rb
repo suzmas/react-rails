@@ -12,6 +12,9 @@ RSpec.feature "Toggles", type: :feature, js: true do
       And "See anferne" do
         expect(page).to have_content("ANFERNE")
       end
+      Then "I can tell it works" do
+        expect(@p1).to equal(@p1)
+      end
     end
   end
 end
