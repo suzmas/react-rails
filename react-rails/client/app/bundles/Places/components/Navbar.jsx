@@ -69,7 +69,7 @@ export default class NavBar extends React.Component {
   placeKeyword = () => {
     return (
       <FormGroup>
-        <FormControl type="text" placeholder="Search" onChange={this.handleChange}/>
+        <FormControl type="text" placeholder="Search" onChange={this.handleChange} id="keyword-input"/>
       </FormGroup>
     )
   }
