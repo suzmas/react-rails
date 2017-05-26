@@ -13,8 +13,11 @@ foreman start -f Procfile.dev
 
 * `rake db:setup`
 
-* For Testing:
-    - `rake db:seed RAILS_ENV=test --trace`
+## Testing
+* Setup test db: `rake db:seed RAILS_ENV=test --trace`
+* To create rspec features test: `rails g rspec:feature [FEATURE_NAME]`
+* Update top line of generated feature to `RSpec.feature "[FEATURE_NAME]",
+  type: :feature, js: true do` 
 
 ## Setup .env file
 
