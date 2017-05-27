@@ -175,12 +175,12 @@ export default class NavBar extends React.Component {
             { this.placeTime() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
-              onClick={() => this.handleBool("food")}>
+              onClick={() => this.handleBool("food")} id="has-food">
               <i className="fa fa-cutlery" aria-hidden="true"></i>
             </Button>
             <Button
               className={(this.state.hasDrink) ? "btn-active": "btn-inactive"}
-              onClick={() => this.handleBool("drink")}>
+              onClick={() => this.handleBool("drink")} id="has-drink">
               <i className="fa fa-beer" aria-hidden="true"></i>
             </Button>
             {" "}

@@ -128,7 +128,7 @@ export default class View extends React.Component {
 
     if (this.state.hasFood) {
       data = data.filter(place => {
-        return place.events.filter(event => { return event.has_food })
+        return place.events.filter(event => { return event.has_food }).length > 0
       })
 
       allEvents = allEvents.filter(event => {
@@ -138,7 +138,7 @@ export default class View extends React.Component {
 
     if (this.state.hasDrink) {
       data = data.filter(place => {
-        return place.events.filter(event => { return event.has_drink })
+        return place.events.filter(event => { return event.has_drink }).length > 0
       })
       allEvents = allEvents.filter(event => {
         return event.has_drink
