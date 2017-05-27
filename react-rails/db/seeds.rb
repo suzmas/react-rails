@@ -142,9 +142,9 @@ when "test"
   )
   p "Created #{@e4.name}"
 
-  @e5 = @p3.events.create(
+  @e5 = @p2.events.create(
     name: "Al Pastor, All day",
-    dow: "Fridays",
+    dow: "Friday",
     start_time: "8:00",
     end_time: "21:00",
     menu: "",
