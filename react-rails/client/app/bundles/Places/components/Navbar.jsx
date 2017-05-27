@@ -134,12 +134,12 @@ export default class NavBar extends React.Component {
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
         <FormControl componentClass="select" placeholder="select" onChange={this.dayChange}
-        inputRef={ el => this.inputEl = el }>
+        inputRef={ el => this.inputEl = el } id="day-input">
           <option value="">On:</option>
           {this.dayOptions}
         </FormControl>
         <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
-        inputRef={ el => this.inputEl = el }>
+        inputRef={ el => this.inputEl = el } id="time-input">
           <option value="">When?</option>
           <option value="now">Now</option>
           { this.timeOptions }
