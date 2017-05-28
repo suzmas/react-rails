@@ -11,20 +11,20 @@ export default class View extends React.Component {
     super(props)
 
     this.state = {
-      data: "",
-      allEvents: "",
-      selectedPanel: "",
-      loc: "",
-      text: "",
-      hasFood: false,
-      hasDrink: false,
+      activeDay: "",
       activeHour: "",
+      allEvents: "",
+      changed: false,
+      data: "",
+      hasDrink: false,
+      hasFood: false,
+      length: 0,
+      loc: "",
+      next: false,
       page: 0,
       prev: false,
-      next: false,
-      length: 0,
-      changed: false,
-      activeDay: "",
+      selectedPanel: "",
+      text: "",
     }
   }
 
@@ -113,56 +113,70 @@ export default class View extends React.Component {
     return {data: data, allEvents: allEvents}
   }
 
+  filterKeyword = (data) => {
+    data = data.filter(place => {
+      return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+    })
+
+    return {data: data, allEvents: null}
+  }
+
+  filterBool = (all, type) => {
+    let data = all.data.filter(place => {
+      return place.events.filter(event => {
+        return (type === "food") ? event.has_food : event.has_drink
+      }).length > 0
+    })
+
+    let allEvents = all.allEvents.filter(event => {
+      return (type === "food") ? event.has_food : event.has_drink
+    })
+
+    return {data: data, allEvents: allEvents}
+  }
+
 
 
   handleData = () => {
     let places = this.state.loc || JSON.parse(this.props.all)
+    let tmp = {}
 
-    let data = places.filter(place => {
-      return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
-    })
+    //Filter by keyword
+    tmp = this.filterKeyword(places)
 
-    let tmp = this.filterTime(data)
-    data = tmp.data
-    let allEvents = tmp.allEvents
+    //Filter by time
+    tmp = this.filterTime(tmp.data)
 
+    //Filter by food
     if (this.state.hasFood) {
-      data = data.filter(place => {
-        return place.events.filter(event => { return event.has_food }).length > 0
-      })
-
-      allEvents = allEvents.filter(event => {
-        return event.has_food
-      })
+      tmp = this.filterBool(tmp, "food")
     }
 
+    //Filter by drink
     if (this.state.hasDrink) {
-      data = data.filter(place => {
-        return place.events.filter(event => { return event.has_drink }).length > 0
-      })
-      allEvents = allEvents.filter(event => {
-        return event.has_drink
-      })
+      tmp = this.filterBool(tmp, "drink")
     }
 
-    length = (this.props.view === "place") ? data.length : allEvents.length
+    //For pagination
+    length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
     let start = this.state.page * 5
     let end = this.state.page * 5 + 5
-    data = data.slice(start, end)
-    allEvents = allEvents.slice(start, end)
+    tmp.data = tmp.data.slice(start, end)
+    tmp.allEvents = tmp.allEvents.slice(start, end)
 
+    //Checks to see if page changed, instead of filters changing
     if (!this.state.changed) {
       this.setState({page: 0, prev: true, next: false, length: length}, function() {
         start = 0
         end = start + 5
-        data = data.slice(start, end)
-        allEvents = allEvents.slice(start, end)
-        this.setState({data: data, allEvents: allEvents}, this.setButtons)
+        tmp.data = tmp.data.slice(start, end)
+        tmp.allEvents = tmp.allEvents.slice(start, end)
+        this.setState({data: tmp.data, allEvents: tmp.allEvents}, this.setButtons)
         return
       })
     }
 
-    this.setState({ data: data, allEvents: allEvents, length: length}, this.setButtons)
+    this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
     this.setState({changed: false})
   }
 
