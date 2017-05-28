@@ -25,14 +25,6 @@ class PlacesController < ApplicationController
       @all_prop = {
         all: make_all(32.7157, -117.1611).to_json
       }
-
-      @places_prop = {
-        places: Place.all.to_json
-      }
-
-      @events_prop = {
-        events: Event.all.to_json
-      }
     end
 
     def make_all(lat, lng)
