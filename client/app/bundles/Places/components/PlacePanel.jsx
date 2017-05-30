@@ -1,12 +1,12 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Panel, Accordion, Button} from "react-bootstrap"
+import {Panel, Accordion} from "react-bootstrap"
 
 export default class PlacePanel extends React.Component {
 
   dateToTime(dateString) {
     let a = null
-    let amPm = "AM";
+    let amPm = "AM"
 
     if (typeof dateString === "string") {
       a = /T(\w+):\w+/.exec(dateString)
@@ -17,8 +17,8 @@ export default class PlacePanel extends React.Component {
     }
 
     if (parseInt(a[1]) > 12) {
-      a[1] = (parseInt(a[1]) - 12).toString();
-      amPm = "PM";
+      a[1] = (parseInt(a[1]) - 12).toString()
+      amPm = "PM"
     }
 
     return `${a[1]}:00 ${amPm}`

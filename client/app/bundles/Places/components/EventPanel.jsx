@@ -45,14 +45,13 @@ export default class EventPanel extends React.Component {
         <p>{`${e.dow}: ${this.dateToTime(e.start_time)} - ${this.dateToTime(e.end_time)}`}</p>
       </div>
     )
-    console.log(e)
     const panel = (
       <Panel key={e.id}
              header={headerString}
              eventKey={e.id}>
              <p><strong>Specials</strong></p>
              {Object.entries(e.menu).map(([key,value]) => {
-               return <p>{key}: ${value}</p>
+               return <p key={key}>{key}: ${value}</p>
              })}
       </Panel>
     )
