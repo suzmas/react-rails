@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
       lng = params[:lng]
     end
 
-    if (!params[:loc].nil? && !params[:loc].empty?)
+    if (!params[:loc].blank?)
       s = Geocoder.search(params[:loc])
       if s.blank?
         data = without_geocoder(params[:loc])
@@ -21,6 +21,7 @@ class PlacesController < ApplicationController
       end
     end
 
+    # prevent default geocode neighborhood results
     if data.blank?
       data = without_geocoder(params[:loc])
     end

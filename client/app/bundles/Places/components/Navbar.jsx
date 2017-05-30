@@ -38,6 +38,12 @@ export default class NavBar extends React.Component {
   */
   handleLocation = () => {
     let loc = document.getElementById("search-bar").value
+
+    // don't send query when user empties loc search
+    if (loc === "") {
+      this.props.onLocationChange({loc: ""})
+      return
+    }
     loc = loc.split(" ").join("+")
     let query = `/location?loc=${loc}`
     fetch(query)
