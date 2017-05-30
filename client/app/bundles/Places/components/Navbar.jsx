@@ -11,7 +11,7 @@ export default class NavBar extends React.Component {
       hasFood: false,
       hasDrink: false,
       hourOfDay: "",
-      timeOfDay: "AM",
+      timeOfDay: "",
       dayOfWeek: ""
     }
   }
@@ -107,6 +107,13 @@ export default class NavBar extends React.Component {
                     {`${i}:00`}
                   </option>)})
 
+  timeOptionsTwo = ([1,2,3,4,5,6,7,8,9,10,11,12])
+                .map(i => { return (
+                  <Button key={`${i}:00`}
+                      onClick={() => this.timeHourChange(i)}>
+                      {i}
+                  </Button>)})
+
   dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map(i => { return ( <option value={i} key={i}>
                                     {i[0]}
                                   </option>)})
@@ -116,39 +123,55 @@ export default class NavBar extends React.Component {
                                         onClick={() => this.dayChangeTwo(item)}>
                                         { [3,5,6].includes(i) ? item.slice(0,2) : item[0] }
                                       </Button>)})
-  updateTime = (hour) => {
+  updateTime = () => {
+    const hour = this.state.hourOfDay
     if (hour === "") return
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
     if (hour === "now") { time = new Date().getHours() }
     this.props.onTimeChange(time)
   }
 
-  timeHourChange = () => {
-    const hour = this.inputEl.value
-    this.updateTime(hour)
+  timeHourChange = (hour) => {
+    if (hour === "now") { this.setState({timeOfDay: ""}) }
+    this.setState({hourOfDay: hour}, this.updateTime)
   }
 
-  timeOfDayChange = () => {
-    this.state.timeOfDay === "AM" ?
-      this.setState({timeOfDay: "PM"}, this.timeHourChange) :
-      this.setState({timeOfDay: "AM"}, this.timeHourChange)
+  timeOfDayChange = (val) => {
+    this.setState({timeOfDay: val}, this.updateTime)
   }
 
   dayChange = (e) => {
     this.props.onDayChange(e.target.value)
   }
 
-  dayChangeTwo = (e) => {
-    this.props.onDayChange(e)
-    this.setState({dayOfWeek: e})
+  dayChangeTwo = (val) => {
+    this.props.onDayChange(val)
+    this.setState({dayOfWeek: val})
   }
 
   placeTimeTwo = () => {
     return (
-      <DropdownButton bsStyle={"primary"} title={this.state.dayOfWeek + this.state.hourOfDay + this.state.timeOfDay} key={"timeButton"} id={"timebutton"}>
-        <DropdownButton title="On:" key="On" id="On">
+      <DropdownButton bsStyle={"primary"} title={`${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`} key={"timeButton"} id={"timebutton"}>
+        <DropdownButton title="On:" key="day-input" id="day-input">
           {this.dayOptionsTwo}
         </DropdownButton>
+        <DropdownButton title="At:" key="hour-input" id="hour-input">
+          <Button key={"now"}
+            onClick={() => this.timeHourChange("now")}>
+            Now
+          </Button>
+          {this.timeOptionsTwo}
+        </DropdownButton>
+        <Button
+          className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
+          onClick={() => this.timeOfDayChange("AM")}>
+          AM
+        </Button>
+        <Button
+          className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
+          onClick={() => this.timeOfDayChange("PM")}>
+          PM
+        </Button>
       </DropdownButton>
     )
   }
@@ -159,11 +182,6 @@ export default class NavBar extends React.Component {
         <ControlLabel>
           <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
         </ControlLabel>
-        <FormControl componentClass="select" placeholder="select" onChange={this.dayChange}
-        inputRef={ el => this.inputEl = el } id="day-input">
-          <option value="">On:</option>
-          {this.dayOptions}
-        </FormControl>
         <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
         inputRef={ el => this.inputEl = el } id="time-input">
           <option value="">When?</option>
