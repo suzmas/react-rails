@@ -125,15 +125,17 @@ export default class NavBar extends React.Component {
                                       </Button>)})
   updateTime = () => {
     const hour = this.state.hourOfDay
-    if (hour === "") return
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
     if (hour === "now") { time = new Date().getHours() }
+    if (hour === "") { time = "" }
     this.props.onTimeChange(time)
   }
 
   timeHourChange = (hour) => {
-    if (hour === "now") { this.setState({timeOfDay: ""}) }
-    this.setState({hourOfDay: hour}, this.updateTime)
+    let amPm = this.state.timeOfDay
+    if (hour === "now") { amPm = "" }
+    if (amPm === "") { amPm = "AM" }
+    this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
   }
 
   timeOfDayChange = (val) => {
@@ -156,6 +158,10 @@ export default class NavBar extends React.Component {
           {this.dayOptionsTwo}
         </DropdownButton>
         <DropdownButton title="At:" key="hour-input" id="hour-input">
+          <Button key={"any"}
+            onClick={() => this.timeHourChange("")}>
+            Any
+          </Button>
           <Button key={"now"}
             onClick={() => this.timeHourChange("now")}>
             Now
