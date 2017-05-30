@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, ControlLabel, Button, DropdownButton, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -10,7 +10,9 @@ export default class NavBar extends React.Component {
     this.state = {
       hasFood: false,
       hasDrink: false,
-      timeOfDay: "AM",
+      hourOfDay: "",
+      timeOfDay: "",
+      dayOfWeek: ""
     }
   }
 
@@ -101,66 +103,69 @@ export default class NavBar extends React.Component {
 
   timeOptions = ([1,2,3,4,5,6,7,8,9,10,11,12])
                 .map(i => { return (
-                  <option value={i} key={`${i}:00`}>
-                    {`${i}:00`}
-                  </option>)})
+                  <Button key={`${i}:00`}
+                      onClick={() => this.timeHourChange(i)}>
+                      {i}
+                  </Button>)})
 
-  dayOptions = (["Monday", "Tuesday", "Wednesday", "Thursday",
-    "Friday", "Saturday", "Sunday"]).map(i => { return (
-                                      <option value={i} key={i}>
-                                        {i}
-                                      </option>)})
-
-  updateTime = (hour) => {
-    if (hour === "") return
+  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((item, i) => { return (
+                                      <Button key={item}
+                                        onClick={() => this.dayChange(item)}>
+                                        { [3,5,6].includes(i) ? item.slice(0,2) : item[0] }
+                                      </Button>)})
+  updateTime = () => {
+    const hour = this.state.hourOfDay
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
     if (hour === "now") { time = new Date().getHours() }
+    if (hour === "") { time = "" }
     this.props.onTimeChange(time)
   }
 
-  timeHourChange = () => {
-    const hour = this.inputEl.value
-    this.updateTime(hour)
+  timeHourChange = (hour) => {
+    let amPm = this.state.timeOfDay
+    if (hour === "now") { amPm = "" }
+    if (amPm === "") { amPm = "AM" }
+    if (hour === "") { amPm = "" }
+    this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
   }
 
-  timeOfDayChange = () => {
-    this.state.timeOfDay === "AM" ?
-      this.setState({timeOfDay: "PM"}, this.timeHourChange) :
-      this.setState({timeOfDay: "AM"}, this.timeHourChange)
+  timeOfDayChange = (val) => {
+    this.setState({timeOfDay: val}, this.updateTime)
   }
 
-  dayChange = (e) => {
-    this.props.onDayChange(e.target.value)
+  dayChange = (val) => {
+    this.props.onDayChange(val)
+    this.setState({dayOfWeek: val})
   }
 
   placeTime = () => {
     return (
-      <FormGroup>
-        <ControlLabel>
-          <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingLeft: "10px", paddingRight: "10px", color: "white"}}></i>
-        </ControlLabel>
-        <FormControl componentClass="select" placeholder="select" onChange={this.dayChange}
-        inputRef={ el => this.inputEl = el } id="day-input">
-          <option value="">On:</option>
+      <DropdownButton bsStyle={"primary"} title={`${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`} key={"timeButton"} id={"timebutton"}>
+        <DropdownButton title="On:" key="day-input" id="day-input">
           {this.dayOptions}
-        </FormControl>
-        <FormControl componentClass="select" placeholder="select" onChange={this.timeHourChange}
-        inputRef={ el => this.inputEl = el } id="time-input">
-          <option value="">When?</option>
-          <option value="now">Now</option>
-          { this.timeOptions }
-        </FormControl>
+        </DropdownButton>
+        <DropdownButton title="At:" key="hour-input" id="hour-input">
+          <Button key={"any"}
+            onClick={() => this.timeHourChange("")}>
+            Any
+          </Button>
+          <Button key={"now"}
+            onClick={() => this.timeHourChange("now")}>
+            Now
+          </Button>
+          {this.timeOptions}
+        </DropdownButton>
         <Button
           className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
-          onClick={this.timeOfDayChange}>
+          onClick={() => this.timeOfDayChange("AM")}>
           AM
         </Button>
         <Button
           className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
-          onClick={this.timeOfDayChange}>
+          onClick={() => this.timeOfDayChange("PM")}>
           PM
         </Button>
-      </FormGroup>
+      </DropdownButton>
     )
   }
 
@@ -178,6 +183,7 @@ export default class NavBar extends React.Component {
           <Navbar.Form>
             { this.placeKeyword() }
             { this.placeLocation() }
+              <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingTop: "10px", color: "white"}}></i>
             { this.placeTime() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}

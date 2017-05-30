@@ -165,7 +165,7 @@ export default class View extends React.Component {
     }
 
     //For pagination
-    length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
+    let length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
     let start = this.state.page * 5
     let end = this.state.page * 5 + 5
     tmp.data = tmp.data.slice(start, end)
