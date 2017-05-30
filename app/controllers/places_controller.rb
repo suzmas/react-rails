@@ -12,11 +12,20 @@ class PlacesController < ApplicationController
 
     if (!params[:loc].nil? && !params[:loc].empty?)
       s = Geocoder.search(params[:loc])
-      lat = s[0].latitude
-      lng = s[0].longitude
+      if s.blank?
+        data = without_geocoder(params[:loc])
+      else
+        lat = s[0].latitude
+        lng = s[0].longitude
+        data = make_all(lat, lng)
+      end
     end
 
-    render json: make_all(lat, lng).to_json
+    if data.blank?
+      data = without_geocoder(params[:loc])
+    end
+
+    render json: data.to_json
   end
 
   private
@@ -34,4 +43,16 @@ class PlacesController < ApplicationController
         { place: place, events: events }
       end
     end
+
+    def without_geocoder(loc)
+      if Place.where(neighborhood: loc).blank?
+        { place: [], events: [] }
+      else
+        all = Place.where(neighborhood: loc).map do |place|
+          events = Event.where(place_id: place.id)
+          { place: place, events: events }
+        end
+      end
+    end
+
 end

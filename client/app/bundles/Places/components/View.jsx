@@ -139,6 +139,13 @@ export default class View extends React.Component {
 
   handleData = () => {
     let places = this.state.loc || JSON.parse(this.props.all)
+
+    if (!places.length) {
+      this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
+      this.setState({changed: false})
+      return
+    }
+
     let tmp = {}
 
     //Filter by keyword
