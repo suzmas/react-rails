@@ -112,9 +112,10 @@ export default class NavBar extends React.Component {
                                   </option>)})
 
   dayOptionsTwo = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map(i => { return (
-                                  <MenuItem eventKey={i} onSelect={this.dayChangeTwo}>
-                                    {i[0]}
-                                  </MenuItem>)})
+                                      <Button key={i}
+                                        onClick={() => this.dayChangeTwo(i)}>
+                                        {i}
+                                      </Button>)})
   updateTime = (hour) => {
     if (hour === "") return
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
@@ -138,13 +139,13 @@ export default class NavBar extends React.Component {
   }
 
   dayChangeTwo = (e) => {
-    this.props.onDayChange(e)
+    console.log(e)
   }
 
   placeTimeTwo = () => {
     return (
       <DropdownButton bsStyle={"primary"} title={this.state.dayOfWeek + this.state.hourOfDay + this.state.timeOfDay} key={"timeButton"} id={"timebutton"}>
-        <DropdownButton eventKey="1" title="On:" key="On">
+        <DropdownButton title="On:" key="On" id="On">
           {this.dayOptionsTwo}
         </DropdownButton>
       </DropdownButton>
