@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, ControlLabel, Button, DropdownButton, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -111,10 +111,10 @@ export default class NavBar extends React.Component {
                                     {i[0]}
                                   </option>)})
 
-  dayOptionsTwo = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map(i => { return (
-                                      <Button key={i}
-                                        onClick={() => this.dayChangeTwo(i)}>
-                                        {i}
+  dayOptionsTwo = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((item, i) => { return (
+                                      <Button key={item}
+                                        onClick={() => this.dayChangeTwo(item)}>
+                                        { [3,5,6].includes(i) ? item.slice(0,2) : item[0] }
                                       </Button>)})
   updateTime = (hour) => {
     if (hour === "") return
@@ -139,7 +139,8 @@ export default class NavBar extends React.Component {
   }
 
   dayChangeTwo = (e) => {
-    console.log(e)
+    this.props.onDayChange(e)
+    this.setState({dayOfWeek: e})
   }
 
   placeTimeTwo = () => {
