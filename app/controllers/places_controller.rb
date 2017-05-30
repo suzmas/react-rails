@@ -21,6 +21,10 @@ class PlacesController < ApplicationController
       end
     end
 
+    if data.blank?
+      data = without_geocoder(params[:loc])
+    end
+
     render json: data.to_json
   end
 
@@ -43,14 +47,11 @@ class PlacesController < ApplicationController
     def without_geocoder(loc)
       if Place.where(neighborhood: loc).blank?
         { place: [], events: [] }
-        logger.debug "no results"
       else
         all = Place.where(neighborhood: loc).map do |place|
           events = Event.where(place_id: place.id)
-
           { place: place, events: events }
         end
-        logger.debug "here are the results: #{all}"
       end
     end
 
