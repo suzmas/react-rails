@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, ControlLabel, Button, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -10,7 +10,9 @@ export default class NavBar extends React.Component {
     this.state = {
       hasFood: false,
       hasDrink: false,
+      hourOfDay: "",
       timeOfDay: "AM",
+      dayOfWeek: ""
     }
   }
 
@@ -105,12 +107,14 @@ export default class NavBar extends React.Component {
                     {`${i}:00`}
                   </option>)})
 
-  dayOptions = (["Monday", "Tuesday", "Wednesday", "Thursday",
-    "Friday", "Saturday", "Sunday"]).map(i => { return (
-                                      <option value={i} key={i}>
-                                        {i}
-                                      </option>)})
+  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map(i => { return ( <option value={i} key={i}>
+                                    {i[0]}
+                                  </option>)})
 
+  dayOptionsTwo = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map(i => { return (
+                                  <MenuItem eventKey={i} onSelect={this.dayChangeTwo}>
+                                    {i[0]}
+                                  </MenuItem>)})
   updateTime = (hour) => {
     if (hour === "") return
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
@@ -131,6 +135,20 @@ export default class NavBar extends React.Component {
 
   dayChange = (e) => {
     this.props.onDayChange(e.target.value)
+  }
+
+  dayChangeTwo = (e) => {
+    this.props.onDayChange(e)
+  }
+
+  placeTimeTwo = () => {
+    return (
+      <DropdownButton bsStyle={"primary"} title={this.state.dayOfWeek + this.state.hourOfDay + this.state.timeOfDay} key={"timeButton"} id={"timebutton"}>
+        <DropdownButton eventKey="1" title="On:" key="On">
+          {this.dayOptionsTwo}
+        </DropdownButton>
+      </DropdownButton>
+    )
   }
 
   placeTime = () => {
@@ -179,6 +197,7 @@ export default class NavBar extends React.Component {
             { this.placeKeyword() }
             { this.placeLocation() }
             { this.placeTime() }
+            { this.placeTimeTwo() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
               onClick={() => this.handleBool("food")} id="has-food">
