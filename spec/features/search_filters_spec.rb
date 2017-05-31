@@ -18,18 +18,18 @@ RSpec.feature "SearchFilters", type: :feature, js: true do
       end
     end
 
-    # Steps "Input search in search bar for Events" do
-    #   Given "I am on the Events view" do
-    #     visit "/"
-    #     click_button "Events"
-    #   end
-    #   When "I enter an Event's name" do
-    #     fill_in 'keyword-input', with: @e1.name
-    #   end
-    #   Then "I should see only one Event" do
-    #     expect(page).to have_selector(".panel", count: 1)
-    #   end
-    # end
+    Steps "Input search in search bar for Events" do
+      Given "I am on the Events view" do
+        visit "/"
+        click_button "Events"
+      end
+      When "I enter an Event's name" do
+        fill_in 'keyword-input', with: @e1.name
+      end
+      Then "I should see only one Event" do
+        expect(page).to have_selector(".panel", count: 1)
+      end
+    end
   end
 
 end
