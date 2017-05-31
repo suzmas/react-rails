@@ -30,7 +30,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.setState({changed: true, page: 0}, this.handleData)
+      this.setState({changed: true, page: 0, text: ""}, this.handleData)
     }
   }
 
