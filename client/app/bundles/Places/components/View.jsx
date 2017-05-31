@@ -30,7 +30,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.setState({changed: true, page: 0}, this.handleData)
+      this.setState({changed: true, page: 0, text: ""}, this.handleData)
     }
   }
 
@@ -113,12 +113,19 @@ export default class View extends React.Component {
     return {data: data, allEvents: allEvents}
   }
 
-  filterKeyword = (data) => {
-    data = data.filter(place => {
-      return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
-    })
-
-    return {data: data, allEvents: null}
+  filterKeyword = (all) => {
+    if (this.props.view === "place"){
+      let data = all.data.filter(place => {
+        return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+      })
+      return {data: data, allEvents: all.allEvents}
+    }
+    else {
+      let allEvents = all.allEvents.filter(event => {
+        return event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+      })
+      return {data: all.data, allEvents: allEvents}
+    }
   }
 
   filterBool = (all, type) => {
@@ -146,13 +153,13 @@ export default class View extends React.Component {
       return
     }
 
-    let tmp = {}
-
-    //Filter by keyword
-    tmp = this.filterKeyword(places)
+    let tmp = {data: places, allEvents: null}
 
     //Filter by time
     tmp = this.filterTime(tmp.data)
+
+    //Filter by keyword
+    tmp = this.filterKeyword(tmp)
 
     //Filter by food
     if (this.state.hasFood) {
@@ -165,7 +172,7 @@ export default class View extends React.Component {
     }
 
     //For pagination
-    let length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
+    const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
     let start = this.state.page * 5
     let end = this.state.page * 5 + 5
     tmp.data = tmp.data.slice(start, end)
