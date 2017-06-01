@@ -150,7 +150,7 @@ export default class NavBar extends React.Component {
 
     return (
     <div className="filter-group">
-      <Dropdown id="clockdrop">
+      <Dropdown id="time-dropdown">
         <Dropdown.Toggle>
           {dropdownLabel}
         </Dropdown.Toggle>
@@ -171,6 +171,7 @@ export default class NavBar extends React.Component {
           </DropdownButton>
           <Button
             className={(this.state.timeOfDay !== "") ? "btn-active" : "btn-inactive"}
+            id="amPm-toggle"
             onClick={() => this.timeOfDayChange("AM")}>
             {this.state.timeOfDay === "PM" ? "PM" : "AM"}
           </Button>
