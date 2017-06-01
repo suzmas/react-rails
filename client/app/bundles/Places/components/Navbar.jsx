@@ -76,7 +76,7 @@ export default class NavBar extends React.Component {
 
   placeKeyword = () => {
     return (
-      <FormGroup>
+      <FormGroup className="filter-group">
         <FormControl type="text" placeholder="Search" onChange={this.handleChange} id="keyword-input"/>
       </FormGroup>
     )
@@ -90,13 +90,14 @@ export default class NavBar extends React.Component {
 
   placeLocation = () => {
     return (
-      <FormGroup>
+      <FormGroup className="filter-group">
         <InputGroup>
           <FormControl id="search-bar" type="text" placeholder="Enter Location" onKeyUp={this.handleEnter}/>
           <InputGroup.Button>
             <Button onClick={this.handlePosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
           </InputGroup.Button>
         </InputGroup>
+        <Button onClick={() => this.handleLocation()}type="submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
       </FormGroup>
     )
   }
@@ -108,11 +109,12 @@ export default class NavBar extends React.Component {
                       {i}
                   </Button>)})
 
-  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((item, i) => { return (
-                                      <Button key={item}
-                                        onClick={() => this.dayChange(item)}>
-                                        { [3,5,6].includes(i) ? item.slice(0,2) : item[0] }
-                                      </Button>)})
+  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((item, i) => {
+    return (  <Button key={item}
+                onClick={() => this.dayChange(item)}>
+                { [3,5,6].includes(i) ? item.slice(0,2) : item[0] }
+              </Button>)})
+
   updateTime = () => {
     const hour = this.state.hourOfDay
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
@@ -147,33 +149,33 @@ export default class NavBar extends React.Component {
       : `${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`
 
     return (
-      <div className="filter-group">
-        <Dropdown id="clockdrop">
-          <Dropdown.Toggle>
-            {dropdownLabel}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-        <DropdownButton title="On:" key="day-input" id="day-input">
-          {this.dayOptions}
-        </DropdownButton>
-        <DropdownButton title="At:" key="hour-input" id="hour-input">
-          <Button key={"any"}
-            onClick={() => this.timeHourChange("")}>
-            Any
+    <div className="filter-group">
+      <Dropdown id="clockdrop">
+        <Dropdown.Toggle>
+          {dropdownLabel}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <DropdownButton title="On:" key="day-input" id="day-input">
+            {this.dayOptions}
+          </DropdownButton>
+          <DropdownButton title="At:" key="hour-input" id="hour-input">
+            <Button key={"any"}
+              onClick={() => this.timeHourChange("")}>
+              Any
+            </Button>
+            <Button key={"now"}
+              onClick={() => this.timeHourChange("now")}>
+              Now
+            </Button>
+            {this.timeOptions}
+          </DropdownButton>
+          <Button
+            className={(this.state.timeOfDay !== "") ? "btn-active" : "btn-inactive"}
+            onClick={() => this.timeOfDayChange("AM")}>
+            {this.state.timeOfDay === "PM" ? "PM" : "AM"}
           </Button>
-          <Button key={"now"}
-            onClick={() => this.timeHourChange("now")}>
-            Now
-          </Button>
-          {this.timeOptions}
-        </DropdownButton>
-        <Button
-          className={(this.state.timeOfDay !== "") ? "btn-active" : "btn-inactive"}
-          onClick={() => this.timeOfDayChange("AM")}>
-          {this.state.timeOfDay === "PM" ? "PM" : "AM"}
-        </Button>
-    </Dropdown.Menu>
-    </Dropdown>
+        </Dropdown.Menu>
+      </Dropdown>
     </div>
     )
   }
@@ -192,7 +194,6 @@ export default class NavBar extends React.Component {
           <Navbar.Form>
             { this.placeKeyword() }
             { this.placeLocation() }
-            <Button onClick={() => this.handleLocation()}type="submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
             { this.placeTime() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
