@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Grid, Row, Col, Button} from "react-bootstrap"
+import {Grid, Row, Col, Clearfix, Button} from "react-bootstrap"
 import NavBar from "./Navbar"
 import PlaceMap from "./Map"
 import PlacePanel from "./PlacePanel"
@@ -249,17 +249,17 @@ export default class View extends React.Component {
         <Grid>
         <Row>
 
-          <Col md={6}>
+          <Col sm={6} md={6}>
             {panel}
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
             <Button id="next-btn"onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
           </Col>
-
-          <Col md={6}>
+          <Clearfix visibleSmBlock><code>&lt;{'Clearfix visibleSmBlock'} /&gt;</code></Clearfix>
+          <Col sm={6} md={6}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
                       selected={this.state.selectedPanel}
-                      style={{position: "fixed", maxWidth: "40vw", height: "93vh"}}/>
+                      style={{position: "fixed", width: "100%", maxWidth: "30vw", height: "100%"}}/>
           </Col>
 
         </Row>
