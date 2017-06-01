@@ -14,6 +14,13 @@ $inactive-color: #ddd;
   margin-top: 55px;
 }
 
+// wht icon labels over navbar bkg color
+.navbar-form > i {
+  color: $secondary-color;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .panel-group {
   margin-top: 55px;
 }

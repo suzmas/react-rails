@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, ControlLabel, Button, DropdownButton, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, Button, DropdownButton, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -41,7 +41,7 @@ export default class NavBar extends React.Component {
   handleLocation = () => {
     let loc = document.getElementById("search-bar").value
 
-    // don't send query when user empties loc search
+    // don't send query when user submits empty loc search
     if (loc === "") {
       this.props.onLocationChange({loc: ""})
       return
@@ -183,7 +183,9 @@ export default class NavBar extends React.Component {
           <Navbar.Form>
             { this.placeKeyword() }
             { this.placeLocation() }
-              <i className="fa fa-clock-o fa-2x" aria-hidden="true" style={{paddingTop: "10px", color: "white"}}></i>
+            <Button onClick={() => this.handleLocation()}type="submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
+
+            <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
             { this.placeTime() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
@@ -196,7 +198,6 @@ export default class NavBar extends React.Component {
               <i className="fa fa-beer" aria-hidden="true"></i>
             </Button>
             {" "}
-            <Button onClick={() => this.handleLocation()}type="submit">Submit</Button>
             <Button onClick={() => this.handleViewChange("place")}>Places</Button>
             <Button onClick={() => this.handleViewChange("event")}>Events</Button>
           </Navbar.Form>
