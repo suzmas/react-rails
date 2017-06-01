@@ -129,7 +129,9 @@ export default class NavBar extends React.Component {
     this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
   }
 
-  timeOfDayChange = (val) => {
+  timeOfDayChange = () => {
+    let val = this.state.timeOfDay === "PM" || "" ?
+      "AM" : "PM"
     this.setState({timeOfDay: val}, this.updateTime)
   }
 
@@ -139,18 +141,18 @@ export default class NavBar extends React.Component {
   }
 
   placeTime = () => {
+    let dropdownLabel =
+    (!this.state.dayOfWeek && !this.state.hourOfDay) ?
+      <i className="fa fa-clock-o fa-2x navbar-icon-label" aria-hidden="true"></i>
+      : `${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`
+
     return (
       <div className="filter-group">
         <Dropdown id="clockdrop">
           <Dropdown.Toggle>
-        <i className="fa fa-clock-o fa-2x navbar-icon-label" aria-hidden="true"></i>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Button key={"nowzer"}>
-            nowzer
-          </Button>
-
-      <DropdownButton title={`${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`} key={"timeButton"} id={"timebutton"}>
+            {dropdownLabel}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
         <DropdownButton title="On:" key="day-input" id="day-input">
           {this.dayOptions}
         </DropdownButton>
@@ -166,16 +168,10 @@ export default class NavBar extends React.Component {
           {this.timeOptions}
         </DropdownButton>
         <Button
-          className={(this.state.timeOfDay === "AM") ? "btn-active" : "btn-inactive"}
+          className={(this.state.timeOfDay !== "") ? "btn-active" : "btn-inactive"}
           onClick={() => this.timeOfDayChange("AM")}>
-          AM
+          {this.state.timeOfDay === "PM" ? "PM" : "AM"}
         </Button>
-        <Button
-          className={(this.state.timeOfDay === "PM") ? "btn-active": "btn-inactive"}
-          onClick={() => this.timeOfDayChange("PM")}>
-          PM
-        </Button>
-      </DropdownButton>
     </Dropdown.Menu>
     </Dropdown>
     </div>
