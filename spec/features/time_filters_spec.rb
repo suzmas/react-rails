@@ -7,7 +7,8 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
         visit "/"
       end
       When "I select a time from the dropdown" do
-        select "4:00", from: "time-input"
+        click_button "hour_input"
+        click_button "4:00"
       end
       And "I can click on PM" do
         click_button "PM"
@@ -29,7 +30,8 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
         click_button "Events"
       end
       When "I select a time from the dropdown" do
-        select "8:00", from: "time-input"
+        click_button "hour-input"
+        click_button "8:00"
       end
       And "I can click on PM" do
         click_button "PM"
@@ -50,7 +52,8 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
         visit "/"
       end
       When "I can select a day of the week from the dropdown" do
-        select "Monday", from: "day-input"
+        click_button "day-input"
+        click_button "Monday"
       end
       Then "I should see the Places that have Events during this day" do
         expect(page).to have_selector(".panel", count: 2)
