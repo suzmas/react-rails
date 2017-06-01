@@ -143,7 +143,7 @@ export default class NavBar extends React.Component {
   placeTime = () => {
     let dropdownLabel =
     (!this.state.dayOfWeek && !this.state.hourOfDay) ?
-      <i className="fa fa-clock-o fa-2x navbar-icon-label" aria-hidden="true"></i>
+      <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
       : `${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`
 
     return (
