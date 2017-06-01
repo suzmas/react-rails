@@ -7,9 +7,11 @@ $secondary-color: #FFF;
 $inactive-color: #ddd;
 
 .leaflet-container {
-  height: 400px;
-  width: 1000px;
-  margin: 50px;
+  height: 88%;
+  width: 100%;
+  max-width: 40vw;
+  position: fixed;
+  margin-top: 55px;
 }
 
 .panel-group {

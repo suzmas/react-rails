@@ -246,6 +246,8 @@ export default class View extends React.Component {
           onTimeChange={this.handleTimeChange}
           onDayChange={this.handleDayChange}
           onViewChange={this.handleViewChange}/>
+        <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
+
         <Grid>
         <Row>
 
@@ -254,12 +256,11 @@ export default class View extends React.Component {
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
             <Button id="next-btn"onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
           </Col>
-          <Clearfix visibleSmBlock><code>&lt;{'Clearfix visibleSmBlock'} /&gt;</code></Clearfix>
           <Col sm={6} md={6}>
             <PlaceMap all={this.props.all}
                       data={this.state.data}
                       selected={this.state.selectedPanel}
-                      style={{position: "fixed", width: "100%", maxWidth: "30vw", height: "100%"}}/>
+                      />
           </Col>
 
         </Row>
