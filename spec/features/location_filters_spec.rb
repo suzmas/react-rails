@@ -10,7 +10,7 @@ RSpec.feature "LocationFilters", type: :feature, js: true do
         fill_in "search-bar", with: "San Diego, CA"
       end
       And "I click the 'Submit' button" do
-        click_button "Submit"
+        click_button "location-submit"
       end
       Then "I should see all Places" do
         expect(page).to have_selector(".panel", count: 3)

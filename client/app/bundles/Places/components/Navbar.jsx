@@ -97,7 +97,7 @@ export default class NavBar extends React.Component {
             <Button onClick={this.handlePosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
           </InputGroup.Button>
         </InputGroup>
-        <Button onClick={() => this.handleLocation()}type="submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
+        <Button onClick={() => this.handleLocation()} type="submit" id="location-submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
       </FormGroup>
     )
   }
