@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, Button, DropdownButton, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -140,7 +140,17 @@ export default class NavBar extends React.Component {
 
   placeTime = () => {
     return (
-      <DropdownButton bsStyle={"primary"} title={`${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`} key={"timeButton"} id={"timebutton"}>
+      <div className="filter-group">
+        <Dropdown id="clockdrop">
+          <Dropdown.Toggle>
+        <i className="fa fa-clock-o fa-2x navbar-icon-label" aria-hidden="true"></i>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Button key={"nowzer"}>
+            nowzer
+          </Button>
+
+      <DropdownButton title={`${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`} key={"timeButton"} id={"timebutton"}>
         <DropdownButton title="On:" key="day-input" id="day-input">
           {this.dayOptions}
         </DropdownButton>
@@ -166,6 +176,9 @@ export default class NavBar extends React.Component {
           PM
         </Button>
       </DropdownButton>
+    </Dropdown.Menu>
+    </Dropdown>
+    </div>
     )
   }
 
@@ -184,8 +197,6 @@ export default class NavBar extends React.Component {
             { this.placeKeyword() }
             { this.placeLocation() }
             <Button onClick={() => this.handleLocation()}type="submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
-
-            <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
             { this.placeTime() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
