@@ -175,7 +175,7 @@ export default class NavBar extends React.Component {
       <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}} fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <a style={{color: this.props.secondaryColor}} href="#">ANFERNE</a>
+            <a href="#">A</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
