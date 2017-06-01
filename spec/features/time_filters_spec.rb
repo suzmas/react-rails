@@ -7,17 +7,18 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
         visit "/"
       end
       When "I select a time from the dropdown" do
-        click_button "hour_input"
-        click_button "4:00"
+        click_button "time-dropdown"
+        click_button "hour-input"
+        click_button "4"
       end
-      And "I can click on PM" do
-        click_button "PM"
+      And "I click on PM" do
+        click_button "amPm-toggle"
       end
       Then "I should see the Places that have Events during this time" do
         expect(page).to have_selector(".panel", count: 2)
       end
       And "I can click on AM" do
-        click_button "AM"
+        click_button "amPm-toggle"
       end
       Then "I should see the Places that have Events during this time" do
         expect(page).to have_selector(".panel", count: 0)
@@ -30,17 +31,18 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
         click_button "Events"
       end
       When "I select a time from the dropdown" do
+        click_button "time-dropdown"
         click_button "hour-input"
-        click_button "8:00"
+        click_button "8"
       end
       And "I can click on PM" do
-        click_button "PM"
+        click_button "amPm-toggle"
       end
       Then "I should see the Events during that time" do
         expect(page).to have_selector(".panel", count: 3)
       end
       And "I can click on AM" do
-        click_button "AM"
+        click_button "amPm-toggle"
       end
       Then "I should see the Events during that time" do
         expect(page).to have_selector(".panel", count: 2)
@@ -51,9 +53,10 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
       Given "I am on the homepage" do
         visit "/"
       end
-      When "I can select a day of the week from the dropdown" do
+      When "I select a day of the week from the dropdown" do
+        click_button "time-dropdown"
         click_button "day-input"
-        click_button "Monday"
+        click_button "M"
       end
       Then "I should see the Places that have Events during this day" do
         expect(page).to have_selector(".panel", count: 2)
