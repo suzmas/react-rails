@@ -20,25 +20,12 @@ export default class EventPanel extends React.Component {
       a[1] = (parseInt(a[1]) - 12).toString()
       amPm = "PM"
     }
-
     return `${a[1]}:00 ${amPm}`
   }
 
-  eventString = (events) => {
-    let stringArray = events.map(event => {
-      const start_time = this.dateToTime(event.start_time)
-      const end_time = this.dateToTime(event.end_time)
-
-      return (
-        `${event.dow}: ${start_time} - ${end_time}`
-      )
-    })
-
-    return stringArray.join(", ")
-  }
-
   // May need to find a way to tie in place and event together in this panel
-  placePanel = (e) => {
+  eventPanel = (e) => {
+    console.log(e.start_time)
     const headerString = (
       <div style={{fontSize: "12px"}}>
         <h4>{e.name}</h4>
@@ -55,43 +42,20 @@ export default class EventPanel extends React.Component {
              })}
       </Panel>
     )
-
     return panel
   }
 
-  placeList = () => {
-    // let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all)
-    let allEvents = []
-
-    if (this.props.allEvents) {
-      allEvents = this.props.allEvents
-    } else {
-      places.forEach(place => {
-        place.events.forEach(event => {
-          allEvents.push(event)
-        })
-      })
-    }
-
-    let list = allEvents.map(event => {
-      return this.placePanel(event)
+  eventList = () => {
+    let list = this.props.allEvents.map(event => {
+      return this.eventPanel(event)
     })
-
     return list
   }
-
-  // handleSelect = (e,k) => {
-  //   this.props.onSelectChange(e);
-  // }
-
-  // handleExit = (e,k) => {
-  //   console.log("exit")
-  // }
 
   render() {
     return (
       <Accordion onSelect={this.handleSelect}>
-        {this.placeList()}
+        {this.eventList()}
       </Accordion>
     )
   }

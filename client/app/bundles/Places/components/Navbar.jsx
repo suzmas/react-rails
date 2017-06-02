@@ -39,15 +39,15 @@ export default class NavBar extends React.Component {
   ** Add way to include current position (already has lat/lng)
   */
   handleLocation = () => {
-    let loc = document.getElementById("search-bar").value
+    let location = document.getElementById("search-bar").value
 
     // don't send query when user submits empty loc search
-    if (loc === "") {
+    if (location === "") {
       this.props.onLocationChange({loc: ""})
       return
     }
-    loc = loc.split(" ").join("+")
-    let query = `/location?loc=${loc}`
+    location = location.split(" ").join("+")
+    let query = `/location?loc=${location}`
     fetch(query)
       .then(response => response.json())
       .then(json => {

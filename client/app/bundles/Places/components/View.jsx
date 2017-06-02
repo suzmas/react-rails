@@ -19,7 +19,7 @@ export default class View extends React.Component {
       hasDrink: false,
       hasFood: false,
       length: 0,
-      loc: "",
+      locationData: "",
       next: false,
       page: 0,
       prev: false,
@@ -48,7 +48,7 @@ export default class View extends React.Component {
   }
 
   handleLocation = (loc) => {
-    this.setState({ loc: loc.loc }, this.handleData)
+    this.setState({ locationData: loc.loc }, this.handleData)
   }
 
   handleSelectedPanel = (id) => {
@@ -145,7 +145,7 @@ export default class View extends React.Component {
 
 
   handleData = () => {
-    let places = this.state.loc || JSON.parse(this.props.all)
+    let places = this.state.locationData || JSON.parse(this.props.all)
 
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
