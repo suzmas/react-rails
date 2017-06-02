@@ -75,15 +75,9 @@ export default class View extends React.Component {
     data = data.filter(place => {
       var e = place.events.filter(event => {
         // parse out hour ints
-        let startTime = (/T(\w+):\w+/.exec(event.start_time))[1]
-        if (startTime.startsWith("0")) {
-          startTime = startTime.slice(1)
-        }
+        let startTime = event.start_time.toString()
 
-        let endTime = (/T(\w+):\w+/.exec(event.end_time))[1]
-        if (endTime.startsWith("0")) {
-          endTime = endTime.slice(1)
-        }
+        let endTime = event.end_time.toString()
 
         // mk array of event active hours
         const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime])
@@ -93,7 +87,6 @@ export default class View extends React.Component {
         : startTime
 
         let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
-
 
         return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
       })
