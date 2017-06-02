@@ -118,16 +118,19 @@ export default class NavBar extends React.Component {
   updateTime = () => {
     const hour = this.state.hourOfDay
     let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
-    if (hour === "now") { time = new Date().getHours() }
+    if (hour === "now") {
+      time = new Date().getHours()
+      this.dayChange("now")
+    }
     if (hour === "") { time = "" }
     this.props.onTimeChange(time)
   }
 
   timeHourChange = (hour) => {
     let amPm = this.state.timeOfDay
-    if (hour === "now") { amPm = "" }
     if (amPm === "") { amPm = "AM" }
     if (hour === "") { amPm = "" }
+    if (hour === "now") { amPm = "" }
     this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
   }
 
@@ -138,8 +141,14 @@ export default class NavBar extends React.Component {
   }
 
   dayChange = (val) => {
+
+    if (val === "now") {
+      let indice = new Date().getDay()
+      val = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][indice-1]
+    }
+
     this.props.onDayChange(val)
-    this.setState({dayOfWeek: val})
+    this.setState({dayOfWeek: ""})
   }
 
   placeTime = () => {
