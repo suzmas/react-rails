@@ -40,7 +40,10 @@ class PlacesController < ApplicationController
     def make_all(lat, lng)
       all = Place.near([lat, lng], 30).map do |place|
         events = Event.where(place_id: place.id)
-
+        events.each do |event|
+          event.start_time = event.start_time.hour
+          event.end_time = event.end_time.hour
+        end
         { place: place, events: events }
       end
     end
