@@ -104,7 +104,7 @@ export default class NavBar extends React.Component {
 
   timeOptions = ([1,2,3,4,5,6,7,8,9,10,11,12])
                 .map(i => { return (
-                  <Button key={`${i}:00`}
+                  <Button key={i}
                       onClick={() => this.timeHourChange(i)}>
                       {i}
                   </Button>)})
@@ -126,6 +126,7 @@ export default class NavBar extends React.Component {
     this.props.onTimeChange(time)
   }
 
+  // change this to be less ugly...
   timeHourChange = (hour) => {
     let amPm = this.state.timeOfDay
     if (amPm === "") { amPm = "AM" }
@@ -145,10 +146,12 @@ export default class NavBar extends React.Component {
     if (val === "now") {
       let indice = new Date().getDay()
       val = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][indice-1]
+      this.setState({dayOfWeek: ""})
+      this.props.onDayChange(val)
+    } else {
+      this.setState({dayOfWeek: val})
+      this.props.onDayChange(val)
     }
-
-    this.props.onDayChange(val)
-    this.setState({dayOfWeek: ""})
   }
 
   placeTime = () => {
@@ -164,6 +167,10 @@ export default class NavBar extends React.Component {
           {dropdownLabel}
         </Dropdown.Toggle>
         <Dropdown.Menu>
+          <Button key={"now"}
+            onClick={() => this.timeHourChange("now")}>
+            Now
+          </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
             {this.dayOptions}
           </DropdownButton>
@@ -171,10 +178,6 @@ export default class NavBar extends React.Component {
             <Button key={"any"}
               onClick={() => this.timeHourChange("")}>
               Any
-            </Button>
-            <Button key={"now"}
-              onClick={() => this.timeHourChange("now")}>
-              Now
             </Button>
             {this.timeOptions}
           </DropdownButton>
