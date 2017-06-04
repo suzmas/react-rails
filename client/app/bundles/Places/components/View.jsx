@@ -168,7 +168,9 @@ export default class View extends React.Component {
     const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
     let start = this.state.page * 5
     let end = this.state.page * 5 + 5
-    tmp.data = tmp.data.slice(start, end)
+    if (this.props.view == "place") {
+      tmp.data = tmp.data.slice(start, end)
+    }
     tmp.allEvents = tmp.allEvents.slice(start, end)
 
     //Checks to see if page changed, instead of filters changing
@@ -176,7 +178,9 @@ export default class View extends React.Component {
       this.setState({page: 0, prev: true, next: false, length: length}, function() {
         start = 0
         end = start + 5
-        tmp.data = tmp.data.slice(start, end)
+        if (this.props.view == "place") {
+          tmp.data = tmp.data.slice(start, end)
+        }
         tmp.allEvents = tmp.allEvents.slice(start, end)
         this.setState({data: tmp.data, allEvents: tmp.allEvents}, this.setButtons)
         return
