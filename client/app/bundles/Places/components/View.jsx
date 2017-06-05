@@ -147,8 +147,8 @@ export default class View extends React.Component {
     }
 
     let tmp = {data: places, allEvents: null}
-
     //Filter by time
+
     tmp = this.filterTime(tmp.data)
 
     //Filter by keyword
