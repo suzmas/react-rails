@@ -20,8 +20,7 @@ RSpec.describe Place, type: :model do
       expect(place.state).to eq 'CA'
       expect(place.zip).to eq '92101'
 
-      # something weird going on with neighborhood returns
-      # expect(place.neighborhood).to eq 'Downtown'
+      expect(place.neighborhood).to eq 'East Village'
 
       expect(place.latitude).to_not be_nil
       expect(place.longitude).to_not be_nil

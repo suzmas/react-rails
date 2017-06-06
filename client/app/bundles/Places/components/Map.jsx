@@ -12,9 +12,7 @@ export default class PlaceMap extends React.Component {
   }
 
   placeMarker = () => {
-    let places = this.props.data || JSON.parse(this.props.all)
-
-
+    let places = this.props.data
     let list = places.map(place => {
       let zIndexOffset = 0
       let iconUrl = "assets/inactive.png"
@@ -36,7 +34,7 @@ export default class PlaceMap extends React.Component {
   }
 
   getCoords = () => {
-    let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all)
+    let places = this.props.data
 
     const bounds = latLngBounds()
 
@@ -66,7 +64,6 @@ export default class PlaceMap extends React.Component {
 }
 
 PlaceMap.propTypes = {
-  all: PropTypes.string.isRequired,
   data: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array

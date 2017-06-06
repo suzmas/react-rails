@@ -34,6 +34,10 @@ export default class View extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.handleData()
+  }
+
   componentDidMount() {
     this.handleData()
   }
@@ -181,9 +185,11 @@ export default class View extends React.Component {
 
     let tmp = {data: places, allEvents: allEvents}
 
+    //Filter by time
+    tmp = this.filterTime(tmp)
+
     //Filter by keyword
     tmp = this.filterKeyword(tmp)
-    console.log("keyword", tmp)
 
     //Filter by time
     tmp = this.filterTime(tmp)
@@ -255,14 +261,11 @@ export default class View extends React.Component {
   }
 
   render() {
-    let panel = null
-    this.props.view == "place" ?
+    let panel = this.props.view == "place" ?
       panel = <PlacePanel
-        all={this.props.all}
         data={this.state.data}
         onSelectChange={this.handleSelectedPanel} />
     : panel = <EventPanel
-        all={this.props.all}
         data={this.state.data}
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
@@ -282,16 +285,14 @@ export default class View extends React.Component {
         <Grid>
         <Row>
 
-          <Col sm={6} md={6}>
+          <Col sm={12} md={6}>
             {panel}
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
-            <Button id="next-btn"onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
+            <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
           </Col>
-          <Col sm={6} md={6}>
-            <PlaceMap all={this.props.all}
-                      data={this.state.data}
-                      selected={this.state.selectedPanel}
-                      />
+          <Col sm={12} md={6}>
+            <PlaceMap data={this.state.data}
+                      selected={this.state.selectedPanel} />
           </Col>
 
         </Row>
