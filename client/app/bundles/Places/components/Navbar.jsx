@@ -182,7 +182,7 @@ export default class NavBar extends React.Component {
             {this.timeOptions}
           </DropdownButton>
           <Button
-            className={(this.state.timeOfDay !== "") ? "btn-active" : "btn-inactive"}
+            disabled={ parseInt(this.state.hourOfDay) ? false : true }
             id="amPm-toggle"
             onClick={() => this.timeOfDayChange("AM")}>
             {this.state.timeOfDay === "PM" ? "PM" : "AM"}
