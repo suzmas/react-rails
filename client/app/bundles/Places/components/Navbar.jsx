@@ -147,7 +147,7 @@ export default class NavBar extends React.Component {
     }
   }
 
-  timeOptions = () => {
+  timeMenu = () => {
     let dropdownLabel =
     (!this.state.dayOfWeek && !this.state.hourOfDay) ?
       <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
@@ -200,7 +200,7 @@ export default class NavBar extends React.Component {
           <Navbar.Form>
             { this.keywordSearch() }
             { this.placeLocation() }
-            { this.timeOptions() }
+            { this.timeMenu() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
               onClick={() => this.handleBool("food")} id="has-food">
