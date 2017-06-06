@@ -2,9 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$primary-color: #2D767F;
+$primary-color: #45cbbf;
 $secondary-color: #FFF;
+$active-color: #348a82;
 $inactive-color: #ddd;
+
+.btn-active {
+  color: $active-color;
+  &:hover, &:active, &:focus, &:active:hover, &:active:focus {
+    color: $active-color;
+  }
+}
+
+.btn-inactive {
+  color: $inactive-color;
+  &:hover, &:active:hover {
+    color: $active-color;
+  }
+  &:active, &:focus, &:active:hover, &:active:focus {
+    color: $inactive-color;
+  }
+}
 
 .filter-group {
   display: inline-block;
@@ -29,23 +47,10 @@ $inactive-color: #ddd;
   text-align: center;
 }
 
+.navbar-main {
+  background-color: $primary-color;
+}
+
 .panel-group {
   margin-top: 55px;
-}
-
-.btn-active {
-  color: $primary-color;
-  &:hover, &:active, &:focus, &:active:hover, &:active:focus {
-    color: $primary-color;
-  }
-}
-
-.btn-inactive {
-  color: $inactive-color;
-  &:hover, &:active:hover {
-    color: $primary-color;
-  }
-  &:active, &:focus, &:active:hover, &:active:focus {
-    color: $inactive-color;
-  }
 }
