@@ -4,6 +4,10 @@ import {Panel, Accordion} from "react-bootstrap"
 
 export default class PlacePanel extends React.Component {
 
+  state = {
+    active: false
+  }
+
   formatTime(hour) {
     let amPm = hour < 13 ? "AM" : "PM"
     if (hour > 12) hour = hour - 12
@@ -46,7 +50,9 @@ export default class PlacePanel extends React.Component {
   }
 
   handleSelect = (e) => {
-    this.props.onSelectChange(e)
+    (!this.state.active) ?
+      this.setState({active: true}, this.props.onSelectChange(e)) :
+      this.setState({active: false}, this.props.onSelectChange(null))
   }
 
   render() {

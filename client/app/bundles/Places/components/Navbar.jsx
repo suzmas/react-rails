@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup, ButtonGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -164,14 +164,18 @@ export default class NavBar extends React.Component {
             Now
           </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
+            <ButtonGroup vertical>
             {this.dayOptions}
+            </ButtonGroup>
           </DropdownButton>
           <DropdownButton title="At:" key="hour-input" id="hour-input">
+            <ButtonGroup vertical>
             <Button key={"any"}
               onClick={() => this.hourChange("")}>
               Any
             </Button>
             {this.timeOptions}
+            </ButtonGroup>
           </DropdownButton>
           <Button
             disabled={ parseInt(this.state.hourOfDay) ? false : true }
