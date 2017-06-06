@@ -144,7 +144,6 @@ export default class View extends React.Component {
   handleData = () => {
     let places = this.state.locationData || JSON.parse(this.props.all)
 
-    console.log("handling data " + places)
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
       this.setState({changed: false})
