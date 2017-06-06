@@ -12,8 +12,8 @@ export default class PlacePanel extends React.Component {
 
   eventString = (events) => {
     let stringArray = events.map(event => {
-      const start_time = this.dateToTime(event.start_time)
-      const end_time = this.dateToTime(event.end_time)
+      const start_time = this.formatTime(event.start_time)
+      const end_time = this.formatTime(event.end_time)
 
       return (
         `${event.dow}: ${start_time} - ${end_time}`
@@ -59,10 +59,9 @@ export default class PlacePanel extends React.Component {
 }
 
 PlacePanel.propTypes = {
-  all: PropTypes.string.isRequired,
   data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.string
+    PropTypes.array.isRequired,
+    PropTypes.string.isRequired
   ]),
   onSelectChange: PropTypes.func
 }

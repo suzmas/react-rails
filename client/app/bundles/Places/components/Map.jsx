@@ -65,7 +65,6 @@ export default class PlaceMap extends React.Component {
 }
 
 PlaceMap.propTypes = {
-  all: PropTypes.string.isRequired,
   data: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array

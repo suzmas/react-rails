@@ -34,6 +34,10 @@ export default class View extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.handleData()
+  }
+
   componentDidMount() {
     this.handleData()
   }
@@ -138,8 +142,9 @@ export default class View extends React.Component {
 
 
   handleData = () => {
-    let places = this.state.locationData || JSON.parse(this.props.all)
+    let places = JSON.parse(this.props.all)
 
+    console.log(places)
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
       this.setState({changed: false})
@@ -186,6 +191,7 @@ export default class View extends React.Component {
         return
       })
     }
+
 
     this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
     this.setState({changed: false})
@@ -252,8 +258,7 @@ export default class View extends React.Component {
           </Col>
           <Col sm={12} md={6}>
             <PlaceMap data={this.state.data}
-                      selected={this.state.selectedPanel}
-                      />
+                      selected={this.state.selectedPanel} />
           </Col>
 
         </Row>
