@@ -157,7 +157,7 @@ export default class View extends React.Component {
     let tmpEvents = []
     let someEvents = stuff.concat(allEvents)
     someEvents.forEach(event => {
-      if (events.includes(event) !== -1) {
+      if (!events.includes(event.id)) {
         tmpEvents.push(event)
         events.push(event.id)
       }
@@ -202,6 +202,7 @@ export default class View extends React.Component {
 
     //Filter by keyword
     tmp = this.filterKeyword(tmp)
+    console.log("keyword", tmp)
 
     //Filter by time
     tmp = this.filterTime(tmp)
