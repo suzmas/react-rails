@@ -72,15 +72,22 @@ export default class View extends React.Component {
   }
 
   filterTime = (all) => {
+    let data = all.data.filter(place => {
+        return this.filterTimeEvents(place.events).length > 0
+    })
+
+    let allEvents = this.filterTimeEvents(all.allEvents)
+
+    return {data: data, allEvents: allEvents}
+  }
+
+  filterTimeEvents = (events) => {
     const hoursOfDay = []
-    let events = []
     for (let i=0; i<25; i++) { hoursOfDay.push(i.toString()) }
 
-    let data = all.data.filter(place => {
-      return place.events.filter(event => {
+    events = events.filter(event => {
         // parse out hour ints
         let startTime = event.start_time.toString()
-
         let endTime = event.end_time.toString()
 
         // mk array of event active hours
@@ -93,24 +100,9 @@ export default class View extends React.Component {
         let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
 
         return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
-      }).length > 0
     })
 
-    let allEvents = all.allEvents.filter(event => {
-      let startTime = event.start_time.toString()
-      let endTime = event.end_time.toString()
-      const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime])
-
-      let activeHour = this.state.activeHour !== "" ?
-        this.state.activeHour.toString()
-      : startTime
-
-      let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
-
-      return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
-    })
-
-    return {data: data, allEvents: allEvents}
+    return events
   }
 
   filterKeyword = (all) => {
