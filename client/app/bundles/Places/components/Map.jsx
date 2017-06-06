@@ -13,40 +13,46 @@ export default class PlaceMap extends React.Component {
 
   placeMarker = () => {
     let places = this.props.data
+
+    if (places.length < 1) return
+
     let list = places.map(place => {
       let zIndexOffset = 0
       let iconUrl = "assets/inactive.png"
-
-      if (this.props.selected === place.place.id) { zIndexOffset = 1000; iconUrl = "assets/active.png" }
+      if (this.props.selected === place.place.id) {
+        zIndexOffset = 1000; iconUrl = "assets/active.png"
+      }
       const position = [place.place.latitude, place.place.longitude]
-      let icon = L.icon({iconUrl: iconUrl, iconSize: 35})
+      const icon = L.icon({iconUrl: iconUrl, iconSize: 35})
 
       return (
-        <Marker key={place.place.id} position={position} zIndexOffset={zIndexOffset} icon={icon}>
+        <Marker key={place.place.id}
+          position={position}
+          zIndexOffset={zIndexOffset}
+          icon={icon}>
           <Popup>
             <span>{place.place.name}</span>
           </Popup>
         </Marker>
       )
     })
-
     return list
   }
 
   getCoords = () => {
     let places = this.props.data
-
     const bounds = latLngBounds()
 
-    places
-      .map(place => { return [place.place.latitude, place.place.longitude] })
-        .map(data => { bounds.extend(data) })
-
-    // control for error w/ identical LatLngBounds
-    if (places.length === 1) {
-      bounds._northEast.lat += .001
+    if (places.length > 0) {
+      places.map(place => {
+        return [place.place.latitude, place.place.longitude]
+      }).map(data => { bounds.extend(data) })
+      // control for error w/ identical LatLngBounds
+      if (places.length === 1) { bounds._northEast.lat += .001 }
+    } else {
+      bounds.extend([32.774, -117.125])
+      bounds.extend([32.712, -117.227])
     }
-
     return bounds
   }
 
