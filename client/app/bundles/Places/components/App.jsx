@@ -11,9 +11,7 @@ export default class App extends React.Component {
   }
 
   handleViewChange(view) {
-    this.setState({view: view}, function() {
-      document.getElementById("keyword-input").value = ""
-    })
+    this.setState({view: view})
   }
 
 

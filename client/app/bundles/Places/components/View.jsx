@@ -30,7 +30,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.setState({changed: true, page: 0, text: ""}, this.handleData)
+      this.setState({changed: true, page: 0}, this.handleData)
     }
   }
 
@@ -67,13 +67,13 @@ export default class View extends React.Component {
     this.props.onViewChange(view)
   }
 
-  filterTime = (data) => {
+  filterTime = (all) => {
     const hoursOfDay = []
     let events = []
     for (let i=0; i<25; i++) { hoursOfDay.push(i.toString()) }
 
-    data = data.filter(place => {
-      var e = place.events.filter(event => {
+    let data = all.data.filter(place => {
+      return place.events.filter(event => {
         // parse out hour ints
         let startTime = event.start_time.toString()
 
@@ -89,36 +89,81 @@ export default class View extends React.Component {
         let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
 
         return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
-      })
+      }).length > 0
+    })
 
-      events.push(e)
-      return e.length > 0
+    let allEvents = all.allEvents.filter(event => {
+      let startTime = event.start_time.toString()
+      let endTime = event.end_time.toString()
+      const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime])
+
+      let activeHour = this.state.activeHour !== "" ?
+        this.state.activeHour.toString()
+      : startTime
+
+      let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
+
+      return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
     })
 
     // Collect all events that pass time filter
-    let allEvents = []
-    events.forEach(group => {
-      group.forEach(event => {
-        allEvents.push(event)
-      })
-    })
+    // let allEvents = []
+    // events.forEach(group => {
+    //   group.forEach(event => {
+    //     allEvents.push(event)
+    //   })
+    // })
 
     return {data: data, allEvents: allEvents}
   }
 
+  // filterKeyword = (all) => {
+  //   let data = all.data.filter(place => {
+  //     return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+  //   })
+  //
+  //   let allEvents = all.allEvents.filter(event => {
+  //     return event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+  //   })
+  //   return {data: all.data, allEvents: allEvents}
+  // }
+
   filterKeyword = (all) => {
-    if (this.props.view === "place"){
-      let data = all.data.filter(place => {
-        return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+    let tmp = all.data.filter(place => {
+      return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+    })
+
+    let stuff = []
+    tmp.forEach(place => {
+      place.events.forEach(event => {
+        stuff.push(event)
       })
-      return {data: data, allEvents: all.allEvents}
-    }
-    else {
-      let allEvents = all.allEvents.filter(event => {
-        return event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
-      })
-      return {data: all.data, allEvents: allEvents}
-    }
+    })
+
+    let allEvents = all.allEvents.filter(event => {
+      let name = event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+      let menu = false
+      for (let key in event.menu) {
+        if (key.includes(this.state.text.toLowerCase().trim())) {
+          menu = true
+          break
+        }
+      }
+
+      return name || menu
+    })
+
+    let events = []
+    let tmpEvents = []
+    let someEvents = stuff.concat(allEvents)
+    someEvents.forEach(event => {
+      if (events.includes(event) !== -1) {
+        tmpEvents.push(event)
+        events.push(event.id)
+      }
+    })
+
+    return {data: tmp, allEvents: tmpEvents}
   }
 
   filterBool = (all, type) => {
@@ -146,13 +191,20 @@ export default class View extends React.Component {
       return
     }
 
-    let tmp = {data: places, allEvents: null}
+    let allEvents = []
+    places.forEach(place => {
+      place.events.forEach(event => {
+        allEvents.push(event)
+      })
+    })
 
-    //Filter by time
-    tmp = this.filterTime(tmp.data)
+    let tmp = {data: places, allEvents: allEvents}
 
     //Filter by keyword
     tmp = this.filterKeyword(tmp)
+
+    //Filter by time
+    tmp = this.filterTime(tmp)
 
     //Filter by food
     if (this.state.hasFood) {
