@@ -13,7 +13,7 @@ export default class PlaceMap extends React.Component {
 
   placeMarker = () => {
     let places = this.props.data
-
+    console.log(places)
     let list = places.map(place => {
       let zIndexOffset = 0
       let iconUrl = "assets/inactive.png"
