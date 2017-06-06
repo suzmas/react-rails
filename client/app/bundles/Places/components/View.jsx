@@ -43,7 +43,8 @@ export default class View extends React.Component {
   }
 
   // Filters and changes data state
-  handleChange = (text) => {
+  handleSearchChange = (text) => {
+    text = text.toLowerCase().trim()
     this.setState({ text: text }, this.handleData)
   }
 
@@ -96,32 +97,31 @@ export default class View extends React.Component {
     return events
   }
 
-  filterKeyword = (all) => {
-    let data = all.data.filter(place => {
-      return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+  filterKeyword = (data) => {
+    let places = data.data.filter(place => {
+      const name = place.place.name.toLowerCase()
+      return name.includes(this.state.text)
     })
 
-    let stuff = []
-    data.forEach(place => {
+    let placeEvents = []
+    places.forEach(place => {
       place.events.forEach(event => {
-        stuff.push(event)
+        placeEvents.push(event)
       })
     })
 
-    let allEvents = all.allEvents.filter(event => {
-      let name = event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+    let allEvents = data.allEvents.filter(event => {
+      let name = event.name.toLowerCase().includes(this.state.text)
       let menu = false
       for (let key in event.menu) {
-        if (key.includes(this.state.text.toLowerCase().trim())) {
+        if (key.includes(this.state.text)) {
           menu = true
           break
         }
       }
-
       return name || menu
     })
-
-    let someEvents = stuff.concat(allEvents)
+    let someEvents = placeEvents.concat(allEvents)
     let eventIds = []
     allEvents = []
     someEvents.forEach(event => {
@@ -130,8 +130,8 @@ export default class View extends React.Component {
         eventIds.push(event.id)
       }
     })
-
-    return {data: data, allEvents: allEvents}
+    console.log(data.length + " " + allEvents.length)
+    return {data: places, allEvents: allEvents}
   }
 
   filterBool = (all, type) => {
@@ -268,7 +268,7 @@ export default class View extends React.Component {
     return (
       <div>
         <NavBar
-          onSearchChange={this.handleChange}
+          onSearchChange={this.handleSearchChange}
           onBoolChange={this.handleBool}
           onLocationChange={this.handleLocation}
           onTimeChange={this.handleTimeChange}
