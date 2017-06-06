@@ -106,12 +106,12 @@ export default class View extends React.Component {
   }
 
   filterKeyword = (all) => {
-    let tmp = all.data.filter(place => {
+    let data = all.data.filter(place => {
       return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
     })
 
     let stuff = []
-    tmp.forEach(place => {
+    data.forEach(place => {
       place.events.forEach(event => {
         stuff.push(event)
       })
@@ -130,17 +130,17 @@ export default class View extends React.Component {
       return name || menu
     })
 
-    let events = []
-    let tmpEvents = []
     let someEvents = stuff.concat(allEvents)
+    let eventIds = []
+    allEvents = []
     someEvents.forEach(event => {
-      if (!events.includes(event.id)) {
-        tmpEvents.push(event)
-        events.push(event.id)
+      if (!eventIds.includes(event.id)) {
+        allEvents.push(event)
+        eventIds.push(event.id)
       }
     })
 
-    return {data: tmp, allEvents: tmpEvents}
+    return {data: data, allEvents: allEvents}
   }
 
   filterBool = (all, type) => {
