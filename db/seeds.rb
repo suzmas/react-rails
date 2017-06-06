@@ -27,10 +27,13 @@ when "development"
   end
 
   def make_menu
+    names = ["pizza", "burger", "red wine", "wings", "IPA", "whiskey", "vodka",
+      "tequila", "fries", "mimosa", "fish", "appetizer", "steak", "salad", "broccoli",
+      "avocado", "burrito", "taco", "Coors", "Mickey's", "sour"]
     menu = Hash.new
     (rand(10) + 5).times do |num|
       tmp = rand(20)
-      menu["Item #{num}"] = (tmp <= 1) ? nil : tmp
+      menu["#{names[rand(names.length)]} #{num}"] = (tmp <= 1) ? nil : tmp
     end
     menu
   end
