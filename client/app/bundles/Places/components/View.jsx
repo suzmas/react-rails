@@ -42,8 +42,8 @@ export default class View extends React.Component {
     this.handleData()
   }
 
-  // Filters and changes data state
-  handleChange = (text) => {
+  handleSearchChange = (text) => {
+    text = text.toLowerCase().trim()
     this.setState({ text: text }, this.handleData)
   }
 
@@ -75,7 +75,6 @@ export default class View extends React.Component {
     let data = all.data.filter(place => {
       return this.filterTimeEvents(place.events).length > 0
     })
-
     let allEvents = this.filterTimeEvents(all.allEvents)
 
     return {data: data, allEvents: allEvents}
@@ -97,41 +96,37 @@ export default class View extends React.Component {
   }
 
   filterKeyword = (all) => {
-    let data = all.data.filter(place => {
-      return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+    let places = all.data.filter(place => {
+      const name = place.place.name.toLowerCase()
+      return name.includes(this.state.text)
     })
 
-    let stuff = []
-    data.forEach(place => {
-      place.events.forEach(event => {
-        stuff.push(event)
-      })
+    let placeEvents = []
+    places.forEach(place => {
+      placeEvents.concat(place.events)
     })
 
     let allEvents = all.allEvents.filter(event => {
-      let name = event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
+      let name = event.name.toLowerCase().includes(this.state.text)
       let menu = false
       for (let key in event.menu) {
-        if (key.includes(this.state.text.toLowerCase().trim())) {
+        key = key.toLowerCase().trim()
+        if (key.includes(this.state.text)) {
           menu = true
           break
         }
       }
-
       return name || menu
     })
-
-    let someEvents = stuff.concat(allEvents)
+    let eventMatches = placeEvents.concat(allEvents)
     let eventIds = []
-    allEvents = []
-    someEvents.forEach(event => {
+    allEvents = eventMatches.filter(event => {
       if (!eventIds.includes(event.id)) {
-        allEvents.push(event)
         eventIds.push(event.id)
+        return true
       }
     })
-
-    return {data: data, allEvents: allEvents}
+    return {data: places, allEvents: allEvents}
   }
 
   filterBool = (all, type) => {
@@ -140,7 +135,6 @@ export default class View extends React.Component {
         return (type === "food") ? event.has_food : event.has_drink
       }).length > 0
     })
-
     let allEvents = all.allEvents.filter(event => {
       return (type === "food") ? event.has_food : event.has_drink
     })
@@ -236,25 +230,26 @@ export default class View extends React.Component {
     }
   }
 
-  clearFilters = () => {
-    document.getElementById("keyword-input").value = ""
-    document.getElementById("search-bar").value = ""
-    this.setState({
-      activeDay: "",
-      activeHour: "",
-      allEvents: "",
-      changed: false,
-      hasDrink: false,
-      hasFood: false,
-      length: 0,
-      locationData: "",
-      next: false,
-      page: 0,
-      prev: false,
-      selectedPanel: "",
-      text: ""
-    }, this.handleData)
-  }
+  // clearFilters = () => {
+  //   console.log("clearing")
+  //   document.getElementById("keyword-input").value = ""
+  //   document.getElementById("search-bar").value = ""
+  //   this.setState({
+  //     activeDay: "",
+  //     activeHour: "",
+  //     allEvents: "",
+  //     changed: false,
+  //     hasDrink: false,
+  //     hasFood: false,
+  //     length: 0,
+  //     locationData: "",
+  //     next: false,
+  //     page: 0,
+  //     prev: false,
+  //     selectedPanel: "",
+  //     text: ""
+  //   }, this.handleData)
+  // }
 
   render() {
     let panel = this.props.view == "place" ?
@@ -268,7 +263,7 @@ export default class View extends React.Component {
     return (
       <div>
         <NavBar
-          onSearchChange={this.handleChange}
+          onSearchChange={this.handleSearchChange}
           onBoolChange={this.handleBool}
           onLocationChange={this.handleLocation}
           onTimeChange={this.handleTimeChange}
