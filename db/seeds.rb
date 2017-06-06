@@ -27,10 +27,13 @@ when "development"
   end
 
   def make_menu
+    names = ["pizza", "burger", "red wine", "wings", "IPA", "whiskey", "vodka",
+      "tequila", "fries", "mimosa", "fish", "appetizer", "steak", "salad", "broccoli",
+      "avocado", "burrito", "taco", "Coors", "Mickey's", "sour"]
     menu = Hash.new
     (rand(10) + 5).times do |num|
       tmp = rand(20)
-      menu["Item #{num}"] = (tmp <= 1) ? nil : tmp
+      menu["#{names[rand(names.length)]} #{num}"] = (tmp <= 1) ? nil : tmp
     end
     menu
   end
@@ -53,6 +56,9 @@ when "development"
   ]
 
   Place.all.each_with_index do |place, index|
+    place_names = ["Pizza Time", "Burrito Time", "Taco Time", "Fiesta Time",
+      "Sushi Time", "Beer Time", "Shots Time", "Get Down Time", "Help Me Out Time"
+    ]
     day = rand(days.length)
     days[day].each do |value|
       r1 = rand(22)
@@ -62,7 +68,7 @@ when "development"
       end
 
       place.events.create!(
-        name: "Happy Hour #{index}",
+        name: "#{place_names[rand(place_names.length)]} #{index}",
         dow: value,
         start_time: "#{r1}:00",
         end_time: "#{r2}:00",
