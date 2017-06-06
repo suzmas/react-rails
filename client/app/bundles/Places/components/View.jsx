@@ -106,27 +106,8 @@ export default class View extends React.Component {
       return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
     })
 
-    // Collect all events that pass time filter
-    // let allEvents = []
-    // events.forEach(group => {
-    //   group.forEach(event => {
-    //     allEvents.push(event)
-    //   })
-    // })
-
     return {data: data, allEvents: allEvents}
   }
-
-  // filterKeyword = (all) => {
-  //   let data = all.data.filter(place => {
-  //     return place.place.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
-  //   })
-  //
-  //   let allEvents = all.allEvents.filter(event => {
-  //     return event.name.toLowerCase().includes(this.state.text.toLowerCase().trim())
-  //   })
-  //   return {data: all.data, allEvents: allEvents}
-  // }
 
   filterKeyword = (all) => {
     let tmp = all.data.filter(place => {
