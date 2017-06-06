@@ -25,10 +25,9 @@ export default class NavBar extends React.Component {
       (position) => {
         fetch(`/location?lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
           .then(response => response.json())
-          .then(json => {
-            console.log(json)
-            this.props.onLocationChange({loc: json}) })
+          .then(json => { this.props.onLocationChange({loc: json}) })
       })
+    document.getElementById("search-bar").value = "Current Location"
   }
 
   handleLocation = () => {
