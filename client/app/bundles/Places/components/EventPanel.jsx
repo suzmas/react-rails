@@ -57,7 +57,6 @@ export default class EventPanel extends React.Component {
 
 // Need to look into why there are two types
 EventPanel.propTypes = {
-  all: PropTypes.string.isRequired,
   data: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string
