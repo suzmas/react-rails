@@ -42,7 +42,6 @@ export default class View extends React.Component {
     this.handleData()
   }
 
-  // Filters and changes data state
   handleSearchChange = (text) => {
     text = text.toLowerCase().trim()
     this.setState({ text: text }, this.handleData)
@@ -76,7 +75,6 @@ export default class View extends React.Component {
     let data = all.data.filter(place => {
       return this.filterTimeEvents(place.events).length > 0
     })
-
     let allEvents = this.filterTimeEvents(all.allEvents)
 
     return {data: data, allEvents: allEvents}
@@ -97,23 +95,22 @@ export default class View extends React.Component {
     return events
   }
 
-  filterKeyword = (data) => {
-    let places = data.data.filter(place => {
+  filterKeyword = (all) => {
+    let places = all.data.filter(place => {
       const name = place.place.name.toLowerCase()
       return name.includes(this.state.text)
     })
 
     let placeEvents = []
     places.forEach(place => {
-      place.events.forEach(event => {
-        placeEvents.push(event)
-      })
+      placeEvents.concat(place.events)
     })
 
-    let allEvents = data.allEvents.filter(event => {
+    let allEvents = all.allEvents.filter(event => {
       let name = event.name.toLowerCase().includes(this.state.text)
       let menu = false
       for (let key in event.menu) {
+        key = key.toLowerCase().trim()
         if (key.includes(this.state.text)) {
           menu = true
           break
@@ -121,16 +118,14 @@ export default class View extends React.Component {
       }
       return name || menu
     })
-    let someEvents = placeEvents.concat(allEvents)
+    let eventMatches = placeEvents.concat(allEvents)
     let eventIds = []
-    allEvents = []
-    someEvents.forEach(event => {
+    allEvents = eventMatches.filter(event => {
       if (!eventIds.includes(event.id)) {
-        allEvents.push(event)
         eventIds.push(event.id)
+        return true
       }
     })
-    console.log(data.length + " " + allEvents.length)
     return {data: places, allEvents: allEvents}
   }
 
@@ -140,7 +135,6 @@ export default class View extends React.Component {
         return (type === "food") ? event.has_food : event.has_drink
       }).length > 0
     })
-
     let allEvents = all.allEvents.filter(event => {
       return (type === "food") ? event.has_food : event.has_drink
     })
@@ -165,6 +159,7 @@ export default class View extends React.Component {
         allEvents.push(event)
       })
     })
+    console.log(allEvents + " initial build")
 
     let tmp = {data: places, allEvents: allEvents}
 
@@ -186,6 +181,8 @@ export default class View extends React.Component {
     if (this.state.hasDrink) {
       tmp = this.filterBool(tmp, "drink")
     }
+
+    console.log(tmp.allEvents + " after all filters")
 
     //For pagination
     const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
@@ -211,6 +208,7 @@ export default class View extends React.Component {
     }
 
     this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
+    console.log(tmp.allEvents + " after pagination")
     this.setState({changed: false})
   }
 
@@ -236,25 +234,26 @@ export default class View extends React.Component {
     }
   }
 
-  clearFilters = () => {
-    document.getElementById("keyword-input").value = ""
-    document.getElementById("search-bar").value = ""
-    this.setState({
-      activeDay: "",
-      activeHour: "",
-      allEvents: "",
-      changed: false,
-      hasDrink: false,
-      hasFood: false,
-      length: 0,
-      locationData: "",
-      next: false,
-      page: 0,
-      prev: false,
-      selectedPanel: "",
-      text: ""
-    }, this.handleData)
-  }
+  // clearFilters = () => {
+  //   console.log("clearing")
+  //   document.getElementById("keyword-input").value = ""
+  //   document.getElementById("search-bar").value = ""
+  //   this.setState({
+  //     activeDay: "",
+  //     activeHour: "",
+  //     allEvents: "",
+  //     changed: false,
+  //     hasDrink: false,
+  //     hasFood: false,
+  //     length: 0,
+  //     locationData: "",
+  //     next: false,
+  //     page: 0,
+  //     prev: false,
+  //     selectedPanel: "",
+  //     text: ""
+  //   }, this.handleData)
+  // }
 
   render() {
     let panel = this.props.view == "place" ?

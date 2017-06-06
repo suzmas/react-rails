@@ -40,6 +40,7 @@ export default class EventPanel extends React.Component {
   }
 
   eventList = () => {
+    console.log(this.props.allEvents)
     let list = this.props.allEvents.map(event => {
       return this.eventPanel(event)
     })
