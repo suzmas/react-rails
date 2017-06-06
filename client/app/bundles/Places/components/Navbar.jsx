@@ -110,7 +110,7 @@ export default class NavBar extends React.Component {
 
   updateTime = () => {
     const hour = this.state.hourOfDay
-    let time = this.state.timeOfDay === "AM" ? hour : `${parseInt(hour) + 12}`
+    let time = this.state.timeOfDay === "AM" ? hour : hour + 12
     if (hour === "now") {
       time = new Date().getHours()
       this.dayChange("now")
@@ -129,7 +129,7 @@ export default class NavBar extends React.Component {
   }
 
   amPmChange = () => {
-    let val = this.state.timeOfDay === "PM" || "" ?
+    let val = this.state.timeOfDay === "PM" ?
       "AM" : "PM"
     this.setState({timeOfDay: val}, this.updateTime)
   }

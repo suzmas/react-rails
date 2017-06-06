@@ -159,7 +159,6 @@ export default class View extends React.Component {
         allEvents.push(event)
       })
     })
-    console.log(allEvents + " initial build")
 
     let tmp = {data: places, allEvents: allEvents}
 
@@ -181,8 +180,6 @@ export default class View extends React.Component {
     if (this.state.hasDrink) {
       tmp = this.filterBool(tmp, "drink")
     }
-
-    console.log(tmp.allEvents + " after all filters")
 
     //For pagination
     const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
@@ -208,7 +205,6 @@ export default class View extends React.Component {
     }
 
     this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
-    console.log(tmp.allEvents + " after pagination")
     this.setState({changed: false})
   }
 
