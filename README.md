@@ -30,39 +30,27 @@ foreman start -f Procfile.dev
 * `all_prop` -> Contains Place paired with its events.
 ``` 
   all ->
-    place ->
-      name (str)
+    place -> 
       address1 (str)
       address2 (str)
+      bearing (str)
       city (str)
-      state (str)
-      zip (str)
-      phone (str)
+      distance (float)
       latitude (float)
       longitude (float)
+      name (str)
       neighborhood (str)
-      distance (float)
-      bearing (str)
+      phone (str)
+      state (str)
+      zip (str)
 
     events ->
-      place_id (int)
-      name (str)
       dow (str)
-      start_time (time)
       end_time (time)
-      menu (json)
-      has_food (bool)
       has_drink (bool)
-```
-
-* `places_prop` -> Contains all Place.
-``` 
-  places ->
-    (place - See above)
-```
-
-* `events_prop` -> Contains all Event.
-``` 
-  events ->
-    (events - See above)
+      has_food (bool)
+      menu (json)
+      name (str)
+      place_id (int)
+      start_time (time)
 ```
