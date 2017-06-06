@@ -33,7 +33,7 @@ export default class NavBar extends React.Component {
   handleLocation = () => {
     let location = document.getElementById("search-bar").value
 
-    if (location !== "") { // don't fetch for empty search
+    if (location !== "") { // only fetch if location not empty
       location = location.split(" ").join("+")
       let query = `/location?loc=${location}`
       fetch(query)
@@ -135,7 +135,6 @@ export default class NavBar extends React.Component {
   }
 
   dayChange = (val) => {
-
     if (val === "now") {
       let indice = new Date().getDay()
       val = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][indice-1]
@@ -186,10 +185,16 @@ export default class NavBar extends React.Component {
     )
   }
 
+  resetFilters = () => {
+    this.props.resetFilters()
+    this.setState({hasFood: false, hasDrink: false, hourOfDay: "",
+      timeOfDay: "", dayOfWeek: ""})
+  }
+
   // more performant way to do onClick for button, will fix down the road
   navbarInstance() {
     return (
-      <Navbar fixedTop style={{backgroundColor: this.props.primaryColor}} fluid>
+      <Navbar fixedTop className="navbar-main" fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <a href="#">A</a>
@@ -212,8 +217,13 @@ export default class NavBar extends React.Component {
               <i className="fa fa-beer" aria-hidden="true"></i>
             </Button>
             {" "}
-            <Button onClick={() => this.handleViewChange("place")}>Places</Button>
-            <Button onClick={() => this.handleViewChange("event")}>Events</Button>
+            <div className="filter-group">
+              <Button onClick={() => this.handleViewChange("place")}>
+                Places</Button>
+              <Button onClick={() => this.handleViewChange("event")}>
+                Events</Button>
+            </div>
+            <Button onClick={() => this.resetFilters() }>Clear</Button>
           </Navbar.Form>
         </Navbar.Collapse>
       </Navbar>
@@ -236,6 +246,5 @@ NavBar.propTypes = {
   onViewChange: PropTypes.func,
   onTimeChange: PropTypes.func,
   onDayChange: PropTypes.func,
-  primaryColor: PropTypes.string,
-  secondaryColor: PropTypes.string,
+  resetFilters: PropTypes.func,
 }

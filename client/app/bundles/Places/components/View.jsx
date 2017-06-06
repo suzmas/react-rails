@@ -196,13 +196,6 @@ export default class View extends React.Component {
     this.setState({changed: false})
   }
 
-  // TO DO:
-  // possibly remove this and import file w/ style objects
-  style = {
-    primaryColor: "#51bdcb",
-    secondaryColor: "#FFFFFF"
-  }
-
   setPage = (str) => {
     if (str === "prev") {
       this.setState({page: this.state.page - 1, changed: true}, this.handleData)
@@ -225,6 +218,26 @@ export default class View extends React.Component {
     }
   }
 
+  clearFilters = () => {
+    document.getElementById("keyword-input").value = ""
+    document.getElementById("search-bar").value = ""
+    this.setState({
+      activeDay: "",
+      activeHour: "",
+      allEvents: "",
+      changed: false,
+      hasDrink: false,
+      hasFood: false,
+      length: 0,
+      locationData: "",
+      next: false,
+      page: 0,
+      prev: false,
+      selectedPanel: "",
+      text: ""
+    }, this.handleData)
+  }
+
   render() {
     let panel = this.props.view == "place" ?
       panel = <PlacePanel
@@ -239,17 +252,15 @@ export default class View extends React.Component {
         <NavBar
           onSearchChange={this.handleChange}
           onBoolChange={this.handleBool}
-          primaryColor={this.style.primaryColor}
-          secondaryColor={this.style.secondaryColor}
           onLocationChange={this.handleLocation}
           onTimeChange={this.handleTimeChange}
           onDayChange={this.handleDayChange}
+          resetFilters={this.clearFilters}
           onViewChange={this.handleViewChange}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid>
         <Row>
-
           <Col sm={12} md={6}>
             {panel}
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
@@ -257,9 +268,8 @@ export default class View extends React.Component {
           </Col>
           <Col sm={12} md={6}>
             <PlaceMap data={this.state.data}
-                      selected={this.state.selectedPanel} />
+              selected={this.state.selectedPanel}/>
           </Col>
-
         </Row>
         </Grid>
       </div>
