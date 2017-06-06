@@ -44,14 +44,16 @@ export default class PlaceMap extends React.Component {
     const bounds = latLngBounds()
 
     if (places.length > 0) {
-      places.map(place => {
-        return [place.place.latitude, place.place.longitude]
-      }).map(data => { bounds.extend(data) })
-      // control for error w/ identical LatLngBounds
-      if (places.length === 1) { bounds._northEast.lat += .001 }
+      places
+        .map(place => { return [place.place.latitude, place.place.longitude] })
+          .map(data => { bounds.extend(data) })
     } else {
-      bounds.extend([32.774, -117.125])
-      bounds.extend([32.712, -117.227])
+      bounds.extend([[32.7057, -117.1611], [32.7557, -117.1611]])
+    }
+
+    // control for error w/ identical LatLngBounds
+    if (places.length === 1) {
+      bounds._northEast.lat += .001
     }
     return bounds
   }
