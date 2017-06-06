@@ -12,8 +12,7 @@ export default class PlaceMap extends React.Component {
   }
 
   placeMarker = () => {
-    let places = this.props.data || JSON.parse(this.props.all)
-
+    let places = this.props.data
 
     let list = places.map(place => {
       let zIndexOffset = 0
@@ -36,7 +35,7 @@ export default class PlaceMap extends React.Component {
   }
 
   getCoords = () => {
-    let places = (this.props.data.length) ? this.props.data : JSON.parse(this.props.all)
+    let places = this.props.data
 
     const bounds = latLngBounds()
 
