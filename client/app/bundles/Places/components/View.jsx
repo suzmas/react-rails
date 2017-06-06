@@ -73,7 +73,7 @@ export default class View extends React.Component {
 
   filterTime = (all) => {
     let data = all.data.filter(place => {
-        return this.filterTimeEvents(place.events).length > 0
+      return this.filterTimeEvents(place.events).length > 0
     })
 
     let allEvents = this.filterTimeEvents(all.allEvents)
@@ -83,25 +83,16 @@ export default class View extends React.Component {
 
   filterTimeEvents = (events) => {
     const hoursOfDay = []
-    for (let i=0; i<25; i++) { hoursOfDay.push(i.toString()) }
+    for (let i=0; i<25; i++) { hoursOfDay.push(i) }
 
     events = events.filter(event => {
-        // parse out hour ints
-        let startTime = event.start_time.toString()
-        let endTime = event.end_time.toString()
-
-        // mk array of event active hours
-        const hoursOfEvent = hoursOfDay.slice(hoursOfDay[startTime], hoursOfDay[endTime])
-
-        let activeHour = this.state.activeHour !== "" ?
-          this.state.activeHour.toString()
-        : startTime
-
-        let activeDay = this.state.activeDay !== "" ? this.state.activeDay : event.dow
-
-        return ((hoursOfEvent.includes((activeHour))) && (event.dow === activeDay))
+      const hoursOfEvent = hoursOfDay.slice(hoursOfDay[event.start_time],
+                                            hoursOfDay[event.end_time])
+      // if filters not set, filter events by their own props (= return all)
+      const activeHour = (this.state.activeHour || event.start_time)
+      const activeDay = (this.state.activeDay || event.dow)
+      return ((hoursOfEvent.includes(activeHour)) && (event.dow === activeDay))
     })
-
     return events
   }
 
