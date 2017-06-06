@@ -16,43 +16,34 @@ export default class NavBar extends React.Component {
     }
   }
 
-  handleChange = (e) => {
+  handleSearchChange = (e) => {
     this.props.onSearchChange(e.target.value)
   }
 
-  handlePosition = () => {
+  handleUserPosition = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         fetch(`/location?lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
           .then(response => response.json())
-          .then(json => {
-            this.props.onLocationChange({loc: json})
-          })
-      }
-    )
-
+          .then(json => { this.props.onLocationChange({loc: json}) })
+      })
     document.getElementById("search-bar").value = "Current Location"
   }
 
-  /* TODO:
-  ** Better query handling for things that may have incorrect loc
-  ** Add way to include current position (already has lat/lng)
-  */
   handleLocation = () => {
     let location = document.getElementById("search-bar").value
 
-    // don't send query when user submits empty loc search
-    if (location === "") {
+    if (location !== "") { // don't fetch for empty search
+      location = location.split(" ").join("+")
+      let query = `/location?loc=${location}`
+      fetch(query)
+        .then(response => response.json())
+        .then(json => {
+          this.props.onLocationChange({loc: json})
+        })
+    } else {
       this.props.onLocationChange({loc: ""})
-      return
     }
-    location = location.split(" ").join("+")
-    let query = `/location?loc=${location}`
-    fetch(query)
-      .then(response => response.json())
-      .then(json => {
-        this.props.onLocationChange({loc: json})
-      })
   }
 
   handleBool = (type) => {
@@ -74,14 +65,16 @@ export default class NavBar extends React.Component {
     this.props.onViewChange(view)
   }
 
-  placeKeyword = () => {
+  keywordSearch = () => {
     return (
       <FormGroup className="filter-group">
-        <FormControl type="text" placeholder="Search" onChange={this.handleChange} id="keyword-input"/>
+        <FormControl type="text" placeholder="Search"
+          onChange={this.handleSearchChange} id="keyword-input"/>
       </FormGroup>
     )
   }
 
+  // Submit location search on 'return' keydown
   handleEnter = (e) => {
     if (e.keyCode === 13) {
       this.handleLocation()
@@ -94,7 +87,7 @@ export default class NavBar extends React.Component {
         <InputGroup>
           <FormControl id="search-bar" type="text" placeholder="Enter Location" onKeyUp={this.handleEnter}/>
           <InputGroup.Button>
-            <Button onClick={this.handlePosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
+            <Button onClick={this.handleUserPosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
           </InputGroup.Button>
         </InputGroup>
         <Button onClick={() => this.handleLocation()} type="submit" id="location-submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
@@ -105,7 +98,7 @@ export default class NavBar extends React.Component {
   timeOptions = ([1,2,3,4,5,6,7,8,9,10,11,12])
                 .map(i => { return (
                   <Button key={i}
-                      onClick={() => this.timeHourChange(i)}>
+                      onClick={() => this.hourChange(i)}>
                       {i}
                   </Button>)})
 
@@ -127,7 +120,7 @@ export default class NavBar extends React.Component {
   }
 
   // change this to be less ugly...
-  timeHourChange = (hour) => {
+  hourChange = (hour) => {
     let amPm = this.state.timeOfDay
     if (amPm === "") { amPm = "AM" }
     if (hour === "") { amPm = "" }
@@ -135,7 +128,7 @@ export default class NavBar extends React.Component {
     this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
   }
 
-  timeOfDayChange = () => {
+  amPmChange = () => {
     let val = this.state.timeOfDay === "PM" || "" ?
       "AM" : "PM"
     this.setState({timeOfDay: val}, this.updateTime)
@@ -154,7 +147,7 @@ export default class NavBar extends React.Component {
     }
   }
 
-  placeTime = () => {
+  timeOptions = () => {
     let dropdownLabel =
     (!this.state.dayOfWeek && !this.state.hourOfDay) ?
       <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
@@ -168,7 +161,7 @@ export default class NavBar extends React.Component {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Button key={"now"}
-            onClick={() => this.timeHourChange("now")}>
+            onClick={() => this.hourChange("now")}>
             Now
           </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
@@ -176,7 +169,7 @@ export default class NavBar extends React.Component {
           </DropdownButton>
           <DropdownButton title="At:" key="hour-input" id="hour-input">
             <Button key={"any"}
-              onClick={() => this.timeHourChange("")}>
+              onClick={() => this.hourChange("")}>
               Any
             </Button>
             {this.timeOptions}
@@ -184,7 +177,7 @@ export default class NavBar extends React.Component {
           <Button
             disabled={ parseInt(this.state.hourOfDay) ? false : true }
             id="amPm-toggle"
-            onClick={() => this.timeOfDayChange("AM")}>
+            onClick={() => this.amPmChange("AM")}>
             {this.state.timeOfDay === "PM" ? "PM" : "AM"}
           </Button>
         </Dropdown.Menu>
@@ -205,9 +198,9 @@ export default class NavBar extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Navbar.Form>
-            { this.placeKeyword() }
+            { this.keywordSearch() }
             { this.placeLocation() }
-            { this.placeTime() }
+            { this.timeOptions() }
             <Button
               className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
               onClick={() => this.handleBool("food")} id="has-food">
