@@ -41,17 +41,22 @@ export default class PlaceMap extends React.Component {
 
   placeEventMarker = () => {
     let places = this.props.allEvents
-    let iconUrl = "assets/inactive.png"
 
     if (places.length < 1) return
 
     let list = places.map(event => {
+      let zIndexOffset = 0
+      let iconUrl = "assets/inactive.png"
+      if (this.props.selected === event.id) {
+        zIndexOffset = 1000; iconUrl = "assets/active.png"
+      }
       const position = [event.lat, event.lng]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 35})
 
       return (
         <Marker key={event.id}
           position={position}
+          zIndexOffset={zIndexOffset}
           icon={icon}>
           <Popup>
             <span>{event.name}</span>
