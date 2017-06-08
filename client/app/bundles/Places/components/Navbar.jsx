@@ -119,10 +119,6 @@ export default class NavBar extends React.Component {
   updateTime = () => {
     const hour = this.state.hourOfDay
     let time = this.state.timeOfDay === "AM" ? hour : hour + 12
-    if (hour === "now") {
-      time = new Date().getHours()
-      this.dayChange("now")
-    }
     if (hour === "") { time = "" }
     this.props.onTimeChange(time)
   }
@@ -135,13 +131,11 @@ export default class NavBar extends React.Component {
     this.setState({hourOfDay: hour, timeOfDay: amPm, dayOfWeek: day},
        this.updateTime, this.props.onDayChange(day) )
   }
+
   // change this to be less ugly...
   hourChange = (hour) => {
     let amPm = this.state.timeOfDay
-    if (hour === "now") {
-      hour = new Date.getHours()
-      amPm = hour < 13 ? "AM" : "PM"
-    }
+    // time defaults to "AM" on initial hour selection
     if (amPm === "") { amPm = "AM" }
     if (hour === "") { amPm = "" }
     this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
@@ -154,15 +148,8 @@ export default class NavBar extends React.Component {
   }
 
   dayChange = (val) => {
-    if (val === "now") {
-      let indice = new Date().getDay()
-      val = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][indice-1]
-      this.setState({dayOfWeek: val})
-      this.props.onDayChange(val)
-    } else {
-      this.setState({dayOfWeek: val})
-      this.props.onDayChange(val)
-    }
+    this.setState({dayOfWeek: val})
+    this.props.onDayChange(val)
   }
 
   timeMenu = () => {
@@ -193,7 +180,7 @@ export default class NavBar extends React.Component {
             </ButtonGroup>
           </DropdownButton>
           <Button
-            disabled={ parseInt(this.state.hourOfDay) ? false : true }
+            disabled={ this.state.hourOfDay ? false : true }
             id="amPm-toggle"
             onClick={() => this.amPmChange("AM")}>
             {this.state.timeOfDay === "PM" ? "PM" : "AM"}
