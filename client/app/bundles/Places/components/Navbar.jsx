@@ -229,7 +229,7 @@ export default class NavBar extends React.Component {
               <Button onClick={() => this.handleViewChange("event")}>
                 Events</Button>
             </div>
-            <Button id="reset-button" onClick={() => this.props.resetFilters() }>Reset</Button>
+            <Button id="reset-button" onClick={() => this.resetFilters() }>Reset</Button>
           </Navbar.Form>
         </Navbar.Collapse>
       </Navbar>
