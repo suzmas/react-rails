@@ -95,12 +95,19 @@ export default class NavBar extends React.Component {
     )
   }
 
-  timeOptions = ([1,2,3,4,5,6,7,8,9,10,11,12])
-                .map(i => { return (
-                  <Button key={i}
-                      onClick={() => this.hourChange(i)}>
-                      {i}
-                  </Button>)})
+  timeOptions = () => {
+    let timeButtons = ([1,2,3,4,5,6,7,8,9,10,11,12])
+                  .map(i => { return (
+                    <Button key={i}
+                        onClick={() => this.hourChange(i)}>
+                        {i}
+                    </Button>)})
+    let groups = []
+    for (let i=0; i<4; i++) {
+      groups.push(<ButtonGroup className="hour-group" key={i} justified> { timeButtons.splice(0,3) } </ButtonGroup>)
+    }
+    return groups
+  }
 
   dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((item, i) => {
     return (  <Button key={item}
@@ -164,17 +171,13 @@ export default class NavBar extends React.Component {
             Now
           </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
-            <ButtonGroup vertical>
+            <ButtonGroup>
             {this.dayOptions}
             </ButtonGroup>
           </DropdownButton>
           <DropdownButton title="At:" key="hour-input" id="hour-input">
-            <ButtonGroup vertical>
-            <Button key={"any"}
-              onClick={() => this.hourChange("")}>
-              Any
-            </Button>
-            {this.timeOptions}
+            <ButtonGroup>
+            { this.timeOptions() }
             </ButtonGroup>
           </DropdownButton>
           <Button
