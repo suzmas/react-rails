@@ -240,7 +240,7 @@ export default class View extends React.Component {
     this.setState({
       activeDay: "",
       activeHour: "",
-      allEvents: "",
+      // allEvents: "",
       changed: false,
       hasDrink: false,
       hasFood: false,
