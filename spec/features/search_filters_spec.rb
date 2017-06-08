@@ -32,4 +32,6 @@ RSpec.feature "SearchFilters", type: :feature, js: true do
     end
   end
 
+  
+
 end

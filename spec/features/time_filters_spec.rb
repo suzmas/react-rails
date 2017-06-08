@@ -56,7 +56,7 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
       When "I select a day of the week from the dropdown" do
         click_button "time-dropdown"
         click_button "day-input"
-        click_button "M"
+        click_button "Monday"
       end
       Then "I should see the Places that have Events during this day" do
         expect(page).to have_selector(".panel", count: 2)

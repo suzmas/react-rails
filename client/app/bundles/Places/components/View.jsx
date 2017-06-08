@@ -29,16 +29,12 @@ export default class View extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+    if (this.props.view !== nextProps.view) {
       this.setState({changed: true, page: 0, selectedPanel: null}, this.handleData)
     }
   }
 
   componentWillMount() {
-    this.handleData()
-  }
-
-  componentDidMount() {
     this.handleData()
   }
 
@@ -230,26 +226,25 @@ export default class View extends React.Component {
     }
   }
 
-  // clearFilters = () => {
-  //   console.log("clearing")
-  //   document.getElementById("keyword-input").value = ""
-  //   document.getElementById("search-bar").value = ""
-  //   this.setState({
-  //     activeDay: "",
-  //     activeHour: "",
-  //     allEvents: "",
-  //     changed: false,
-  //     hasDrink: false,
-  //     hasFood: false,
-  //     length: 0,
-  //     locationData: "",
-  //     next: false,
-  //     page: 0,
-  //     prev: false,
-  //     selectedPanel: "",
-  //     text: ""
-  //   }, this.handleData)
-  // }
+  clearFilters = () => {
+    document.getElementById("keyword-input").value = ""
+    document.getElementById("search-bar").value = ""
+    this.setState({
+      activeDay: "",
+      activeHour: "",
+      // allEvents: "",
+      changed: false,
+      hasDrink: false,
+      hasFood: false,
+      length: 0,
+      locationData: "",
+      next: false,
+      page: 0,
+      prev: false,
+      selectedPanel: "",
+      text: ""
+    }, this.handleData)
+  }
 
   render() {
     const panel = this.props.view == "place" ?
