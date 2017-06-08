@@ -49,6 +49,8 @@ foreman start -f Procfile.dev
       end_time (time)
       has_drink (bool)
       has_food (bool)
+      lat (float)
+      lng (float)
       menu (json)
       name (str)
       place_id (int)
