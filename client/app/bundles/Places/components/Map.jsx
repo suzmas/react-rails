@@ -39,6 +39,27 @@ export default class PlaceMap extends React.Component {
     return list
   }
 
+  placeEventMarker = () => {
+    let places = this.props.allEvents
+
+    if (places.length < 1) return
+
+    let list = places.map(event => {
+      const position = [event.lat, event.lng]
+
+      return (
+        <Marker key={event.id}
+          position={position}>
+          <Popup>
+            <span>{event.name}</span>
+          </Popup>
+        </Marker>
+      )
+    })
+
+    return list
+  }
+
   getCoords = () => {
     let places = this.props.data
     const bounds = latLngBounds()
@@ -58,14 +79,33 @@ export default class PlaceMap extends React.Component {
     return bounds
   }
 
+  getEventCoords = () => {
+    let places = this.props.allEvents
+    const bounds = latLngBounds()
+
+    if (places.length > 0) {
+      places.map(event => { return [event.lat, event.lng] }).map(data => { bounds.extend(data) })
+    } else {
+      bounds.extend([[32.7057, -117.1611], [32.7557, -117.1611]])
+    }
+
+    if (places.length === 1) {
+      bounds._northEast.lat += .001
+    }
+
+    return bounds
+  }
+
   render() {
     const bounds = this.getCoords()
+    // const bounds = this.getEventCoords()
     return (
       <Map bounds={bounds}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
         {this.placeMarker()}
+        {this.placeEventMarker()}
       </Map>
     )
   }
