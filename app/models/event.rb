@@ -10,8 +10,8 @@ class Event < ApplicationRecord
 
     def add_lat_lng
       place = Place.find(self.place_id)
-      self.lat = place.latitude
-      self.lng = place.longitude
+      self.latitude = place.latitude
+      self.longitude = place.longitude
       self.save
     end
 end
