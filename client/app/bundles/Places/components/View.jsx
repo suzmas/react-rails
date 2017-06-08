@@ -283,7 +283,8 @@ export default class View extends React.Component {
             <PlaceMap
               data={this.state.data}
               selected={this.state.selectedPanel}
-              allEvents={this.state.allEvents}/>
+              allEvents={this.state.allEvents}
+              view={this.props.view}/>
           </Col>
         </Row>
         </Grid>

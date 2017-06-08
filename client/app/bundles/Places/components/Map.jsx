@@ -41,15 +41,18 @@ export default class PlaceMap extends React.Component {
 
   placeEventMarker = () => {
     let places = this.props.allEvents
+    let iconUrl = "assets/inactive.png"
 
     if (places.length < 1) return
 
     let list = places.map(event => {
       const position = [event.lat, event.lng]
+      const icon = L.icon({iconUrl: iconUrl, iconSize: 35})
 
       return (
         <Marker key={event.id}
-          position={position}>
+          position={position}
+          icon={icon}>
           <Popup>
             <span>{event.name}</span>
           </Popup>
@@ -97,15 +100,14 @@ export default class PlaceMap extends React.Component {
   }
 
   render() {
-    const bounds = this.getCoords()
-    // const bounds = this.getEventCoords()
+    const bounds = (this.props.view === "place") ? this.getCoords() : this.getEventCoords()
+    const marker = (this.props.view === "place") ? this.placeMarker() : this.placeEventMarker()
     return (
       <Map bounds={bounds}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
-        {this.placeMarker()}
-        {this.placeEventMarker()}
+          {marker}
       </Map>
     )
   }
