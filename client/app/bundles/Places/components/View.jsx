@@ -40,15 +40,15 @@ export default class View extends React.Component {
 
   handleSearchChange = (text) => {
     text = text.toLowerCase().trim()
-    this.setState({ text: text }, this.handleData)
+    this.setState({page: 0, text: text}, this.handleData)
   }
 
   handleBool = (obj) => {
-    this.setState({ hasFood: obj.hasFood, hasDrink: obj.hasDrink }, this.handleData)
+    this.setState({page: 0, hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
   }
 
   handleLocation = (loc) => {
-    this.setState({ locationData: loc.loc }, this.handleData)
+    this.setState({page: 0, locationData: loc.loc}, this.handleData)
   }
 
   handleSelectedPanel = (id) => {
@@ -56,11 +56,11 @@ export default class View extends React.Component {
   }
 
   handleTimeChange = (time) => {
-    this.setState({activeHour: time}, this.handleData)
+    this.setState({page: 0, activeHour: time}, this.handleData)
   }
 
   handleDayChange = (day) => {
-    this.setState({activeDay: day}, this.handleData)
+    this.setState({page: 0, activeDay: day}, this.handleData)
   }
 
   handleViewChange = (view) => {
