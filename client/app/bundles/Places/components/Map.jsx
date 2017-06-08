@@ -84,5 +84,10 @@ PlaceMap.propTypes = {
   selected: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
-  ])
+  ]),
+  view: PropTypes.string,
+  allEvents: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ]),
 }
