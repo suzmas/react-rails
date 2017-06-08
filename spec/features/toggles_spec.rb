@@ -21,6 +21,7 @@ RSpec.feature "Toggles", type: :feature, js: true do
         expect(page).to have_selector(".panel", count: 2)
       end
       And "I cannot click 'Next' again" do
+        click_button "Next"
         expect(page).to have_button("Next", disabled: true)
       end
     end
