@@ -166,7 +166,7 @@ export default class NavBar extends React.Component {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Button key={"now"}
-            onClick={() => this.setTimeNow() }>
+            onClick={() => this.setTimeNow()}>
             Now
           </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
@@ -229,7 +229,7 @@ export default class NavBar extends React.Component {
               <Button onClick={() => this.handleViewChange("event")}>
                 Events</Button>
             </div>
-            <Button><a href="#">Clear</a></Button>
+            <Button id="reset-button" onClick={() => this.props.resetFilters() }>Reset</Button>
           </Navbar.Form>
         </Navbar.Collapse>
       </Navbar>
