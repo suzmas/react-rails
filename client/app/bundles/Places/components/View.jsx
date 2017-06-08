@@ -247,11 +247,11 @@ export default class View extends React.Component {
   }
 
   render() {
-    let panel = this.props.view == "place" ?
-      panel = <PlacePanel
+    const panel = this.props.view == "place" ?
+      <PlacePanel
         data={this.state.data}
         onSelectChange={this.handleSelectedPanel} />
-    : panel = <EventPanel
+    : <EventPanel
         data={this.state.data}
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
@@ -275,8 +275,11 @@ export default class View extends React.Component {
             <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
           </Col>
           <Col sm={12} md={6}>
-            <PlaceMap data={this.state.data}
-              selected={this.state.selectedPanel}/>
+            <PlaceMap
+              data={this.state.data}
+              selected={this.state.selectedPanel}
+              allEvents={this.state.allEvents}
+              view={this.props.view}/>
           </Col>
         </Row>
         </Grid>
