@@ -109,10 +109,10 @@ export default class NavBar extends React.Component {
     return groups
   }
 
-  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((item, i) => {
-    return (  <Button key={item}
-                onClick={() => this.dayChange(item)}>
-                { [3,5,6].includes(i) ? item.slice(0,2) : item[0] }
+  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((day) => {
+    return (  <Button key={day}
+                onClick={() => this.dayChange(day)}>
+                { day }
               </Button>)})
 
   updateTime = () => {
@@ -171,8 +171,8 @@ export default class NavBar extends React.Component {
             Now
           </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
-            <ButtonGroup>
-            {this.dayOptions}
+            <ButtonGroup vertical block>
+            { this.dayOptions }
             </ButtonGroup>
           </DropdownButton>
           <DropdownButton title="At:" key="hour-input" id="hour-input">
