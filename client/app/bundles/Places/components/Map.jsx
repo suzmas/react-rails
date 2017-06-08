@@ -50,7 +50,7 @@ export default class PlaceMap extends React.Component {
       if (this.props.selected === event.id) {
         zIndexOffset = 1000; iconUrl = "assets/active.png"
       }
-      const position = [event.lat, event.lng]
+      const position = [event.latitude, event.longitude]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 35})
 
       return (
@@ -92,7 +92,7 @@ export default class PlaceMap extends React.Component {
     const bounds = latLngBounds()
 
     if (places.length > 0) {
-      places.map(event => { return [event.lat, event.lng] }).map(data => { bounds.extend(data) })
+      places.map(event => { return [event.latitude, event.longitude] }).map(data => { bounds.extend(data) })
     } else {
       bounds.extend([[32.7057, -117.1611], [32.7557, -117.1611]])
     }
