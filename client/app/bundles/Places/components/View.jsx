@@ -39,7 +39,7 @@ export default class View extends React.Component {
   }
 
   componentDidMount() {
-    this.handleData()
+    // this.handleData()
   }
 
   handleSearchChange = (text) => {
@@ -147,6 +147,9 @@ export default class View extends React.Component {
   handleData = () => {
     let places = this.state.locationData || JSON.parse(this.props.all)
 
+    console.log("location data = " + (this.state.locationData).length)
+    console.log("all props = " + (this.props.all).length)
+
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
       this.setState({changed: false})
@@ -230,26 +233,26 @@ export default class View extends React.Component {
     }
   }
 
-  // clearFilters = () => {
-  //   console.log("clearing")
-  //   document.getElementById("keyword-input").value = ""
-  //   document.getElementById("search-bar").value = ""
-  //   this.setState({
-  //     activeDay: "",
-  //     activeHour: "",
-  //     allEvents: "",
-  //     changed: false,
-  //     hasDrink: false,
-  //     hasFood: false,
-  //     length: 0,
-  //     locationData: "",
-  //     next: false,
-  //     page: 0,
-  //     prev: false,
-  //     selectedPanel: "",
-  //     text: ""
-  //   }, this.handleData)
-  // }
+  clearFilters = () => {
+    console.log("clearing")
+    document.getElementById("keyword-input").value = ""
+    document.getElementById("search-bar").value = ""
+    this.setState({
+      activeDay: "",
+      activeHour: "",
+      allEvents: "",
+      changed: false,
+      hasDrink: false,
+      hasFood: false,
+      length: 0,
+      locationData: "",
+      next: false,
+      page: 0,
+      prev: false,
+      selectedPanel: "",
+      text: ""
+    }, this.handleData)
+  }
 
   render() {
     let panel = this.props.view == "place" ?
