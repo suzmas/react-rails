@@ -30,14 +30,12 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
-      console.log("The view thinks its props have changed.")
       this.setState({changed: true, page: 0, selectedPanel: null}, this.handleData)
     }
   }
 
   componentWillMount() {
     this.handleData()
-    console.log("component will mount fooooo")
   }
 
   handleSearchChange = (text) => {
@@ -145,9 +143,6 @@ export default class View extends React.Component {
   handleData = () => {
     let places = this.state.locationData || JSON.parse(this.props.all)
 
-    console.log("location data = " + (this.state.locationData).length)
-    console.log("new places = " + places.length)
-
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
       this.setState({changed: false})
@@ -160,7 +155,6 @@ export default class View extends React.Component {
         allEvents.push(event)
       })
     })
-    console.log("new events = " + allEvents.length)
 
     let tmp = {data: places, allEvents: allEvents}
 
@@ -202,7 +196,6 @@ export default class View extends React.Component {
         }
         tmp.allEvents = tmp.allEvents.slice(start, end)
         this.setState({data: tmp.data, allEvents: tmp.allEvents}, this.setButtons)
-        console.log("Events after pagination = " + this.state.allEvents.length)
         return
       })
     }
@@ -234,7 +227,6 @@ export default class View extends React.Component {
   }
 
   clearFilters = () => {
-    console.log("clearing")
     document.getElementById("keyword-input").value = ""
     document.getElementById("search-bar").value = ""
     this.setState({

@@ -4,12 +4,6 @@ import {Panel, Accordion} from "react-bootstrap"
 
 export default class EventPanel extends React.Component {
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      console.log(this.props)
-    }
-  }
-
   dateToTime(dateString) {
     let a = null
     let amPm = "AM"
@@ -46,7 +40,6 @@ export default class EventPanel extends React.Component {
   }
 
   eventList = () => {
-    console.log("INside of event list" + this.props.allEvents)
     let list = this.props.allEvents.map(event => {
       return this.eventPanel(event)
     })
