@@ -4,6 +4,12 @@ import {Panel, Accordion} from "react-bootstrap"
 
 export default class EventPanel extends React.Component {
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      console.log(this.props)
+    }
+  }
+
   dateToTime(dateString) {
     let a = null
     let amPm = "AM"
