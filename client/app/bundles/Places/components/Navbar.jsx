@@ -85,7 +85,7 @@ export default class NavBar extends React.Component {
     return (
       <FormGroup className="filter-group">
         <InputGroup>
-          <FormControl id="search-bar" type="text" placeholder="Enter Location" onKeyUp={this.handleEnter}/>
+          <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter}/>
           <InputGroup.Button>
             <Button onClick={this.handleUserPosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
           </InputGroup.Button>
@@ -96,12 +96,12 @@ export default class NavBar extends React.Component {
   }
 
   timeOptions = () => {
-    let timeButtons = ([1,2,3,4,5,6,7,8,9,10,11,12])
-                  .map(i => { return (
-                    <Button key={i}
-                        onClick={() => this.hourChange(i)}>
-                        {i}
-                    </Button>)})
+    let timeButtons =
+      ([1,2,3,4,5,6,7,8,9,10,11,12]).map(i => {
+        return (<Button key={i}
+                  onClick={() => this.hourChange(i)}>
+                    {i}
+                </Button>)})
     let groups = []
     for (let i=0; i<4; i++) {
       groups.push(<ButtonGroup className="hour-group" key={i} justified> { timeButtons.splice(0,3) } </ButtonGroup>)
@@ -109,11 +109,12 @@ export default class NavBar extends React.Component {
     return groups
   }
 
-  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday", "Saturday", "Sunday"]).map((day) => {
-    return (  <Button key={day}
+  dayOptions = (["Monday", "Tuesday", "Wednesday","Thursday","Friday",
+    "Saturday", "Sunday"]).map((day) => {
+      return ( <Button key={day}
                 onClick={() => this.dayChange(day)}>
                 { day }
-              </Button>)})
+               </Button>)} )
 
   updateTime = () => {
     const hour = this.state.hourOfDay
@@ -126,12 +127,23 @@ export default class NavBar extends React.Component {
     this.props.onTimeChange(time)
   }
 
+  setTimeNow = () => {
+    const now = new Date
+    const hour = now.getHours() < 13 ? now.getHours() : now.getHours() - 12
+    const amPm = now.getHours() < 13 ? "AM" : "PM"
+    const day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][ now.getDay() ]
+    this.setState({hourOfDay: hour, timeOfDay: amPm, dayOfWeek: day},
+       this.updateTime, this.props.onDayChange(day) )
+  }
   // change this to be less ugly...
   hourChange = (hour) => {
     let amPm = this.state.timeOfDay
+    if (hour === "now") {
+      hour = new Date.getHours()
+      amPm = hour < 13 ? "AM" : "PM"
+    }
     if (amPm === "") { amPm = "AM" }
     if (hour === "") { amPm = "" }
-    if (hour === "now") { amPm = "" }
     this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
   }
 
@@ -145,7 +157,7 @@ export default class NavBar extends React.Component {
     if (val === "now") {
       let indice = new Date().getDay()
       val = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][indice-1]
-      this.setState({dayOfWeek: ""})
+      this.setState({dayOfWeek: val})
       this.props.onDayChange(val)
     } else {
       this.setState({dayOfWeek: val})
@@ -167,7 +179,7 @@ export default class NavBar extends React.Component {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Button key={"now"}
-            onClick={() => this.hourChange("now")}>
+            onClick={() => this.setTimeNow() }>
             Now
           </Button>
           <DropdownButton title="On:" key="day-input" id="day-input">
