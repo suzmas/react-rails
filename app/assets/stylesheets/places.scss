@@ -28,6 +28,10 @@ $inactive-color: #ddd;
   }
 }
 
+.event-string {
+  display: inline-block;
+}
+
 .filter-group {
   display: inline-block;
   padding: 0 10px 0 10px;
@@ -57,4 +61,14 @@ $inactive-color: #ddd;
 
 .panel-group {
   margin-top: 55px;
+}
+
+.place-neighborhood, .place-title, {
+  display: inline-block;
+}
+
+.place-neighborhood {
+  color: #858177;
+  font-style: italic;
+  margin: 10px;
 }

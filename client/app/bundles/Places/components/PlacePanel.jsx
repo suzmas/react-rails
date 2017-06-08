@@ -11,32 +11,36 @@ export default class PlacePanel extends React.Component {
   formatTime(hour) {
     let amPm = hour < 13 ? "AM" : "PM"
     if (hour > 12) hour = hour - 12
-    return `${hour}:00 ${amPm}`
+    return `${hour} ${amPm}`
   }
 
   eventString = (events) => {
-    let stringArray = events.map(event => {
+    let stringArray = events.map((event, i) => {
       const start_time = this.formatTime(event.start_time)
-      const end_time = this.formatTime(event.end_time)
-
+      let end_time = this.formatTime(event.end_time) + ","
+      if (i === events.length-1) { end_time = end_time.replace(",","") }
       return (
-        `${event.dow}: ${start_time} - ${end_time}`
+        <p key={event.id} className="event-string">
+          <b>{event.dow}</b> : {start_time} - {end_time}&nbsp;
+        </p>
       )
     })
 
-    return stringArray.join(", ")
+    return stringArray
   }
 
   placePanel = (place, events) => {
     const header = (
       <div>
         <h4 className="place-title">{place.name}</h4>
+        <p className="place-neighborhood">{place.neighborhood}</p>
         <p className="place-address">{place.address1}</p>
       </div>)
     return (
       <Panel key={place.id}
              header={header}
              eventKey={place.id}>
+        <p>{place.address1}</p>
         {this.eventString(events)}
       </Panel>
     )}
