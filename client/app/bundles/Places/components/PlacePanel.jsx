@@ -30,6 +30,7 @@ export default class PlacePanel extends React.Component {
   }
 
   placePanel = (place, events) => {
+    place.address1 = place.address1.replace(", USA", "")
     const header = (
       <div>
         <h4 className="place-title">{place.name}</h4>
@@ -40,7 +41,6 @@ export default class PlacePanel extends React.Component {
       <Panel key={place.id}
              header={header}
              eventKey={place.id}>
-        <p>{place.address1}</p>
         {this.eventString(events)}
       </Panel>
     )}
