@@ -97,15 +97,22 @@ export default class View extends React.Component {
   }
 
   handleSelectedPanel = (id) => {
-    (!this.state.toggle.isToggled) ?
+    if (id !== this.state.toggle.selectedPanel) {
       this.setState({toggle: {
         isToggled: true,
         selectedPanel: id
-      }}) :
-      this.setState({toggle: {
-        isToggled: false,
-        selectedPanel: null
       }})
+    } else {
+      (!this.state.toggle.isToggled) ?
+        this.setState({toggle: {
+          isToggled: true,
+          selectedPanel: id
+        }}) :
+        this.setState({toggle: {
+          isToggled: false,
+          selectedPanel: null
+        }})
+    }
   }
 
   handleTimeChange = (time) => {
