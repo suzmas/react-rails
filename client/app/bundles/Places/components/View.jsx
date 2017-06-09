@@ -18,6 +18,8 @@ export default class View extends React.Component {
       data: "",
       hasDrink: false,
       hasFood: false,
+      hiddenList: false,
+      hiddenMap: true,
       length: 0,
       locationData: "",
       next: false,
@@ -25,7 +27,10 @@ export default class View extends React.Component {
       prev: false,
       selectedPanel: "",
       text: "",
+      width: '0',
     }
+
+    this.updateWindow = this.updateWindow.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +41,24 @@ export default class View extends React.Component {
 
   componentWillMount() {
     this.handleData()
+  }
+
+  componentDidMount() {
+    this.updateWindow()
+    window.addEventListener('resize', this.updateWindow)
+    console.log("run", this.state.width)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindow)
+    console.log("runs", this.state.width)
+  }
+
+  updateWindow() {
+    this.setState({width: window.innerWidth}, function() {
+      console.log("HEllo", this.state.width, window.innerWidth)
+    })
+
   }
 
   handleSearchChange = (text) => {
@@ -246,6 +269,23 @@ export default class View extends React.Component {
     }, this.handleData)
   }
 
+  addStuff() {
+    return (
+      <div className="some-btm">
+        <Button id="map" onClick={() => this.setView("map")}>Map</Button>
+        <Button id="list" onClick={() => this.setView("list")}>List</Button>
+      </div>
+    )
+  }
+
+  setView(view) {
+    if (view === "map") {
+      this.setState({hiddenMap: false, hiddenList: true})
+    } else {
+      this.setState({hiddenMap: true, hiddenList: false})
+    }
+  }
+
   render() {
     const panel = this.props.view == "place" ?
       <PlacePanel
@@ -255,6 +295,8 @@ export default class View extends React.Component {
         data={this.state.data}
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
+
+    const changeLook = (this.state.width) ? this.addStuff() : null
     return (
       <div>
         <NavBar
@@ -269,17 +311,19 @@ export default class View extends React.Component {
 
         <Grid>
         <Row>
-          <Col sm={12} md={6}>
+          <Col id="list-view" sm={12} md={6} hidden={this.state.hiddenList}>
             {panel}
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
             <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
+            {changeLook}
           </Col>
-          <Col sm={12} md={6}>
+          <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
             <PlaceMap
               data={this.state.data}
               selected={this.state.selectedPanel}
               allEvents={this.state.allEvents}
               view={this.props.view}/>
+              {changeLook}
           </Col>
         </Row>
         </Grid>

@@ -7,6 +7,10 @@ $secondary-color: #FFF;
 $active-color: #348a82;
 $inactive-color: #ddd;
 
+$break-xs: 575px;
+$break-sm: 767px;
+$break-md: 991px;
+
 .btn-active {
   color: $active-color;
   &:hover, &:active, &:focus, &:active:hover, &:active:focus {
@@ -28,6 +32,12 @@ $inactive-color: #ddd;
   }
 }
 
+.col-sm-12 {
+  @media screen and (min-width: $break-sm) {
+
+  }
+}
+
 .event-string {
   display: inline-block;
 }
@@ -43,6 +53,13 @@ $inactive-color: #ddd;
   max-width: 40vw;
   position: fixed;
   margin-top: 55px;
+
+  @media screen and (max-width: $break-md) {
+    max-width: 74vw;
+    max-height: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .navbar-icon-label {
@@ -76,4 +93,9 @@ $inactive-color: #ddd;
 
 .place-address {
   font-size: 14px;
+}
+
+.some-btm {
+  position: fixed;
+  bottom: 0;
 }
