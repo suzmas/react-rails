@@ -25,8 +25,11 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      selectedPanel: "",
       text: "",
+      toggle: {
+        isToggled: false,
+        selectedPanel: ""
+      },
       width: '0',
     }
 
@@ -35,7 +38,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
-      this.setState({changed: true, page: 0, selectedPanel: null}, this.handleData)
+      this.setState({changed: true, page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
     }
   }
 
@@ -60,27 +63,71 @@ export default class View extends React.Component {
 
   handleSearchChange = (text) => {
     text = text.toLowerCase().trim()
-    this.setState({page: 0, text: text}, this.handleData)
+    this.setState({
+      page: 0,
+      text: text,
+      toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }
+    }, this.handleData)
   }
 
   handleBool = (obj) => {
-    this.setState({page: 0, hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
+    this.setState({
+      page: 0,
+      hasFood: obj.hasFood,
+      hasDrink: obj.hasDrink,
+      toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }
+    }, this.handleData)
   }
 
   handleLocation = (loc) => {
-    this.setState({page: 0, locationData: loc.loc}, this.handleData)
+    this.setState({
+      page: 0,
+      locationData: loc.loc,
+      toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }
+    }, this.handleData)
   }
 
   handleSelectedPanel = (id) => {
-    this.setState({selectedPanel: id})
+    (!this.state.toggle.isToggled) ?
+      this.setState({toggle: {
+        isToggled: true,
+        selectedPanel: id
+      }}) :
+      this.setState({toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }})
   }
 
   handleTimeChange = (time) => {
-    this.setState({page: 0, activeHour: time}, this.handleData)
+    this.setState({
+      page: 0,
+      activeHour: time,
+      toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }
+    }, this.handleData)
   }
 
   handleDayChange = (day) => {
-    this.setState({page: 0, activeDay: day}, this.handleData)
+    this.setState({
+      page: 0,
+      activeDay: day,
+      toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }
+    }, this.handleData)
   }
 
   handleViewChange = (view) => {
@@ -226,9 +273,17 @@ export default class View extends React.Component {
 
   setPage = (str) => {
     if (str === "prev") {
-      this.setState({page: this.state.page - 1, changed: true}, this.handleData)
+      this.setState({
+        page: this.state.page - 1,
+        changed: true,
+        toggle: {isToggled: false, selectedPanel: null}
+      }, this.handleData)
     } else {
-      this.setState({page: this.state.page + 1, changed: true}, this.handleData)
+      this.setState({
+        page: this.state.page + 1,
+        changed: true,
+        toggle: {isToggled: false, selectedPanel: null}
+      }, this.handleData)
     }
   }
 
@@ -261,8 +316,11 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      selectedPanel: "",
-      text: ""
+      text: "",
+      toggle: {
+        isToggled: false,
+        selectedPanel: null
+      }
     }, this.handleData)
   }
 
@@ -319,7 +377,7 @@ export default class View extends React.Component {
           <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
               <PlaceMap
                 data={this.state.data}
-                selected={this.state.selectedPanel}
+                selected={this.state.toggle.selectedPanel}
                 allEvents={this.state.allEvents}
                 view={this.props.view}/>
             {toggleList}

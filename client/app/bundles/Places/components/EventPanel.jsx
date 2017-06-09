@@ -4,10 +4,6 @@ import {Panel, Accordion} from "react-bootstrap"
 
 export default class EventPanel extends React.Component {
 
-  state = {
-    active: false
-  }
-
   dateToTime(dateString) {
     let a = null
     let amPm = "AM"
@@ -51,9 +47,7 @@ export default class EventPanel extends React.Component {
   }
 
   handleSelect = (e) => {
-    (!this.state.active) ?
-      this.setState({active: true}, this.props.onSelectChange(e)) :
-      this.setState({active: false}, this.props.onSelectChange(null))
+      this.props.onSelectChange(e)
   }
 
   render() {
