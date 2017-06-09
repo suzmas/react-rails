@@ -18,8 +18,8 @@ export default class View extends React.Component {
       data: "",
       hasDrink: false,
       hasFood: false,
-      hiddenList: false,
-      hiddenMap: true,
+      hiddenList: true,
+      hiddenMap: false,
       length: 0,
       locationData: "",
       next: false,
@@ -56,9 +56,12 @@ export default class View extends React.Component {
 
   updateWindow() {
     this.setState({width: window.innerWidth}, function() {
-      console.log("HEllo", this.state.width, window.innerWidth)
+      if (this.state.width <= 991) {
+        this.setState({hiddenMap: false, hiddenList: true})
+      } else {
+        this.setState({hiddenMap: false, hiddenList: false})
+      }
     })
-
   }
 
   handleSearchChange = (text) => {
@@ -278,6 +281,10 @@ export default class View extends React.Component {
     )
   }
 
+  changeStuff() {
+    this.setState({hiddenMap: false, hiddenList: false})
+  }
+
   setView(view) {
     if (view === "map") {
       this.setState({hiddenMap: false, hiddenList: true})
@@ -296,7 +303,7 @@ export default class View extends React.Component {
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
 
-    const changeLook = (this.state.width) ? this.addStuff() : null
+    const changeLook = (this.state.width <= 991) ? this.addStuff() : null
     return (
       <div>
         <NavBar
