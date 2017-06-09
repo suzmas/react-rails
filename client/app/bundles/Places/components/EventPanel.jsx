@@ -74,5 +74,6 @@ EventPanel.propTypes = {
   allEvents: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string
-  ])
+  ]),
+  onSelectChange: PropTypes.func
 }

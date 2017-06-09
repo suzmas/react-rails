@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Grid, Row, Col, Clearfix, Button} from "react-bootstrap"
+import {Grid, Row, Col, Clearfix, Button, ButtonGroup} from "react-bootstrap"
 import NavBar from "./Navbar"
 import PlaceMap from "./Map"
 import PlacePanel from "./PlacePanel"
@@ -18,6 +18,8 @@ export default class View extends React.Component {
       data: "",
       hasDrink: false,
       hasFood: false,
+      hiddenList: true,
+      hiddenMap: false,
       length: 0,
       locationData: "",
       next: false,
@@ -25,7 +27,10 @@ export default class View extends React.Component {
       prev: false,
       selectedPanel: "",
       text: "",
+      width: '0',
     }
+
+    this.updateWindow = this.updateWindow.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +41,21 @@ export default class View extends React.Component {
 
   componentWillMount() {
     this.handleData()
+  }
+
+  componentDidMount() {
+    this.updateWindow()
+    window.addEventListener('resize', this.updateWindow)
+  }
+
+  updateWindow() {
+    this.setState({width: window.innerWidth}, function() {
+      if (this.state.width <= 991) {
+        this.setState({hiddenMap: false, hiddenList: true})
+      } else {
+        this.setState({hiddenMap: false, hiddenList: false})
+      }
+    })
   }
 
   handleSearchChange = (text) => {
@@ -246,6 +266,25 @@ export default class View extends React.Component {
     }, this.handleData)
   }
 
+  addListToggle() {
+    return (
+      <div className="list-btn">
+        <ButtonGroup>
+          <Button id="map" onClick={() => this.setList("map")} >Map</Button>
+          <Button id="list" onClick={() => this.setList("list")}>List</Button>
+        </ButtonGroup>
+      </div>
+    )
+  }
+
+  setList(view) {
+    if (view === "map") {
+      this.setState({hiddenMap: false, hiddenList: true})
+    } else {
+      this.setState({hiddenMap: true, hiddenList: false})
+    }
+  }
+
   render() {
     const panel = this.props.view == "place" ?
       <PlacePanel
@@ -255,6 +294,8 @@ export default class View extends React.Component {
         data={this.state.data}
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
+
+    const toggleList = (this.state.width <= 991) ? this.addListToggle() : null
     return (
       <div>
         <NavBar
@@ -269,17 +310,19 @@ export default class View extends React.Component {
 
         <Grid>
         <Row>
-          <Col sm={12} md={6}>
+          <Col id="list-view" sm={12} md={6} hidden={this.state.hiddenList}>
             {panel}
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
             <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
+            {toggleList}
           </Col>
-          <Col sm={12} md={6}>
-            <PlaceMap
-              data={this.state.data}
-              selected={this.state.selectedPanel}
-              allEvents={this.state.allEvents}
-              view={this.props.view}/>
+          <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
+              <PlaceMap
+                data={this.state.data}
+                selected={this.state.selectedPanel}
+                allEvents={this.state.allEvents}
+                view={this.props.view}/>
+            {toggleList}
           </Col>
         </Row>
         </Grid>
