@@ -32,12 +32,6 @@ $break-md: 991px;
   }
 }
 
-.col-sm-12 {
-  @media screen and (min-width: $break-sm) {
-
-  }
-}
-
 .event-string {
   display: inline-block;
 }
@@ -56,7 +50,6 @@ $break-md: 991px;
 
   @media screen and (max-width: $break-md) {
     max-width: 74vw;
-    max-height: 60vw;
     margin-left: auto;
     margin-right: auto;
   }
@@ -95,7 +88,9 @@ $break-md: 991px;
   font-size: 14px;
 }
 
-.some-btm {
+.list-btn {
   position: fixed;
-  bottom: 0;
+  margin-top: 55px;
+  right: 10px;
+  top: 0;
 }

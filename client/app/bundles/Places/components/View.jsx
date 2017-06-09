@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Grid, Row, Col, Clearfix, Button} from "react-bootstrap"
+import {Grid, Row, Col, Clearfix, Button, ButtonGroup} from "react-bootstrap"
 import NavBar from "./Navbar"
 import PlaceMap from "./Map"
 import PlacePanel from "./PlacePanel"
@@ -46,12 +46,6 @@ export default class View extends React.Component {
   componentDidMount() {
     this.updateWindow()
     window.addEventListener('resize', this.updateWindow)
-    console.log("run", this.state.width)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindow)
-    console.log("runs", this.state.width)
   }
 
   updateWindow() {
@@ -272,20 +266,18 @@ export default class View extends React.Component {
     }, this.handleData)
   }
 
-  addStuff() {
+  addListToggle() {
     return (
-      <div className="some-btm">
-        <Button id="map" onClick={() => this.setView("map")}>Map</Button>
-        <Button id="list" onClick={() => this.setView("list")}>List</Button>
+      <div className="list-btn">
+        <ButtonGroup>
+          <Button id="map" onClick={() => this.setList("map")} >Map</Button>
+          <Button id="list" onClick={() => this.setList("list")}>List</Button>
+        </ButtonGroup>
       </div>
     )
   }
 
-  changeStuff() {
-    this.setState({hiddenMap: false, hiddenList: false})
-  }
-
-  setView(view) {
+  setList(view) {
     if (view === "map") {
       this.setState({hiddenMap: false, hiddenList: true})
     } else {
@@ -303,7 +295,7 @@ export default class View extends React.Component {
         allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel} />
 
-    const changeLook = (this.state.width <= 991) ? this.addStuff() : null
+    const toggleList = (this.state.width <= 991) ? this.addListToggle() : null
     return (
       <div>
         <NavBar
@@ -322,15 +314,15 @@ export default class View extends React.Component {
             {panel}
             <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
             <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
-            {changeLook}
+            {toggleList}
           </Col>
           <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
-            <PlaceMap
-              data={this.state.data}
-              selected={this.state.selectedPanel}
-              allEvents={this.state.allEvents}
-              view={this.props.view}/>
-              {changeLook}
+              <PlaceMap
+                data={this.state.data}
+                selected={this.state.selectedPanel}
+                allEvents={this.state.allEvents}
+                view={this.props.view}/>
+            {toggleList}
           </Col>
         </Row>
         </Grid>
