@@ -30,12 +30,12 @@ export default class PlacePanel extends React.Component {
   }
 
   placePanel = (place, events) => {
-    place.address1 = place.address1.replace(", USA", "")
+    let address = place.address1.replace(", USA", "")
     const header = (
       <div>
         <h4 className="place-title">{place.name}</h4>
         <p className="place-neighborhood">{place.neighborhood}</p>
-        <p className="place-address">{place.address1}</p>
+        <p className="place-address">{address}</p>
       </div>)
     return (
       <Panel key={place.id}
@@ -54,7 +54,7 @@ export default class PlacePanel extends React.Component {
   }
 
   handleSelect = (e) => {
-    (!this.state.active) ?
+    !this.state.active ?
       this.setState({active: true}, this.props.onSelectChange(e)) :
       this.setState({active: false}, this.props.onSelectChange(null))
   }
