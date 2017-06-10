@@ -175,6 +175,21 @@ export default class View extends React.Component {
     return {data: data, allEvents: allEvents}
   }
 
+  filterPagination = (all) => {
+    let data = all.data
+    let allEvents = all.allEvents
+    const length = (this.props.view === "place") ? data.length : allEvents.length
+    const start = this.state.page * 5
+    const end = this.state.page * 5 + 5
+
+    if (this.props.view == "place") {
+      data = data.slice(start, end)
+    }
+    allEvents = allEvents.slice(start, end)
+
+    return {data: data, allEvents: allEvents, length: length}
+  }
+
   handleData = () => {
     let places = this.state.locationData || JSON.parse(this.props.all)
 
@@ -192,31 +207,14 @@ export default class View extends React.Component {
 
     let tmp = {data: places, allEvents: allEvents}
 
-    //Filter by time
     tmp = this.filterTime(tmp)
-
-    //Filter by keyword
     tmp = this.filterKeyword(tmp)
-
-    //Filter by time
     tmp = this.filterTime(tmp)
-
-    //Filter by food
     if (this.state.hasFood) { tmp = this.filterBool(tmp, "food") }
-
-    //Filter by drink
     if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
+    tmp = this.filterPagination(tmp)
 
-    //For pagination
-    const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
-    let start = this.state.page * 5
-    let end = this.state.page * 5 + 5
-    if (this.props.view == "place") {
-      tmp.data = tmp.data.slice(start, end)
-    }
-    tmp.allEvents = tmp.allEvents.slice(start, end)
-
-    this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
+    this.setState({data: tmp.data, allEvents: tmp.allEvents, length: tmp.length}, this.setButtons)
   }
 
   setPage = (str) => {
@@ -256,6 +254,7 @@ export default class View extends React.Component {
     }, this.handleData)
   }
 
+  // Adds buttons for mobile view
   addListToggle = () => {
     return (
       <div className="list-btn">
@@ -267,6 +266,7 @@ export default class View extends React.Component {
     )
   }
 
+  // Changes view for mobile view
   setList = (view) => {
     (view === "map") ?
       this.setState({hiddenMap: false, hiddenList: true}) :
