@@ -17,5 +17,9 @@
     "react-dom": "^15.5.4",
     "react-leaflet": "^1.1.6"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "cacheDirectories": [
+      "node_modules",
+      "client/node_modules"
+    ] 
 }
