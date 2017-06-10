@@ -33,7 +33,7 @@ when "development"
     menu = Hash.new
     (rand(10) + 5).times do |num|
       tmp = rand(20)
-      menu["#{names[rand(names.length)]} #{num}"] = (tmp <= 1) ? nil : tmp
+      menu["#{names[rand(names.length)]}"] = (tmp <= 1) ? nil : tmp
     end
     menu
   end
@@ -68,7 +68,7 @@ when "development"
       end
 
       place.events.create!(
-        name: "#{place_names[rand(place_names.length)]} #{index}",
+        name: "#{place_names[rand(place_names.length)]}",
         dow: value,
         start_time: "#{r1}:00",
         end_time: "#{r2}:00",
