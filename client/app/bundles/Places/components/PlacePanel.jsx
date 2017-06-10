@@ -36,8 +36,7 @@ export default class PlacePanel extends React.Component {
     return (
       <Panel key={place.id}
              header={header}
-             eventKey={place.id}
-             onSelect={this.handleSelect}>
+             eventKey={place.id}>
         {this.eventString(events)}
       </Panel>
     )}
@@ -56,7 +55,7 @@ export default class PlacePanel extends React.Component {
 
   render() {
     return (
-      <Accordion>
+      <Accordion onSelect={this.handleSelect}>
         {this.placeList()}
       </Accordion>
     )
@@ -68,6 +67,5 @@ PlacePanel.propTypes = {
     PropTypes.array.isRequired,
     PropTypes.string.isRequired
   ]),
-  selected: PropTypes.number.isRequired,
   onSelectChange: PropTypes.func
 }
