@@ -25,7 +25,7 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      selectedPanel: "",
+      selectedPanel: 0,
       text: "",
       width: "0",
     }
@@ -35,7 +35,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
-      this.setState({changed: true, page: 0, selectedPanel: null}, this.handleData)
+      this.setState({changed: true, page: 0, selectedPanel: 0}, this.handleData)
     }
   }
 
@@ -72,7 +72,8 @@ export default class View extends React.Component {
   }
 
   handleSelectedPanel = (id) => {
-    this.setState({selectedPanel: id})
+    let panel = this.state.selectedPanel === id ? 0 : id
+    this.setState({selectedPanel: panel})
   }
 
   handleTimeChange = (time) => {
@@ -252,7 +253,6 @@ export default class View extends React.Component {
     this.setState({
       activeDay: "",
       activeHour: "",
-      // allEvents: "",
       changed: false,
       hasDrink: false,
       hasFood: false,
@@ -289,10 +289,12 @@ export default class View extends React.Component {
     const panel = this.props.view == "place" ?
       <PlacePanel
         data={this.state.data}
+        selected={this.state.selectedPanel}
         onSelectChange={this.handleSelectedPanel} />
     : <EventPanel
         data={this.state.data}
         allEvents={this.state.allEvents}
+        selected={this.state.selectedPanel}
         onSelectChange={this.handleSelectedPanel} />
 
     const toggleList = (this.state.width <= 991) ? this.addListToggle() : null

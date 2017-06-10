@@ -5,7 +5,7 @@ import {Panel, Accordion} from "react-bootstrap"
 export default class PlacePanel extends React.Component {
 
   state = {
-    active: false
+    selected: this.props.selected
   }
 
   formatTime(hour) {
@@ -40,7 +40,8 @@ export default class PlacePanel extends React.Component {
     return (
       <Panel key={place.id}
              header={header}
-             eventKey={place.id}>
+             eventKey={place.id}
+             onSelect={this.handleSelect}>
         {this.eventString(events)}
       </Panel>
     )}
@@ -54,14 +55,12 @@ export default class PlacePanel extends React.Component {
   }
 
   handleSelect = (e) => {
-    !this.state.active ?
-      this.setState({active: true}, this.props.onSelectChange(e)) :
-      this.setState({active: false}, this.props.onSelectChange(null))
+    this.props.onSelectChange(e)
   }
 
   render() {
     return (
-      <Accordion onSelect={this.handleSelect}>
+      <Accordion>
         {this.placeList()}
       </Accordion>
     )
@@ -73,5 +72,6 @@ PlacePanel.propTypes = {
     PropTypes.array.isRequired,
     PropTypes.string.isRequired
   ]),
+  selected: PropTypes.number.isRequired,
   onSelectChange: PropTypes.func
 }
