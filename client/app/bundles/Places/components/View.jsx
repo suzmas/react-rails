@@ -27,7 +27,7 @@ export default class View extends React.Component {
       prev: false,
       selectedPanel: "",
       text: "",
-      width: '0',
+      width: "0",
     }
 
     this.updateWindow = this.updateWindow.bind(this)
@@ -45,7 +45,7 @@ export default class View extends React.Component {
 
   componentDidMount() {
     this.updateWindow()
-    window.addEventListener('resize', this.updateWindow)
+    window.addEventListener("resize", this.updateWindow)
   }
 
   updateWindow() {
