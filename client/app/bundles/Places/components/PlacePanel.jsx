@@ -4,10 +4,6 @@ import {Panel, Accordion} from "react-bootstrap"
 
 export default class PlacePanel extends React.Component {
 
-  state = {
-    selected: this.props.selected
-  }
-
   formatTime(hour) {
     let amPm = hour < 13 ? "AM" : "PM"
     if (hour > 12) hour = hour - 12
