@@ -261,7 +261,6 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      selectedPanel: "",
       text: ""
     }, this.handleData)
   }
