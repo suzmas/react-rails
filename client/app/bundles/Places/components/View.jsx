@@ -50,7 +50,7 @@ export default class View extends React.Component {
     window.addEventListener("resize", this.updateWindow)
   }
 
-  updateWindow() {
+  updateWindow = () => {
     this.setState({width: window.innerWidth}, function() {
       if (this.state.width <= 991) {
         this.setState({hiddenMap: false, hiddenList: true})
@@ -202,14 +202,10 @@ export default class View extends React.Component {
     tmp = this.filterTime(tmp)
 
     //Filter by food
-    if (this.state.hasFood) {
-      tmp = this.filterBool(tmp, "food")
-    }
+    if (this.state.hasFood) { tmp = this.filterBool(tmp, "food") }
 
     //Filter by drink
-    if (this.state.hasDrink) {
-      tmp = this.filterBool(tmp, "drink")
-    }
+    if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
 
     //For pagination
     const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
@@ -224,17 +220,9 @@ export default class View extends React.Component {
   }
 
   setPage = (str) => {
-    if (str === "prev") {
-      this.setState({
-        page: this.state.page - 1,
-        toggle: {isToggled: false, selectedPanel: null}
-      }, this.handleData)
-    } else {
-      this.setState({
-        page: this.state.page + 1,
-        toggle: {isToggled: false, selectedPanel: null}
-      }, this.handleData)
-    }
+    (str === "prev") ?
+      this.setState({page: this.state.page - 1}, this.handleData) :
+      this.setState({page: this.state.page + 1}, this.handleData)
   }
 
   setButtons() {
@@ -268,7 +256,7 @@ export default class View extends React.Component {
     }, this.handleData)
   }
 
-  addListToggle() {
+  addListToggle = () => {
     return (
       <div className="list-btn">
         <ButtonGroup>
@@ -279,12 +267,10 @@ export default class View extends React.Component {
     )
   }
 
-  setList(view) {
-    if (view === "map") {
-      this.setState({hiddenMap: false, hiddenList: true})
-    } else {
+  setList = (view) => {
+    (view === "map") ?
+      this.setState({hiddenMap: false, hiddenList: true}) :
       this.setState({hiddenMap: true, hiddenList: false})
-    }
   }
 
   render() {
