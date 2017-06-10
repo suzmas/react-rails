@@ -14,7 +14,6 @@ export default class View extends React.Component {
       activeDay: "",
       activeHour: "",
       allEvents: "",
-      changed: false,
       data: "",
       hasDrink: false,
       hasFood: false,
@@ -38,8 +37,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
-      this.setState({changed: true, page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
-      // this.setState({changed: true, page: 0, selectedPanel: 0}, this.handleData)
+      this.setState({page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
     }
   }
 
@@ -177,14 +175,11 @@ export default class View extends React.Component {
     return {data: data, allEvents: allEvents}
   }
 
-
-
   handleData = () => {
     let places = this.state.locationData || JSON.parse(this.props.all)
 
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
-      this.setState({changed: false})
       return
     }
 
@@ -225,35 +220,18 @@ export default class View extends React.Component {
     }
     tmp.allEvents = tmp.allEvents.slice(start, end)
 
-    //Checks to see if page changed, instead of filters changing
-    if (!this.state.changed) {
-      this.setState({page: 0, prev: true, next: false, length: length}, function() {
-        start = 0
-        end = start + 5
-        if (this.props.view == "place") {
-          tmp.data = tmp.data.slice(start, end)
-        }
-        tmp.allEvents = tmp.allEvents.slice(start, end)
-        this.setState({data: tmp.data, allEvents: tmp.allEvents}, this.setButtons)
-        return
-      })
-    }
-
     this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
-    this.setState({changed: false})
   }
 
   setPage = (str) => {
     if (str === "prev") {
       this.setState({
         page: this.state.page - 1,
-        changed: true,
         toggle: {isToggled: false, selectedPanel: null}
       }, this.handleData)
     } else {
       this.setState({
         page: this.state.page + 1,
-        changed: true,
         toggle: {isToggled: false, selectedPanel: null}
       }, this.handleData)
     }
@@ -279,7 +257,6 @@ export default class View extends React.Component {
     this.setState({
       activeDay: "",
       activeHour: "",
-      changed: false,
       hasDrink: false,
       hasFood: false,
       length: 0,
