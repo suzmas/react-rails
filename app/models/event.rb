@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :place
-  after_create :add_lat_lng
+  after_create :add_lat_lng, :format_header
 
   scope :day, -> (day) { where("LOWER(dow) = ?", day) }
   scope :food, -> (food) { where(has_food: food) }
@@ -12,6 +12,12 @@ class Event < ApplicationRecord
       place = Place.find(self.place_id)
       self.latitude = place.latitude
       self.longitude = place.longitude
+      self.save
+    end
+
+    def format_header
+      place = Place.find(self.place_id)
+      self.name = "#{self.name} - #{place.name}"
       self.save
     end
 end

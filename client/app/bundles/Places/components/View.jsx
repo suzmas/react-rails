@@ -14,7 +14,6 @@ export default class View extends React.Component {
       activeDay: "",
       activeHour: "",
       allEvents: "",
-      changed: false,
       data: "",
       hasDrink: false,
       hasFood: false,
@@ -38,8 +37,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
-      this.setState({changed: true, page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
-      // this.setState({changed: true, page: 0, selectedPanel: 0}, this.handleData)
+      this.setState({page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
     }
   }
 
@@ -52,7 +50,7 @@ export default class View extends React.Component {
     window.addEventListener("resize", this.updateWindow)
   }
 
-  updateWindow() {
+  updateWindow = () => {
     this.setState({width: window.innerWidth}, function() {
       if (this.state.width <= 991) {
         this.setState({hiddenMap: false, hiddenList: true})
@@ -177,14 +175,26 @@ export default class View extends React.Component {
     return {data: data, allEvents: allEvents}
   }
 
+  filterPagination = (all) => {
+    let data = all.data
+    let allEvents = all.allEvents
+    const length = (this.props.view === "place") ? data.length : allEvents.length
+    const start = this.state.page * 5
+    const end = this.state.page * 5 + 5
 
+    if (this.props.view == "place") {
+      data = data.slice(start, end)
+    }
+    allEvents = allEvents.slice(start, end)
+
+    return {data: data, allEvents: allEvents, length: length}
+  }
 
   handleData = () => {
     let places = this.state.locationData || JSON.parse(this.props.all)
 
     if (!places.length) {
       this.setState({data: [], allEvents: [], length: 0}, this.setButtons)
-      this.setState({changed: false})
       return
     }
 
@@ -197,66 +207,20 @@ export default class View extends React.Component {
 
     let tmp = {data: places, allEvents: allEvents}
 
-    //Filter by time
     tmp = this.filterTime(tmp)
-
-    //Filter by keyword
     tmp = this.filterKeyword(tmp)
-
-    //Filter by time
     tmp = this.filterTime(tmp)
+    if (this.state.hasFood) { tmp = this.filterBool(tmp, "food") }
+    if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
+    tmp = this.filterPagination(tmp)
 
-    //Filter by food
-    if (this.state.hasFood) {
-      tmp = this.filterBool(tmp, "food")
-    }
-
-    //Filter by drink
-    if (this.state.hasDrink) {
-      tmp = this.filterBool(tmp, "drink")
-    }
-
-    //For pagination
-    const length = (this.props.view === "place") ? tmp.data.length : tmp.allEvents.length
-    let start = this.state.page * 5
-    let end = this.state.page * 5 + 5
-    if (this.props.view == "place") {
-      tmp.data = tmp.data.slice(start, end)
-    }
-    tmp.allEvents = tmp.allEvents.slice(start, end)
-
-    //Checks to see if page changed, instead of filters changing
-    if (!this.state.changed) {
-      this.setState({page: 0, prev: true, next: false, length: length}, function() {
-        start = 0
-        end = start + 5
-        if (this.props.view == "place") {
-          tmp.data = tmp.data.slice(start, end)
-        }
-        tmp.allEvents = tmp.allEvents.slice(start, end)
-        this.setState({data: tmp.data, allEvents: tmp.allEvents}, this.setButtons)
-        return
-      })
-    }
-
-    this.setState({data: tmp.data, allEvents: tmp.allEvents, length: length}, this.setButtons)
-    this.setState({changed: false})
+    this.setState({data: tmp.data, allEvents: tmp.allEvents, length: tmp.length}, this.setButtons)
   }
 
   setPage = (str) => {
-    if (str === "prev") {
-      this.setState({
-        page: this.state.page - 1,
-        changed: true,
-        toggle: {isToggled: false, selectedPanel: null}
-      }, this.handleData)
-    } else {
-      this.setState({
-        page: this.state.page + 1,
-        changed: true,
-        toggle: {isToggled: false, selectedPanel: null}
-      }, this.handleData)
-    }
+    (str === "prev") ?
+      this.setState({page: this.state.page - 1}, this.handleData) :
+      this.setState({page: this.state.page + 1}, this.handleData)
   }
 
   setButtons() {
@@ -279,7 +243,6 @@ export default class View extends React.Component {
     this.setState({
       activeDay: "",
       activeHour: "",
-      changed: false,
       hasDrink: false,
       hasFood: false,
       length: 0,
@@ -291,7 +254,8 @@ export default class View extends React.Component {
     }, this.handleData)
   }
 
-  addListToggle() {
+  // Adds buttons for mobile view
+  addListToggle = () => {
     return (
       <div className="list-btn">
         <ButtonGroup>
@@ -302,12 +266,11 @@ export default class View extends React.Component {
     )
   }
 
-  setList(view) {
-    if (view === "map") {
-      this.setState({hiddenMap: false, hiddenList: true})
-    } else {
+  // Changes view for mobile view
+  setList = (view) => {
+    (view === "map") ?
+      this.setState({hiddenMap: false, hiddenList: true}) :
       this.setState({hiddenMap: true, hiddenList: false})
-    }
   }
 
   render() {
