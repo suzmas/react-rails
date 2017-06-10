@@ -287,7 +287,7 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      text: "",
+      text: ""
     }, this.handleData)
   }
 
