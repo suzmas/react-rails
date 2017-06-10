@@ -47,7 +47,7 @@ export default class EventPanel extends React.Component {
   }
 
   handleSelect = (e) => {
-      this.props.onSelectChange(e)
+    this.props.onSelectChange(e)
   }
 
   render() {

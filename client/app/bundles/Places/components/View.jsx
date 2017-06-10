@@ -30,7 +30,7 @@ export default class View extends React.Component {
         isToggled: false,
         selectedPanel: ""
       },
-      width: '0',
+      width: "0",
     }
 
     this.updateWindow = this.updateWindow.bind(this)
@@ -39,6 +39,7 @@ export default class View extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
       this.setState({changed: true, page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
+      // this.setState({changed: true, page: 0, selectedPanel: 0}, this.handleData)
     }
   }
 
@@ -48,7 +49,7 @@ export default class View extends React.Component {
 
   componentDidMount() {
     this.updateWindow()
-    window.addEventListener('resize', this.updateWindow)
+    window.addEventListener("resize", this.updateWindow)
   }
 
   updateWindow() {
