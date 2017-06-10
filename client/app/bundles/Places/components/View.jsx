@@ -63,37 +63,15 @@ export default class View extends React.Component {
 
   handleSearchChange = (text) => {
     text = text.toLowerCase().trim()
-    this.setState({
-      page: 0,
-      text: text,
-      toggle: {
-        isToggled: false,
-        selectedPanel: null
-      }
-    }, this.handleData)
+    this.setState({page: 0, text: text}, this.handleData)
   }
 
   handleBool = (obj) => {
-    this.setState({
-      page: 0,
-      hasFood: obj.hasFood,
-      hasDrink: obj.hasDrink,
-      toggle: {
-        isToggled: false,
-        selectedPanel: null
-      }
-    }, this.handleData)
+    this.setState({page: 0, hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
   }
 
   handleLocation = (loc) => {
-    this.setState({
-      page: 0,
-      locationData: loc.loc,
-      toggle: {
-        isToggled: false,
-        selectedPanel: null
-      }
-    }, this.handleData)
+    this.setState({page: 0, locationData: loc.loc}, this.handleData)
   }
 
   handleSelectedPanel = (id) => {
@@ -116,25 +94,11 @@ export default class View extends React.Component {
   }
 
   handleTimeChange = (time) => {
-    this.setState({
-      page: 0,
-      activeHour: time,
-      toggle: {
-        isToggled: false,
-        selectedPanel: null
-      }
-    }, this.handleData)
+    this.setState({page: 0, activeHour: time}, this.handleData)
   }
 
   handleDayChange = (day) => {
-    this.setState({
-      page: 0,
-      activeDay: day,
-      toggle: {
-        isToggled: false,
-        selectedPanel: null
-      }
-    }, this.handleData)
+    this.setState({page: 0, activeDay: day}, this.handleData)
   }
 
   handleViewChange = (view) => {
@@ -314,7 +278,6 @@ export default class View extends React.Component {
     this.setState({
       activeDay: "",
       activeHour: "",
-      // allEvents: "",
       changed: false,
       hasDrink: false,
       hasFood: false,
@@ -324,10 +287,6 @@ export default class View extends React.Component {
       page: 0,
       prev: false,
       text: "",
-      toggle: {
-        isToggled: false,
-        selectedPanel: null
-      }
     }, this.handleData)
   }
 
