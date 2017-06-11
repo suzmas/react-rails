@@ -56,3 +56,7 @@ foreman start -f Procfile.dev
       place_id (int)
       start_time (time)
 ```
+
+## Heroku
+
+https://limitless-brushlands-29690.herokuapp.com/
