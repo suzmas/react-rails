@@ -68,8 +68,8 @@ export default class PlaceMap extends React.Component {
     return (
       <Map bounds={bounds}>
         <TileLayer
-          attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-          url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
+          attribution="&amp;copy <a href=&quot;https://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+          url='https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
           {this.placeMarker()}
       </Map>
     )
