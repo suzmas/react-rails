@@ -60,3 +60,11 @@ foreman start -f Procfile.dev
 ## Heroku
 
 https://limitless-brushlands-29690.herokuapp.com/
+
+To add Heroku to your local machine and push to production do the following:
+* Make sure you have the Heroku CLI tool
+* Add Heroku alias `git remote add heroku git@heroku.com:limitless-brushlands-29690.git`
+* Merge all pull requests and make sure Master branch is up to date
+* To push to production, go to master branch: `git push heroku master`
+
+
