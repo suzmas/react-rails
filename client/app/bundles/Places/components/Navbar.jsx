@@ -4,18 +4,6 @@ import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputG
 
 
 export default class NavBar extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      hasFood: false,
-      hasDrink: false,
-      hourOfDay: "",
-      timeOfDay: "",
-      dayOfWeek: ""
-    }
-  }
-
   handleSearchChange = (e) => {
     this.props.onSearchChange(e.target.value)
   }
@@ -33,7 +21,8 @@ export default class NavBar extends React.Component {
   handleLocation = () => {
     let location = document.getElementById("search-bar").value
 
-    if (location !== "") { // only fetch if location not empty
+    // only fetch if location not empty
+    if (location !== "") {
       location = location.split(" ").join("+")
       let query = `/location?loc=${location}`
       fetch(query)
@@ -49,14 +38,10 @@ export default class NavBar extends React.Component {
   handleBool = (type) => {
     switch (type) {
     case "food":
-      this.setState({hasFood: (this.state.hasFood) ? false : true}, function() {
-        this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
-      })
+      this.props.onBoolChange({hasFood: (this.props.hasFood) ? false : true, hasDrink: this.props.hasDrink})
       break
     case "drink":
-      this.setState({hasDrink: (this.state.hasDrink) ? false: true}, function() {
-        this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
-      })
+      this.props.onBoolChange({hasFood: this.props.hasFood, hasDrink: (this.props.hasDrink) ? false :true})
       break
     }
   }
@@ -116,47 +101,43 @@ export default class NavBar extends React.Component {
                 { day }
                </Button>)} )
 
-  updateTime = () => {
-    const hour = this.state.hourOfDay
-    let time = this.state.timeOfDay === "AM" ? hour : hour + 12
-    if (hour === "") { time = "" }
-    this.props.onTimeChange(time)
-  }
 
   setTimeNow = () => {
     const now = new Date
     const hour = now.getHours() < 13 ? now.getHours() : now.getHours() - 12
     const amPm = now.getHours() < 13 ? "AM" : "PM"
     const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][ now.getDay() ]
-    this.setState({hourOfDay: hour, timeOfDay: amPm, dayOfWeek: day},
-       this.updateTime, this.props.onDayChange(day) )
+    this.updateTime(amPm, hour)
+    this.props.onDayChange(day)
   }
 
-  // change this to be less ugly...
+  updateTime = (amPm, hour) => {
+    this.props.onTimeChange({hour: hour, amPm: amPm})
+  }
+
   hourChange = (hour) => {
-    let amPm = this.state.timeOfDay
-    // time defaults to "AM" on initial hour selection
-    if (amPm === "") { amPm = "AM" }
-    if (hour === "") { amPm = "" }
-    this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
+    let amPm = this.props.activeAmPm
+    this.updateTime(amPm, hour)
   }
 
   amPmChange = () => {
-    let val = this.state.timeOfDay === "PM" ?
-      "AM" : "PM"
-    this.setState({timeOfDay: val}, this.updateTime)
+    const val = (this.props.activeAmPm === "PM") ? "AM" : "PM"
+    const hour = (this.props.activeHour > 12) ? this.props.activeHour - 12 : this.props.activeHour
+    this.updateTime(val, hour)
   }
 
   dayChange = (val) => {
-    this.setState({dayOfWeek: val})
     this.props.onDayChange(val)
   }
 
   timeMenu = () => {
+    const hour = this.props.activeHour > 12 ? this.props.activeHour - 12 : this.props.activeHour
+    const amPm = this.props.activeAmPm
+    const day = this.props.activeDay
     let dropdownLabel =
-    (!this.state.dayOfWeek && !this.state.hourOfDay) ?
+    (!day && !hour) ?
       <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
-      : `${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`
+      : `${day} ${hour} ${amPm}`
 
     return (
     <div className="filter-group">
@@ -180,10 +161,10 @@ export default class NavBar extends React.Component {
             </ButtonGroup>
           </DropdownButton>
           <Button
-            disabled={ this.state.hourOfDay ? false : true }
+            disabled={ hour ? false : true }
             id="amPm-toggle"
-            onClick={() => this.amPmChange("AM")}>
-            {this.state.timeOfDay === "PM" ? "PM" : "AM"}
+            onClick={() => this.amPmChange()}>
+            {amPm}
           </Button>
         </Dropdown.Menu>
       </Dropdown>
@@ -193,8 +174,7 @@ export default class NavBar extends React.Component {
 
   resetFilters = () => {
     this.props.resetFilters()
-    this.setState({hasFood: false, hasDrink: false, hourOfDay: "",
-      timeOfDay: "", dayOfWeek: ""})
+    // this.setState({hourOfDay: "", timeOfDay: "", dayOfWeek: ""})
   }
 
   // more performant way to do onClick for button, will fix down the road
@@ -213,12 +193,12 @@ export default class NavBar extends React.Component {
             { this.placeLocation() }
             { this.timeMenu() }
             <Button
-              className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
+              className={(this.props.hasFood) ? "btn-active" : "btn-inactive"}
               onClick={() => this.handleBool("food")} id="has-food">
               <i className="fa fa-cutlery" aria-hidden="true"></i>
             </Button>
             <Button
-              className={(this.state.hasDrink) ? "btn-active": "btn-inactive"}
+              className={(this.props.hasDrink) ? "btn-active": "btn-inactive"}
               onClick={() => this.handleBool("drink")} id="has-drink">
               <i className="fa fa-beer" aria-hidden="true"></i>
             </Button>

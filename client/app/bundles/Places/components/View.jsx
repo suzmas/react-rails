@@ -11,6 +11,7 @@ export default class View extends React.Component {
     super(props)
 
     this.state = {
+      activeAmPm: "AM",
       activeDay: "",
       activeHour: "",
       allEvents: "",
@@ -93,7 +94,8 @@ export default class View extends React.Component {
   }
 
   handleTimeChange = (time) => {
-    this.setState({page: 0, activeHour: time}, this.handleData)
+    const hour = (time.amPm === "AM") ? time.hour : time.hour + 12
+    this.setState({page: 0, activeHour: hour, activeAmPm: time.amPm}, this.handleData)
   }
 
   handleDayChange = (day) => {
@@ -209,7 +211,6 @@ export default class View extends React.Component {
 
     tmp = this.filterTime(tmp)
     tmp = this.filterKeyword(tmp)
-    tmp = this.filterTime(tmp)
     if (this.state.hasFood) { tmp = this.filterBool(tmp, "food") }
     if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
     tmp = this.filterPagination(tmp)
@@ -241,6 +242,7 @@ export default class View extends React.Component {
     document.getElementById("keyword-input").value = ""
     document.getElementById("search-bar").value = ""
     this.setState({
+      activeAmPm: "AM",
       activeDay: "",
       activeHour: "",
       hasDrink: false,
@@ -293,7 +295,12 @@ export default class View extends React.Component {
           onTimeChange={this.handleTimeChange}
           onDayChange={this.handleDayChange}
           resetFilters={this.clearFilters}
-          onViewChange={this.handleViewChange}/>
+          onViewChange={this.handleViewChange}
+          activeAmPm={this.state.activeAmPm}
+          activeDay={this.state.activeDay}
+          activeHour={this.state.activeHour}
+          hasFood={this.state.hasFood}
+          hasDrink={this.state.hasDrink}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid>
