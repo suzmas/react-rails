@@ -11,6 +11,7 @@ export default class View extends React.Component {
     super(props)
 
     this.state = {
+      activeAmPm: "AM",
       activeDay: "",
       activeHour: "",
       allEvents: "",
@@ -93,7 +94,9 @@ export default class View extends React.Component {
   }
 
   handleTimeChange = (time) => {
-    this.setState({page: 0, activeHour: time}, this.handleData)
+    console.log("HOUR", time.hour, time.amPm)
+    const hour = (time.amPm === "AM") ? time.hour : time.hour + 12
+    this.setState({page: 0, activeHour: hour, activeAmPm: time.amPm}, this.handleData)
   }
 
   handleDayChange = (day) => {
@@ -240,6 +243,7 @@ export default class View extends React.Component {
     document.getElementById("keyword-input").value = ""
     document.getElementById("search-bar").value = ""
     this.setState({
+      activeAmPm: "AM",
       activeDay: "",
       activeHour: "",
       hasDrink: false,
@@ -293,6 +297,7 @@ export default class View extends React.Component {
           onDayChange={this.handleDayChange}
           resetFilters={this.clearFilters}
           onViewChange={this.handleViewChange}
+          activeAmPm={this.state.activeAmPm}
           activeDay={this.state.activeDay}
           activeHour={this.state.activeHour}
           hasFood={this.state.hasFood}
