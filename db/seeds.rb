@@ -5,7 +5,7 @@ case Rails.env
 ##################
 ##  DEVELOPMENT ##
 ##################
-when "development"
+when "development", "production"
   response = RestClient.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json',
     params: {
       location: '32.715736,-117.161087',

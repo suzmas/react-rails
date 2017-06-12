@@ -127,7 +127,7 @@ export default class NavBar extends React.Component {
     const now = new Date
     const hour = now.getHours() < 13 ? now.getHours() : now.getHours() - 12
     const amPm = now.getHours() < 13 ? "AM" : "PM"
-    const day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][ now.getDay() ]
+    const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][ now.getDay() ]
     this.setState({hourOfDay: hour, timeOfDay: amPm, dayOfWeek: day},
        this.updateTime, this.props.onDayChange(day) )
   }
