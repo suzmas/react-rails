@@ -32,7 +32,7 @@ export default class EventPanel extends React.Component {
              eventKey={e.id}>
              <p><strong>Specials</strong></p>
              {Object.entries(e.menu).map(([key,value]) => {
-               return <p key={key}>{key}: ${value}</p>
+               return <p className="event-menu" key={key}>{key}: ${value}</p>
              })}
       </Panel>
     )

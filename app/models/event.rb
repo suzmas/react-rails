@@ -17,7 +17,7 @@ class Event < ApplicationRecord
 
     def format_header
       place = Place.find(self.place_id)
-      self.name = "#{self.name} - #{place.name}"
+      self.name = place.name
       self.save
     end
 end
