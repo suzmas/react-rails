@@ -66,7 +66,6 @@ export default class View extends React.Component {
   }
 
   handleBool = (obj) => {
-    console.log("HandleBool", obj)
     this.setState({page: 0, hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
   }
 
@@ -296,8 +295,8 @@ export default class View extends React.Component {
           onViewChange={this.handleViewChange}
           activeDay={this.state.activeDay}
           activeHour={this.state.activeHour}
-          food={this.state.hasFood}
-          drink={this.state.hasDrink}/>
+          hasFood={this.state.hasFood}
+          hasDrink={this.state.hasDrink}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid>

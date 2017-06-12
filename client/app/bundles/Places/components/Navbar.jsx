@@ -47,24 +47,12 @@ export default class NavBar extends React.Component {
   }
 
   handleBool = (type) => {
-    console.log("Runs")
     switch (type) {
-    // case "food":
-    //   this.setState({hasFood: (this.state.hasFood) ? false : true}, function() {
-    //     this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
-    //   })
-    //   break
-    // case "drink":
-    //   this.setState({hasDrink: (this.state.hasDrink) ? false: true}, function() {
-    //     this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
-    //   })
-    //   break
-    // }
     case "food":
-      this.props.onBoolChange({hasFood: (this.props.food) ? false : true, hasDrink: this.props.drink})
+      this.props.onBoolChange({hasFood: (this.props.hasFood) ? false : true, hasDrink: this.props.hasDrink})
       break
     case "drink":
-      this.props.onBoolChange({hasFood: this.props.food, hasDrink: (this.props.drink) ? false :true})
+      this.props.onBoolChange({hasFood: this.props.hasFood, hasDrink: (this.props.hasDrink) ? false :true})
       break
     }
   }
@@ -201,10 +189,7 @@ export default class NavBar extends React.Component {
 
   resetFilters = () => {
     this.props.resetFilters()
-    // this.setState({hasFood: false, hasDrink: false, hourOfDay: "",
-    //   timeOfDay: "", dayOfWeek: ""})
-    this.setState({hourOfDay: "",
-      timeOfDay: "", dayOfWeek: ""})
+    this.setState({hourOfDay: "", timeOfDay: "", dayOfWeek: ""})
   }
 
   // more performant way to do onClick for button, will fix down the road
@@ -223,12 +208,12 @@ export default class NavBar extends React.Component {
             { this.placeLocation() }
             { this.timeMenu() }
             <Button
-              className={(this.props.food) ? "btn-active" : "btn-inactive"}
+              className={(this.props.hasFood) ? "btn-active" : "btn-inactive"}
               onClick={() => this.handleBool("food")} id="has-food">
               <i className="fa fa-cutlery" aria-hidden="true"></i>
             </Button>
             <Button
-              className={(this.props.drink) ? "btn-active": "btn-inactive"}
+              className={(this.props.hasDrink) ? "btn-active": "btn-inactive"}
               onClick={() => this.handleBool("drink")} id="has-drink">
               <i className="fa fa-beer" aria-hidden="true"></i>
             </Button>
