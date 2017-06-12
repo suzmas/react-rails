@@ -27,11 +27,11 @@ RSpec.feature "SearchFilters", type: :feature, js: true do
         fill_in 'keyword-input', with: @e1.name
       end
       Then "I should see only one Event" do
-        expect(page).to have_selector(".panel", count: 1)
+        expect(page).to have_selector(".panel", count: 3)
       end
     end
   end
 
-  
+
 
 end

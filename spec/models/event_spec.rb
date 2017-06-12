@@ -37,7 +37,7 @@ RSpec.describe Event, type: :model do
       )
 
       expect(event.place_id).to eq @p.id
-      expect(event.name).to eq 'Happy Hour'
+      expect(event.name).to eq @p.name
       expect(event.dow).to eq 'Monday'
       expect(event.start_time).to eq Time.new(2000, 1, 1, 5, 0, 0, "+00:00")
       expect(event.end_time).to eq Time.new(2000, 1, 1, 7, 0, 0, "+00:00")
