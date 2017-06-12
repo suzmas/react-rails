@@ -93,7 +93,7 @@ when "development", "production"
       drink = make_bool_drink(food)
 
       place.events.create!(
-        name: place.name,
+        name: "#{place_names[rand(place_names.length)]}",
         dow: value,
         start_time: "#{r1}:00",
         end_time: "#{r2}:00",
