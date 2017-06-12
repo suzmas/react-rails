@@ -21,7 +21,8 @@ export default class NavBar extends React.Component {
   handleLocation = () => {
     let location = document.getElementById("search-bar").value
 
-    if (location !== "") { // only fetch if location not empty
+    // only fetch if location not empty
+    if (location !== "") {
       location = location.split(" ").join("+")
       let query = `/location?loc=${location}`
       fetch(query)
@@ -100,82 +101,43 @@ export default class NavBar extends React.Component {
                 { day }
                </Button>)} )
 
-  // updateTime = () => {
-  //   console.log(this.props.activeDay, this.props.activeHour, "\nsplit", this.dayOfWeek, this.state.hourOfDay, this.state.timeOfDay)
-  //   const hour = this.state.hourOfDay
-  //   let time = this.state.timeOfDay === "AM" ? hour : hour + 12
-  //   if (hour === "") { time = "" }
-  //   this.props.onTimeChange(time)
-  // }
-  updateTime = (amPm, hour) => {
-    this.props.onTimeChange({hour: hour, amPm: amPm})
-  }
 
-  // setTimeNow = () => {
-  //   const now = new Date
-  //   const hour = now.getHours() < 13 ? now.getHours() : now.getHours() - 12
-  //   const amPm = now.getHours() < 13 ? "AM" : "PM"
-  //   const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][ now.getDay() ]
-  //   this.setState({hourOfDay: hour, timeOfDay: amPm, dayOfWeek: day},
-  //      this.updateTime, this.props.onDayChange(day) )
-  // }
   setTimeNow = () => {
     const now = new Date
     const hour = now.getHours() < 13 ? now.getHours() : now.getHours() - 12
     const amPm = now.getHours() < 13 ? "AM" : "PM"
     const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][ now.getDay() ]
-    // this.setState({hourOfDay: hour, timeOfDay: amPm, dayOfWeek: day},
-    //    this.updateTime, this.props.onDayChange(day) )
     this.updateTime(amPm, hour)
     this.props.onDayChange(day)
   }
 
-  // change this to be less ugly...
-  // hourChange = (hour) => {
-  //   let amPm = this.state.timeOfDay
-  //   // time defaults to "AM" on initial hour selection
-  //   if (amPm === "") { amPm = "AM" }
-  //   if (hour === "") { amPm = "" }
-  //   this.setState({hourOfDay: hour, timeOfDay: amPm}, this.updateTime)
-  // }
+  updateTime = (amPm, hour) => {
+    this.props.onTimeChange({hour: hour, amPm: amPm})
+  }
+
   hourChange = (hour) => {
     let amPm = this.props.activeAmPm
     this.updateTime(amPm, hour)
   }
 
-  // amPmChange = () => {
-  //   let val = this.state.timeOfDay === "PM" ?
-  //     "AM" : "PM"
-  //   this.setState({timeOfDay: val}, this.updateTime)
-  // }
   amPmChange = () => {
     const val = (this.props.activeAmPm === "PM") ? "AM" : "PM"
     const hour = (this.props.activeHour > 12) ? this.props.activeHour - 12 : this.props.activeHour
-    console.log("amPmChange", val, hour)
     this.updateTime(val, hour)
   }
 
-  // dayChange = (val) => {
-  //   this.setState({dayOfWeek: val})
-  //   this.props.onDayChange(val)
-  // }
   dayChange = (val) => {
     this.props.onDayChange(val)
   }
 
   timeMenu = () => {
-    // let dropdownLabel =
-    // (!this.state.dayOfWeek && !this.state.hourOfDay) ?
-    //   <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
-    //   : `${this.state.dayOfWeek} ${this.state.hourOfDay} ${this.state.timeOfDay}`
-
     const hour = this.props.activeHour > 12 ? this.props.activeHour - 12 : this.props.activeHour
-    console.log(hour)
     const amPm = this.props.activeAmPm
+    const day = this.props.activeDay
     let dropdownLabel =
-    (!this.props.activeDay && !this.props.activeHour) ?
+    (!day && !hour) ?
       <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
-      : `${this.props.activeDay} ${hour} ${amPm}`
+      : `${day} ${hour} ${amPm}`
 
     return (
     <div className="filter-group">
@@ -199,10 +161,10 @@ export default class NavBar extends React.Component {
             </ButtonGroup>
           </DropdownButton>
           <Button
-            disabled={ this.props.activeHour ? false : true }
+            disabled={ hour ? false : true }
             id="amPm-toggle"
             onClick={() => this.amPmChange()}>
-            {this.props.activeAmPm}
+            {amPm}
           </Button>
         </Dropdown.Menu>
       </Dropdown>

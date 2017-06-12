@@ -94,7 +94,6 @@ export default class View extends React.Component {
   }
 
   handleTimeChange = (time) => {
-    console.log("HOUR", time.hour, time.amPm)
     const hour = (time.amPm === "AM") ? time.hour : time.hour + 12
     this.setState({page: 0, activeHour: hour, activeAmPm: time.amPm}, this.handleData)
   }
