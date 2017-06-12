@@ -66,6 +66,7 @@ export default class View extends React.Component {
   }
 
   handleBool = (obj) => {
+    console.log("HandleBool", obj)
     this.setState({page: 0, hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
   }
 
@@ -209,7 +210,6 @@ export default class View extends React.Component {
 
     tmp = this.filterTime(tmp)
     tmp = this.filterKeyword(tmp)
-    tmp = this.filterTime(tmp)
     if (this.state.hasFood) { tmp = this.filterBool(tmp, "food") }
     if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
     tmp = this.filterPagination(tmp)
@@ -293,7 +293,11 @@ export default class View extends React.Component {
           onTimeChange={this.handleTimeChange}
           onDayChange={this.handleDayChange}
           resetFilters={this.clearFilters}
-          onViewChange={this.handleViewChange}/>
+          onViewChange={this.handleViewChange}
+          activeDay={this.state.activeDay}
+          activeHour={this.state.activeHour}
+          food={this.state.hasFood}
+          drink={this.state.hasDrink}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid>

@@ -8,8 +8,8 @@ export default class NavBar extends React.Component {
     super(props)
 
     this.state = {
-      hasFood: false,
-      hasDrink: false,
+      // hasFood: false,
+      // hasDrink: false
       hourOfDay: "",
       timeOfDay: "",
       dayOfWeek: ""
@@ -47,16 +47,24 @@ export default class NavBar extends React.Component {
   }
 
   handleBool = (type) => {
+    console.log("Runs")
     switch (type) {
+    // case "food":
+    //   this.setState({hasFood: (this.state.hasFood) ? false : true}, function() {
+    //     this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
+    //   })
+    //   break
+    // case "drink":
+    //   this.setState({hasDrink: (this.state.hasDrink) ? false: true}, function() {
+    //     this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
+    //   })
+    //   break
+    // }
     case "food":
-      this.setState({hasFood: (this.state.hasFood) ? false : true}, function() {
-        this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
-      })
+      this.props.onBoolChange({hasFood: (this.props.food) ? false : true, hasDrink: this.props.drink})
       break
     case "drink":
-      this.setState({hasDrink: (this.state.hasDrink) ? false: true}, function() {
-        this.props.onBoolChange({hasFood: this.state.hasFood, hasDrink: this.state.hasDrink})
-      })
+      this.props.onBoolChange({hasFood: this.props.food, hasDrink: (this.props.drink) ? false :true})
       break
     }
   }
@@ -193,7 +201,9 @@ export default class NavBar extends React.Component {
 
   resetFilters = () => {
     this.props.resetFilters()
-    this.setState({hasFood: false, hasDrink: false, hourOfDay: "",
+    // this.setState({hasFood: false, hasDrink: false, hourOfDay: "",
+    //   timeOfDay: "", dayOfWeek: ""})
+    this.setState({hourOfDay: "",
       timeOfDay: "", dayOfWeek: ""})
   }
 
@@ -213,12 +223,12 @@ export default class NavBar extends React.Component {
             { this.placeLocation() }
             { this.timeMenu() }
             <Button
-              className={(this.state.hasFood) ? "btn-active" : "btn-inactive"}
+              className={(this.props.food) ? "btn-active" : "btn-inactive"}
               onClick={() => this.handleBool("food")} id="has-food">
               <i className="fa fa-cutlery" aria-hidden="true"></i>
             </Button>
             <Button
-              className={(this.state.hasDrink) ? "btn-active": "btn-inactive"}
+              className={(this.props.drink) ? "btn-active": "btn-inactive"}
               onClick={() => this.handleBool("drink")} id="has-drink">
               <i className="fa fa-beer" aria-hidden="true"></i>
             </Button>
