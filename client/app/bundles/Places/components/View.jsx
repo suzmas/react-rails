@@ -241,6 +241,7 @@ export default class View extends React.Component {
   clearFilters = () => {
     document.getElementById("keyword-input").value = ""
     document.getElementById("search-bar").value = ""
+    this.collapsePanels()
     this.setState({
       activeAmPm: "AM",
       activeDay: "",
@@ -252,8 +253,19 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      text: ""
+      text: "",
+      toggle: { selectedPanel: "" },
     }, this.handleData)
+  }
+
+  collapsePanels = () => {
+    let panels = document.querySelectorAll(".panel-collapse")
+    for (let panel of panels) {
+      if (panel.classList.contains("in")) {
+        panel.classList.remove("in")
+        break
+      }
+    }
   }
 
   // Adds buttons for mobile view
