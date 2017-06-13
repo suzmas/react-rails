@@ -29,7 +29,8 @@ export default class EventPanel extends React.Component {
     const panel = (
       <Panel key={e.id}
              header={headerString}
-             eventKey={e.id}>
+             eventKey={e.id}
+             onSelect={this.handleSelect}>
              <p><strong>Specials</strong></p>
              {Object.entries(e.menu).sort().map(([key,value]) => {
                return <p className="menu-item" key={key}>{key}: ${value}</p>
@@ -69,5 +70,6 @@ EventPanel.propTypes = {
     PropTypes.array,
     PropTypes.string
   ]),
+  selected: PropTypes.number.isRequired,
   onSelectChange: PropTypes.func
 }

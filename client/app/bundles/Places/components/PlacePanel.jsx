@@ -3,13 +3,6 @@ import PropTypes from "prop-types"
 import {Panel, Accordion} from "react-bootstrap"
 
 export default class PlacePanel extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      selected: 0
-    }
-  }
 
   formatTime(hour) {
     let amPm = hour < 13 ? "AM" : "PM"
@@ -44,7 +37,7 @@ export default class PlacePanel extends React.Component {
       <Panel key={place.id}
              header={header}
              eventKey={place.id}
-             onClick={() => this.handleSelect(place.id)}>
+             onSelect={this.handleSelect}>
         {this.eventString(events)}
       </Panel>
     )}
@@ -60,12 +53,11 @@ export default class PlacePanel extends React.Component {
   handleSelect = (e) => {
     // console.log(e)
     this.props.onSelectChange(e)
-    this.setState({selected: e})
   }
 
   render() {
     return (
-      <Accordion activeKey={this.state.selected} onSelect={this.handleSelect}>
+      <Accordion onSelect={this.handleSelect}>
         {this.placeList()}
       </Accordion>
     )
@@ -77,5 +69,6 @@ PlacePanel.propTypes = {
     PropTypes.array.isRequired,
     PropTypes.string.isRequired
   ]),
+  selected: PropTypes.number.isRequired,
   onSelectChange: PropTypes.func
 }

@@ -25,11 +25,8 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
+      selectedPanel: 0,
       text: "",
-      toggle: {
-        isToggled: false,
-        selectedPanel: ""
-      },
       width: "0",
     }
 
@@ -38,7 +35,7 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
-      this.setState({page: 0, toggle: {selectedPanel: null, isToggled: false}}, this.handleData)
+      this.setState({page: 0, selectedPanel: 0}, this.handleData)
     }
   }
 
@@ -75,22 +72,8 @@ export default class View extends React.Component {
   }
 
   handleSelectedPanel = (id) => {
-    if (id !== this.state.toggle.selectedPanel) {
-      this.setState({toggle: {
-        isToggled: true,
-        selectedPanel: id
-      }})
-    } else {
-      (!this.state.toggle.isToggled) ?
-        this.setState({toggle: {
-          isToggled: true,
-          selectedPanel: id
-        }}) :
-        this.setState({toggle: {
-          isToggled: false,
-          selectedPanel: null
-        }})
-    }
+    let panel = this.state.selectedPanel === id ? 0 : id
+    this.setState({selectedPanel: panel})
   }
 
   handleTimeChange = (time) => {
@@ -253,8 +236,8 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      text: "",
-      toggle: { selectedPanel: "" },
+      selectedPanel: 0,
+      text: ""
     }, this.handleData)
   }
 
@@ -291,10 +274,12 @@ export default class View extends React.Component {
     const panel = this.props.view == "place" ?
       <PlacePanel
         data={this.state.data}
+        selected={this.state.selectedPanel}
         onSelectChange={this.handleSelectedPanel} />
     : <EventPanel
         data={this.state.data}
         allEvents={this.state.allEvents}
+        selected={this.state.selectedPanel}
         onSelectChange={this.handleSelectedPanel} />
 
     const toggleList = (this.state.width <= 991) ? this.addListToggle() : null
@@ -326,7 +311,7 @@ export default class View extends React.Component {
           <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
               <PlaceMap
                 data={this.state.data}
-                selected={this.state.toggle.selectedPanel}
+                selected={this.state.selectedPanel}
                 allEvents={this.state.allEvents}
                 view={this.props.view}/>
             {toggleList}
