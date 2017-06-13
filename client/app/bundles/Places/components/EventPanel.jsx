@@ -31,8 +31,8 @@ export default class EventPanel extends React.Component {
              header={headerString}
              eventKey={e.id}>
              <p><strong>Specials</strong></p>
-             {Object.entries(e.menu).map(([key,value]) => {
-               return <p className="event-menu" key={key}>{key}: ${value}</p>
+             {Object.entries(e.menu).sort().map(([key,value]) => {
+               return <p className="menu-item" key={key}>{key}: ${value}</p>
              })}
       </Panel>
     )
