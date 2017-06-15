@@ -72,7 +72,9 @@ export default class View extends React.Component {
   }
 
   handleSelectedPanel = (id) => {
+
     let panel = this.state.selectedPanel === id ? 0 : id
+    console.log(id + "or" + panel)
     this.setState({selectedPanel: panel})
   }
 
@@ -224,7 +226,6 @@ export default class View extends React.Component {
   clearFilters = () => {
     document.getElementById("keyword-input").value = ""
     document.getElementById("search-bar").value = ""
-    this.collapsePanels()
     this.setState({
       activeAmPm: "AM",
       activeDay: "",
@@ -239,6 +240,8 @@ export default class View extends React.Component {
       selectedPanel: 0,
       text: ""
     }, this.handleData)
+    this.collapsePanels()
+    this.handleSelectedPanel(this.state.selectedPanel)
   }
 
   collapsePanels = () => {
@@ -246,6 +249,9 @@ export default class View extends React.Component {
     for (let panel of panels) {
       if (panel.classList.contains("in")) {
         panel.classList.remove("in")
+        console.log(panel.children)
+        panel.setAttribute("aria-expanded", false)
+        panel.setAttribute("aria-hidden", true)
         break
       }
     }
