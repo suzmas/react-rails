@@ -4,6 +4,17 @@ import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputG
 
 
 export default class NavBar extends React.Component {
+  
+  componentDidMount() {
+    const navbarToggle = document.getElementsByClassName("navbar-toggle")
+    const iconBars = document.getElementsByClassName("icon-bar")
+    while(iconBars.length > 0) {
+      iconBars[0].parentNode.removeChild(iconBars[0])
+    }
+
+    navbarToggle[0].insertAdjacentHTML('beforeend', '<i class="fa fa-filter" aria-hidden="true"></i>')
+  }
+
   handleSearchChange = (e) => {
     this.props.onSearchChange(e.target.value)
   }
