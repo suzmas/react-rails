@@ -34,7 +34,6 @@ export default class PlaceMap extends React.Component {
           icon={icon}>
           <Popup>
             <span>{place.name}</span>
-            <span>{place.address}</span>
           </Popup>
         </Marker>
       )
