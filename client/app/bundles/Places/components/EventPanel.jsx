@@ -20,6 +20,7 @@ export default class EventPanel extends React.Component {
 
   // May need to find a way to tie in place and event together in this panel
   eventPanel = (e) => {
+    console.log(e)
     const headerString = (
       <div style={{fontSize: "12px"}}>
         <h4>{e.name}</h4>
