@@ -28,6 +28,7 @@ export default class EventPanel extends React.Component {
     )
     const panel = (
       <Panel key={e.id}
+             id={`panel-${e.id}`}
              header={headerString}
              eventKey={e.id}
              onSelect={this.handleSelect}>

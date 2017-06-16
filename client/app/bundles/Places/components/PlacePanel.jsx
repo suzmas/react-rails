@@ -35,6 +35,7 @@ export default class PlacePanel extends React.Component {
       </div>)
     return (
       <Panel key={place.id}
+             id={`panel-${place.id}`}
              header={header}
              eventKey={place.id}
              onSelect={this.handleSelect}>
