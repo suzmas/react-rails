@@ -91,6 +91,21 @@ $break-md: 991px;
   background-color: $primary-color;
 }
 
+.navbar-default .navbar-toggle {
+  background-color: $secondary-color;
+
+  &:hover, &:active, &:focus, &:active:hover, &:active:focus {
+    background-color: $secondary-color;
+  }
+
+  &.collapsed {
+    background-color: $primary-color;
+    &:hover, &:active:hover {
+      background-color: $secondary-color;
+    }
+  }
+}
+
 .panel-group {
   margin-top: 55px;
 }
