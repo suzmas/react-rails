@@ -23,7 +23,7 @@ class Event < ApplicationRecord
 
     def format_address
       place = Place.find(self.place_id)
-      self.address = place.address1
+      self.address1 = place.address1
       self.save
     end
 end
