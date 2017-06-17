@@ -33,7 +33,11 @@ export default class PlaceMap extends React.Component {
           zIndexOffset={zIndexOffset}
           icon={icon}>
           <Popup>
+            <div>
             <span>{place.name}</span>
+            <br />
+            <span>{place.address1 ? place.address1.replace(", USA", "") : ""}</span>
+            </div>
           </Popup>
         </Marker>
       )
