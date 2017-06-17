@@ -20,7 +20,7 @@ export default class EventPanel extends React.Component {
 
   // May need to find a way to tie in place and event together in this panel
   eventPanel = (e) => {
-    const address = e.address.replace(", USA", "")
+    const address = e.address1.replace(", USA", "")
     const headerString = (
       <div style={{fontSize: "12px"}}>
         <h4 className="place-title">{e.name}</h4>
