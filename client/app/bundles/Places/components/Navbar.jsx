@@ -82,13 +82,7 @@ export default class NavBar extends React.Component {
   placeLocation = () => {
     return (
       <FormGroup className="filter-group">
-        <Button onClick={this.handleUserPosition}>
-          <i className="fa fa-map-marker" aria-hidden="true"></i>
-        </Button>
         <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
-        <Button onClick={() => this.handleLocation()} type="submit" id="location-submit">
-          <i className="fa fa-search" aria-hidden="true"></i>
-        </Button>
       </FormGroup>
     )
   }
@@ -247,14 +241,21 @@ export default class NavBar extends React.Component {
               <a href="#">A</a>
             </Navbar.Brand>
           <Navbar.Form pullLeft>
-          <div className="filter-group">
-          <Button onClick={() => this.handleViewChange("place")}>
-          Places</Button>
-          <Button onClick={() => this.handleViewChange("event")}>
-          Events</Button>
-          </div>
-          { this.keywordSearch() }
-          { this.placeLocation() }
+            <FormGroup>
+            <Button onClick={() => this.handleViewChange("place")}>
+            Places</Button>
+            <Button onClick={() => this.handleViewChange("event")}>
+            Events</Button>
+            <FormControl type="text" placeholder="Search"
+              onChange={this.handleSearchChange} id="keyword-input"/>
+            <Button onClick={this.handleUserPosition}>
+              <i className="fa fa-map-marker" aria-hidden="true"></i>
+            </Button>
+            <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
+            <Button onClick={() => this.handleLocation()} type="submit" id="location-submit">
+              <i className="fa fa-search" aria-hidden="true"></i>
+            </Button>
+            </FormGroup>
           </Navbar.Form>
       </Navbar>
     )

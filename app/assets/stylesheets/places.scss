@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 
 $highlight-font: 'Roboto', sans-serif;
 $main-font: 'Open Sans', sans-serif;
@@ -69,12 +69,21 @@ body {
 }
 
 .filter-group {
-  display: inline-block;
   padding: 0 10px 0 10px;
 }
 
+.form-control {
+  flex-basis: 30%;
+  min-width: 80px;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .leaflet-container {
-  height: 88%;
+  height: 80%;
   width: 100%;
   max-width: 47vw;
   position: fixed;
@@ -101,12 +110,13 @@ body {
 }
 
 .navbar-form {
-  text-align: center;
+  // text-align: center;
+  border: 0;
+  padding: 0;
 }
 
 .navbar-main {
   background-color: #fff;
-
 }
 
 .navbar-lower {
