@@ -19,7 +19,7 @@ export default class PlaceMap extends React.Component {
     if (places.length < 1) return
 
     let list = places.map(place => {
-      
+
       let iconUrl = "assets/inactive.png"
       const position = [place.latitude, place.longitude]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
@@ -29,7 +29,7 @@ export default class PlaceMap extends React.Component {
                      </Popup>
 
       if (this.props.selected === place.id) {
-        icon.iconSize = 45
+        icon.options.iconSize = 45
         return (
           <ActiveMarker position={position} key={place.id}
             zIndexOffset={100}
