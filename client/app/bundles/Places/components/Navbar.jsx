@@ -170,7 +170,7 @@ export default class NavBar extends React.Component {
     return (
       <Navbar fixedTop className="navbar-main" fluid>
         <Navbar.Brand>
-          <a href="#">A</a>
+          <a href="#"><img src="assets/logo.png"></img><p className="letter">A</p></a>
         </Navbar.Brand>
         <Navbar.Form pullLeft>
           <FormGroup>
