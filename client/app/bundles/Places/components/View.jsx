@@ -166,8 +166,8 @@ export default class View extends React.Component {
     let data = all.data
     let allEvents = all.allEvents
     const length = (this.props.view === "place") ? data.length : allEvents.length
-    const start = this.state.page * 5
-    const end = this.state.page * 5 + 5
+    const start = this.state.page * 10
+    const end = this.state.page * 10 + 10
 
     if (this.props.view == "place") {
       data = data.slice(start, end)
@@ -216,7 +216,7 @@ export default class View extends React.Component {
       this.setState({prev: false})
     }
 
-    if ((this.state.page + 1) * 5 >= this.state.length) {
+    if ((this.state.page + 1) * 10 >= this.state.length) {
       this.setState({next: true})
     } else {
       this.setState({next: false})
