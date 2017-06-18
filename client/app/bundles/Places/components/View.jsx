@@ -228,33 +228,17 @@ export default class View extends React.Component {
 
     let daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const now = new Date
-    let days = daysArr.splice(now.getDay())
-    days.concat(daysArr)
-    let todayCount = []
+    const nowInt = parseInt(`${now.getDay()}${now.getHours()}`)
+
+    const toInt = (event) => { parseInt(`${daysArr.indexOf(event.dow)}${event.start_time}`) }
 
     let newevents = events.sort((a,b) => {
-      const aday = days.indexOf(a.dow)
-      const bday = days.indexOf(b.dow)
-
-      if (aday === now.getDay() && !todayCount.includes(a.id)) { todayCount.push(a.id) }
-      if (bday === now.getDay() && !todayCount.includes(b.id)) { todayCount.push(b.id) }
-
-      if (aday === bday) {
-        return a.start_time - b.start_time
-      } else {
-        return aday - bday
-      }
+      return toInt(a) - toInt(b)
     })
 
-    if (todayCount.length > 0) {
-      let todayEvents = days.slice(0, todayCount)
-      let head = []
-      let tail = []
-      for (let val in todayEvents) {
-        val.start_time >= now.getHours ? head.push(val)
-                                       : tail.push(val)
-      }
-      newevents = head.concat(newevents).concat(tail)
+    while (toInt(newevents[0]) < nowInt) {
+      let tail = newevents.shift()
+      newevents.push(tail)
     }
     return newevents
   }
