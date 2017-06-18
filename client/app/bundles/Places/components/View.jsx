@@ -199,7 +199,8 @@ export default class View extends React.Component {
     if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
     tmp = this.filterPagination(tmp)
 
-    let sortedEvents = this.sortedEvents(tmp.allEvents)
+    let sortedEvents = tmp.allEvents
+    // let sortedEvents = this.sortedEvents(tmp.allEvents)
     this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length}, this.setButtons)
   }
 
@@ -255,7 +256,7 @@ export default class View extends React.Component {
       }
       newevents = head.concat(newevents).concat(tail)
     }
-    
+
     return newevents
   }
 
