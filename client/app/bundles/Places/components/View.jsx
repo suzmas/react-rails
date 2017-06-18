@@ -229,14 +229,33 @@ export default class View extends React.Component {
     const now = new Date
     let days = daysArr.splice(now.getDay())
     days.concat(daysArr)
+    let todayCount = 0
 
     let newevents = events.sort((a,b) => {
-      if (days.indexOf(a.dow) === days.indexOf(b.dow)) {
+      const aday = days.indexOf(a.dow)
+      const bday = days.indexOf(b.dow)
+
+      if (aday === now.getDay()) { todayCount++ }
+      if (bday === now.getDay()) { todayCount++ }
+
+      if (aday === bday) {
         return a.start_time - b.start_time
       } else {
-        return days.indexOf(a.dow) - days.indexOf(b.dow)
+        return aday - bday
       }
     })
+
+    if (todayCount > 0) {
+      let todayEvents = days.slice(0, todayCount)
+      let head = []
+      let tail = []
+      for (let val in todayEvents) {
+        val.start_time >= now.getHours ? head.push(val)
+                                       : tail.push(val)
+      }
+      newevents = head.concat(newevents).concat(tail)
+    }
+    
     return newevents
   }
 
@@ -319,8 +338,7 @@ export default class View extends React.Component {
           activeDay={this.state.activeDay}
           activeHour={this.state.activeHour}
           hasFood={this.state.hasFood}
-          hasDrink={this.state.hasDrink}
-          view={this.props.view}/>
+          hasDrink={this.state.hasDrink}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid className="body-container">
