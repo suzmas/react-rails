@@ -2,20 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import {Navbar, Form, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup, ButtonGroup} from "react-bootstrap"
 
-/*
-** TODO: Make navbar more responsive
-*/
 export default class NavBar extends React.Component {
-
-  // componentDidMount() {
-  //   const navbarToggle = document.getElementsByClassName("navbar-toggle")
-  //   const iconBars = document.getElementsByClassName("icon-bar")
-  //   while(iconBars.length > 0) {
-  //     iconBars[0].parentNode.removeChild(iconBars[0])
-  //   }
-  //
-  //   navbarToggle[0].insertAdjacentHTML('beforeend', '<i class="fa fa-filter" aria-hidden="true"></i>')
-  // }
 
   handleSearchChange = (e) => {
     this.props.onSearchChange(e.target.value)
@@ -63,42 +50,12 @@ export default class NavBar extends React.Component {
     this.props.onViewChange(view)
   }
 
-  keywordSearch = () => {
-    return (
-      <FormGroup className="filter-group">
-        <FormControl type="text" placeholder="Search"
-          onChange={this.handleSearchChange} id="keyword-input"/>
-      </FormGroup>
-    )
-  }
-
   // Submit location search on 'return' keydown
   handleEnter = (e) => {
     if (e.keyCode === 13) {
       this.handleLocation()
     }
   }
-
-  placeLocation = () => {
-    return (
-      <FormGroup className="filter-group">
-        <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
-      </FormGroup>
-    )
-  }
-  // placeLocation = () => {
-  //   return (
-  //     <FormGroup className="filter-group">
-  //       <InputGroup>
-  //         <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter}/>
-  //         <InputGroup.Button>
-  //           <Button onClick={this.handleUserPosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
-  //         </InputGroup.Button>
-  //       </InputGroup>
-  //       <Button onClick={() => this.handleLocation()} type="submit" id="location-submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
-  //     </FormGroup>
-  //   )
-  // }
 
   timeOptions = () => {
     let timeButtons =
@@ -194,75 +151,37 @@ export default class NavBar extends React.Component {
 
   resetFilters = () => {
     this.props.resetFilters()
-    // this.setState({hourOfDay: "", timeOfDay: "", dayOfWeek: ""})
   }
 
-  // navbarInstance() {
-  //   return (
-  //     <Navbar fixedTop className="navbar-main" fluid>
-  //       <Navbar.Header>
-  //         <Navbar.Brand>
-  //           <a href="#">A</a>
-  //         </Navbar.Brand>
-  //         <Navbar.Toggle />
-  //       </Navbar.Header>
-  //       <Navbar.Collapse>
-  //         <Navbar.Form>
-  //           { this.keywordSearch() }
-  //           { this.placeLocation() }
-  //           { this.timeMenu() }
-  //           <Button
-  //             className={(this.props.hasFood) ? "btn-active" : "btn-inactive"}
-  //             onClick={() => this.handleBool("food")} id="has-food">
-  //             <i className="fa fa-cutlery" aria-hidden="true"></i>
-  //           </Button>
-  //           <Button
-  //             className={(this.props.hasDrink) ? "btn-active": "btn-inactive"}
-  //             onClick={() => this.handleBool("drink")} id="has-drink">
-  //             <i className="fa fa-beer" aria-hidden="true"></i>
-  //           </Button>
-  //           {" "}
-  //           <div className="filter-group">
-  //             <Button onClick={() => this.handleViewChange("place")}>
-  //               Places</Button>
-  //             <Button onClick={() => this.handleViewChange("event")}>
-  //               Events</Button>
-  //           </div>
-  //           <Button id="reset-button" onClick={() => this.resetFilters() }>Reset</Button>
-  //         </Navbar.Form>
-  //       </Navbar.Collapse>
-  //     </Navbar>
-  //   )
-  // }
-  firstNavbar() {
+  mainNavbar() {
     const viewButton = this.props.view === "place" ?
       <Button onClick={() => this.handleViewChange("event")}>Places</Button> :
       <Button onClick={() => this.handleViewChange("place")}>Events</Button>
 
     return (
       <Navbar fixedTop className="navbar-main" fluid>
-            <Navbar.Brand>
-              <a href="#">A</a>
-            </Navbar.Brand>
-          <Navbar.Form pullLeft>
-            <FormGroup>
-            {viewButton}
-            <FormControl type="text" placeholder="Search"
-              onChange={this.handleSearchChange} id="keyword-input"/>
-            <Button onClick={this.handleUserPosition} id="current-location">
-              <i className="fa fa-map-marker" aria-hidden="true"></i>
-            </Button>
-            <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
-            <Button onClick={() => this.handleLocation()} type="submit" id="location-submit">
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </Button>
-            </FormGroup>
-          </Navbar.Form>
+        <Navbar.Brand>
+          <a href="#">A</a>
+        </Navbar.Brand>
+        <Navbar.Form pullLeft>
+          <FormGroup>
+          { viewButton }
+          <FormControl type="text" placeholder="Search"
+            onChange={this.handleSearchChange} id="keyword-input" />
+          <Button onClick={this.handleUserPosition} id="current-location">
+            <i className="fa fa-map-marker" aria-hidden="true"></i>
+          </Button>
+          <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
+          <Button onClick={() => this.handleLocation()} type="submit" id="location-submit">
+            <i className="fa fa-search" aria-hidden="true"></i>
+          </Button>
+          </FormGroup>
+        </Navbar.Form>
       </Navbar>
     )
   }
 
-  secondNavbar() {
+  lowerNavbar() {
     return (
       <Navbar fixedTop className="navbar-lower" fluid>
         <Navbar.Form pullLeft>
@@ -287,9 +206,9 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        {this.firstNavbar()}
+        { this.mainNavbar() }
         <div></div>
-        {this.secondNavbar()}
+        { this.lowerNavbar() }
       </div>
     )
   }
