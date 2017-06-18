@@ -52,7 +52,6 @@ export default class PlacePanel extends React.Component {
   }
 
   handleSelect = (e) => {
-    // console.log(e)
     this.props.onSelectChange(e)
   }
 
