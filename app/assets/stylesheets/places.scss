@@ -27,6 +27,10 @@ $break-xs: 575px;
 $break-sm: 767px;
 $break-md: 991px;
 
+.body-container {
+  margin-top: 50px;
+}
+
 .btn-active {
   color: $active-color;
   &:hover, &:active, &:focus, &:active:hover, &:active:focus {
@@ -64,7 +68,7 @@ $break-md: 991px;
 }
 
 .leaflet-container {
-  height: 88%;
+  height: 80%;
   width: 100%;
   max-width: 40vw;
   position: fixed;
@@ -89,6 +93,10 @@ $break-md: 991px;
 
 .navbar-main {
   background-color: $primary-color;
+}
+
+.navbar-lower {
+  margin-top: 50px;
 }
 
 .navbar-default .navbar-toggle {

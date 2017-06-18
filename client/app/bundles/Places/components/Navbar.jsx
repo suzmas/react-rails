@@ -4,7 +4,7 @@ import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputG
 
 
 export default class NavBar extends React.Component {
-  
+
   componentDidMount() {
     const navbarToggle = document.getElementsByClassName("navbar-toggle")
     const iconBars = document.getElementsByClassName("icon-bar")
@@ -188,8 +188,44 @@ export default class NavBar extends React.Component {
     // this.setState({hourOfDay: "", timeOfDay: "", dayOfWeek: ""})
   }
 
-  // more performant way to do onClick for button, will fix down the road
-  navbarInstance() {
+  // navbarInstance() {
+  //   return (
+  //     <Navbar fixedTop className="navbar-main" fluid>
+  //       <Navbar.Header>
+  //         <Navbar.Brand>
+  //           <a href="#">A</a>
+  //         </Navbar.Brand>
+  //         <Navbar.Toggle />
+  //       </Navbar.Header>
+  //       <Navbar.Collapse>
+  //         <Navbar.Form>
+  //           { this.keywordSearch() }
+  //           { this.placeLocation() }
+  //           { this.timeMenu() }
+  //           <Button
+  //             className={(this.props.hasFood) ? "btn-active" : "btn-inactive"}
+  //             onClick={() => this.handleBool("food")} id="has-food">
+  //             <i className="fa fa-cutlery" aria-hidden="true"></i>
+  //           </Button>
+  //           <Button
+  //             className={(this.props.hasDrink) ? "btn-active": "btn-inactive"}
+  //             onClick={() => this.handleBool("drink")} id="has-drink">
+  //             <i className="fa fa-beer" aria-hidden="true"></i>
+  //           </Button>
+  //           {" "}
+  //           <div className="filter-group">
+  //             <Button onClick={() => this.handleViewChange("place")}>
+  //               Places</Button>
+  //             <Button onClick={() => this.handleViewChange("event")}>
+  //               Events</Button>
+  //           </div>
+  //           <Button id="reset-button" onClick={() => this.resetFilters() }>Reset</Button>
+  //         </Navbar.Form>
+  //       </Navbar.Collapse>
+  //     </Navbar>
+  //   )
+  // }
+  firstNavbar() {
     return (
       <Navbar fixedTop className="navbar-main" fluid>
         <Navbar.Header>
@@ -198,31 +234,38 @@ export default class NavBar extends React.Component {
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>
-          <Navbar.Form>
-            { this.keywordSearch() }
-            { this.placeLocation() }
-            { this.timeMenu() }
-            <Button
-              className={(this.props.hasFood) ? "btn-active" : "btn-inactive"}
-              onClick={() => this.handleBool("food")} id="has-food">
-              <i className="fa fa-cutlery" aria-hidden="true"></i>
-            </Button>
-            <Button
-              className={(this.props.hasDrink) ? "btn-active": "btn-inactive"}
-              onClick={() => this.handleBool("drink")} id="has-drink">
-              <i className="fa fa-beer" aria-hidden="true"></i>
-            </Button>
-            {" "}
-            <div className="filter-group">
-              <Button onClick={() => this.handleViewChange("place")}>
-                Places</Button>
-              <Button onClick={() => this.handleViewChange("event")}>
-                Events</Button>
-            </div>
-            <Button id="reset-button" onClick={() => this.resetFilters() }>Reset</Button>
-          </Navbar.Form>
-        </Navbar.Collapse>
+        <Navbar.Form pullLeft>
+          <div className="filter-group">
+            <Button onClick={() => this.handleViewChange("place")}>
+              Places</Button>
+            <Button onClick={() => this.handleViewChange("event")}>
+              Events</Button>
+          </div>
+          { this.keywordSearch() }
+          { this.placeLocation() }
+        </Navbar.Form>
+      </Navbar>
+    )
+  }
+
+  secondNavbar() {
+    return (
+      <Navbar fixedTop className="navbar-lower" fluid>
+        <Navbar.Form pullLeft>
+          { this.timeMenu() }
+          <Button
+            className={(this.props.hasFood) ? "btn-active" : "btn-inactive"}
+            onClick={() => this.handleBool("food")} id="has-food">
+            <i className="fa fa-cutlery" aria-hidden="true"></i>
+          </Button>
+          <Button
+            className={(this.props.hasDrink) ? "btn-active": "btn-inactive"}
+            onClick={() => this.handleBool("drink")} id="has-drink">
+            <i className="fa fa-beer" aria-hidden="true"></i>
+          </Button>
+          {" "}
+          <Button id="reset-button" onClick={() => this.resetFilters() }>Reset</Button>
+        </Navbar.Form>
       </Navbar>
     )
   }
@@ -230,7 +273,8 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        {this.navbarInstance()}
+        {this.firstNavbar()}
+        {this.secondNavbar()}
       </div>
     )
   }
