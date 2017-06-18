@@ -2,7 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import {Navbar, Form, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup, ButtonGroup} from "react-bootstrap"
 
-
+/*
+** TODO: Make navbar more responsive
+*/
 export default class NavBar extends React.Component {
 
   // componentDidMount() {
