@@ -80,12 +80,18 @@ export default class NavBar extends React.Component {
 
 
   setTimeNow = () => {
+    const timeNow = this.getNow()
+    this.updateTime(timeNow.amPm, timeNow.hour)
+    this.props.onDayChange(timeNow.day)
+  }
+
+  getNow = () => {
     const now = new Date
-    const hour = now.getHours() < 13 ? now.getHours() : now.getHours() - 12
+    const hour = now.getHours() < 13 ? now.getHours() : now.getHours - 12
     const amPm = now.getHours() < 13 ? "AM" : "PM"
     const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][ now.getDay() ]
-    this.updateTime(amPm, hour)
-    this.props.onDayChange(day)
+
+    return {hour: hour, amPm: amPm, day: day}
   }
 
   updateTime = (amPm, hour) => {
@@ -111,16 +117,19 @@ export default class NavBar extends React.Component {
     const hour = this.props.activeHour > 12 ? this.props.activeHour - 12 : this.props.activeHour
     const amPm = this.props.activeAmPm
     const day = this.props.activeDay
-    let dropdownLabel =
+    const timeNow = this.getNow()
+    let label =
     (!day && !hour) ?
-      <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+      "Time"
       : `${day} ${hour} ${amPm}`
 
     return (
     <div className="filter-group">
+      <span className="time-display">{ label }</span>
+      {" "}
       <Dropdown id="time-dropdown">
         <Dropdown.Toggle>
-          {dropdownLabel}
+          <i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Button key={"now"}
