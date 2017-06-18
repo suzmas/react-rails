@@ -74,7 +74,6 @@ export default class View extends React.Component {
   handleSelectedPanel = (id) => {
 
     let panel = this.state.selectedPanel === id ? 0 : id
-    console.log(id + "or" + panel)
     this.setState({selectedPanel: panel})
   }
 
@@ -305,7 +304,7 @@ export default class View extends React.Component {
           hasDrink={this.state.hasDrink}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
-        <Grid>
+        <Grid className="body-container">
         <Row>
           <Col id="list-view" sm={12} md={6} hidden={this.state.hiddenList}>
             {panel}
