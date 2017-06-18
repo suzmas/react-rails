@@ -16,6 +16,25 @@ $break-xs: 575px;
 $break-sm: 767px;
 $break-md: 991px;
 
+a.navbar-brand {
+  height: 60px;
+  padding: 16px;
+  border-right: 1px solid #e6e6e6;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    @media screen and (max-width: $break-md) {
+      display: none;
+    }
+  }
+  .letter {
+    display: none;
+    @media screen and (max-width: $break-md) {
+      display: inline-block;
+    }
+  }
+}
+
 body {
   background-color: #dde4e4;
   font-family: $main-font;
@@ -133,11 +152,11 @@ body {
 
 #map-view {
   float: right;
-
   @media screen and (max-width: $break-md) {
     float: none;
   }
 }
+
 
 .navbar-icon-label {
   color: $secondary-color;
@@ -149,6 +168,7 @@ body {
   // text-align: center;
   border: 0;
   padding: 0;
+  margin-left: 20px;
 }
 
 .navbar-main {
