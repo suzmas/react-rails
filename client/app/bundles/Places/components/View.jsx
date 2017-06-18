@@ -199,7 +199,8 @@ export default class View extends React.Component {
     if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
     tmp = this.filterPagination(tmp)
 
-    this.setState({data: tmp.data, allEvents: tmp.allEvents, length: tmp.length}, this.setButtons)
+    let sortedEvents = this.sortedEvents(tmp.allEvents)
+    this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length}, this.setButtons)
   }
 
   setPage = (str) => {
@@ -220,6 +221,23 @@ export default class View extends React.Component {
     } else {
       this.setState({next: false})
     }
+  }
+
+
+  sortedEvents = (events) => {
+    let daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const now = new Date
+    let days = daysArr.splice(now.getDay())
+    days.concat(daysArr)
+
+    let newevents = events.sort((a,b) => {
+      if (days.indexOf(a.dow) === days.indexOf(b.dow)) {
+        return a.start_time - b.start_time
+      } else {
+        return days.indexOf(a.dow) - days.indexOf(b.dow)
+      }
+    })
+    return newevents
   }
 
   clearFilters = () => {

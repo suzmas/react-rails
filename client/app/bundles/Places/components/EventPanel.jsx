@@ -34,7 +34,7 @@ export default class EventPanel extends React.Component {
              header={headerString}
              eventKey={e.id}
              onSelect={this.handleSelect}>
-             <p><strong>Specials</strong></p>
+             <p><strong>{e.dow} Specials</strong></p>
              {Object.entries(e.menu).sort().map(([key,value]) => {
                return <p className="menu-item" key={key}>{key}: ${value}</p>
              })}
@@ -42,6 +42,8 @@ export default class EventPanel extends React.Component {
     )
     return panel
   }
+
+
 
   eventList = () => {
     let list = this.props.allEvents.map(event => {
