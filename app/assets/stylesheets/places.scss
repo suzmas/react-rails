@@ -190,6 +190,14 @@ body {
   font-size: 14px;
 }
 
+#reset-button {
+  font-size: 10px;
+  background-color: #f8f8f8;
+
+  &:hover {
+    color: red;
+  }
+}
 .time-display {
   display: inline-block;
   border-bottom: 1px solid #dde4e4;

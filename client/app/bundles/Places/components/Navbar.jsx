@@ -206,7 +206,9 @@ export default class NavBar extends React.Component {
             <i className="fa fa-beer" aria-hidden="true"></i>
           </Button>
           {" "}
-          <Button id="reset-button" onClick={() => this.resetFilters() }>Reset</Button>
+          <Button id="reset-button" onClick={() => this.resetFilters() }>
+            <i className="fa fa-times" aria-hidden="true"></i>
+          </Button>
         </Navbar.Form>
       </Navbar>
     )
