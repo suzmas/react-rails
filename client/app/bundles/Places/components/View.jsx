@@ -199,8 +199,7 @@ export default class View extends React.Component {
     if (this.state.hasDrink) { tmp = this.filterBool(tmp, "drink") }
     tmp = this.filterPagination(tmp)
 
-    let sortedEvents = tmp.allEvents
-    // let sortedEvents = this.sortedEvents(tmp.allEvents)
+    let sortedEvents = this.sortedEvents(tmp.allEvents)
     this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length}, this.setButtons)
   }
 
@@ -226,18 +225,19 @@ export default class View extends React.Component {
 
 
   sortedEvents = (events) => {
+
     let daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const now = new Date
     let days = daysArr.splice(now.getDay())
     days.concat(daysArr)
-    let todayCount = 0
+    let todayCount = []
 
     let newevents = events.sort((a,b) => {
       const aday = days.indexOf(a.dow)
       const bday = days.indexOf(b.dow)
 
-      if (aday === now.getDay()) { todayCount++ }
-      if (bday === now.getDay()) { todayCount++ }
+      if (aday === now.getDay() && !todayCount.includes(a.id)) { todayCount.push(a.id) }
+      if (bday === now.getDay() && !todayCount.includes(b.id)) { todayCount.push(b.id) }
 
       if (aday === bday) {
         return a.start_time - b.start_time
@@ -246,7 +246,7 @@ export default class View extends React.Component {
       }
     })
 
-    if (todayCount > 0) {
+    if (todayCount.length > 0) {
       let todayEvents = days.slice(0, todayCount)
       let head = []
       let tail = []
@@ -256,7 +256,6 @@ export default class View extends React.Component {
       }
       newevents = head.concat(newevents).concat(tail)
     }
-
     return newevents
   }
 
@@ -339,7 +338,8 @@ export default class View extends React.Component {
           activeDay={this.state.activeDay}
           activeHour={this.state.activeHour}
           hasFood={this.state.hasFood}
-          hasDrink={this.state.hasDrink}/>
+          hasDrink={this.state.hasDrink}
+          view={this.props.view}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid className="body-container">
