@@ -5,15 +5,15 @@ import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputG
 
 export default class NavBar extends React.Component {
 
-  componentDidMount() {
-    const navbarToggle = document.getElementsByClassName("navbar-toggle")
-    const iconBars = document.getElementsByClassName("icon-bar")
-    while(iconBars.length > 0) {
-      iconBars[0].parentNode.removeChild(iconBars[0])
-    }
-
-    navbarToggle[0].insertAdjacentHTML('beforeend', '<i class="fa fa-filter" aria-hidden="true"></i>')
-  }
+  // componentDidMount() {
+  //   const navbarToggle = document.getElementsByClassName("navbar-toggle")
+  //   const iconBars = document.getElementsByClassName("icon-bar")
+  //   while(iconBars.length > 0) {
+  //     iconBars[0].parentNode.removeChild(iconBars[0])
+  //   }
+  //
+  //   navbarToggle[0].insertAdjacentHTML('beforeend', '<i class="fa fa-filter" aria-hidden="true"></i>')
+  // }
 
   handleSearchChange = (e) => {
     this.props.onSearchChange(e.target.value)
@@ -80,16 +80,27 @@ export default class NavBar extends React.Component {
   placeLocation = () => {
     return (
       <FormGroup className="filter-group">
-        <InputGroup>
           <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter}/>
           <InputGroup.Button>
             <Button onClick={this.handleUserPosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
           </InputGroup.Button>
-        </InputGroup>
         <Button onClick={() => this.handleLocation()} type="submit" id="location-submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
       </FormGroup>
     )
   }
+  // placeLocation = () => {
+  //   return (
+  //     <FormGroup className="filter-group">
+  //       <InputGroup>
+  //         <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter}/>
+  //         <InputGroup.Button>
+  //           <Button onClick={this.handleUserPosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
+  //         </InputGroup.Button>
+  //       </InputGroup>
+  //       <Button onClick={() => this.handleLocation()} type="submit" id="location-submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
+  //     </FormGroup>
+  //   )
+  // }
 
   timeOptions = () => {
     let timeButtons =
@@ -227,12 +238,11 @@ export default class NavBar extends React.Component {
   // }
   firstNavbar() {
     return (
-      <Navbar fixedTop className="navbar-main" fluid>
+      <Navbar fixedTop className="navbar-main">
         <Navbar.Header>
           <Navbar.Brand>
             <a href="#">A</a>
           </Navbar.Brand>
-          <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Form pullLeft>
           <div className="filter-group">
@@ -250,7 +260,7 @@ export default class NavBar extends React.Component {
 
   secondNavbar() {
     return (
-      <Navbar fixedTop className="navbar-lower" fluid>
+      <Navbar fixedTop className="navbar-lower">
         <Navbar.Form pullLeft>
           { this.timeMenu() }
           <Button
@@ -274,6 +284,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         {this.firstNavbar()}
+        <div></div>
         {this.secondNavbar()}
       </div>
     )
