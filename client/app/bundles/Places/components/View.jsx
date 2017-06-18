@@ -216,7 +216,7 @@ export default class View extends React.Component {
       this.setState({prev: false})
     }
 
-    if ((this.state.page + 1) * 5 >= this.state.length) {
+    if ((this.state.page + 1) * 10 >= this.state.length) {
       this.setState({next: true})
     } else {
       this.setState({next: false})
