@@ -10,14 +10,14 @@ $main-font: 'Open Sans', sans-serif;
 $primary-color: #516391;
 $secondary-color: #FFF;
 $active-color: $primary-color;
-$inactive-color: #A8B0C4;
+$inactive-color: #AEB4C2;
 
 $break-xs: 575px;
 $break-sm: 767px;
 $break-md: 991px;
 
 body {
-  background-color: #F5F5F5;
+  background-color: #dde4e4;
   font-family: $main-font;
 }
 
@@ -46,6 +46,10 @@ body {
   }
 }
 
+.container {
+  width: 100%;
+}
+
 .menu-item {
   display: inline-block;
   width: 50%;
@@ -68,7 +72,7 @@ body {
 .leaflet-container {
   height: 88%;
   width: 100%;
-  max-width: 40vw;
+  max-width: 47vw;
   position: fixed;
   margin-top: 55px;
 

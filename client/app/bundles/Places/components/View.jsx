@@ -305,7 +305,7 @@ export default class View extends React.Component {
           hasDrink={this.state.hasDrink}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
-        <Grid>
+        <Grid class="content-container">
         <Row>
           <Col id="list-view" sm={12} md={6} hidden={this.state.hiddenList}>
             {panel}
