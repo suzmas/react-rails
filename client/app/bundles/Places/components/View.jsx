@@ -225,12 +225,16 @@ export default class View extends React.Component {
 
 
   sortedEvents = (events) => {
-    let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    let daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const now = new Date
+    let days = daysArr.splice(now.getDay())
+    days.concat(daysArr)
+
     let newevents = events.sort((a,b) => {
-      if (daysArr.indexOf(a.dow) === daysArr.indexOf(b.dow)) {
+      if (days.indexOf(a.dow) === days.indexOf(b.dow)) {
         return a.start_time - b.start_time
       } else {
-        return daysArr.indexOf(a.dow) - daysArr.indexOf(b.dow)
+        return days.indexOf(a.dow) - days.indexOf(b.dow)
       }
     })
     return newevents
