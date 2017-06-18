@@ -230,12 +230,14 @@ export default class View extends React.Component {
     const now = new Date
     const nowInt = parseInt(`${now.getDay()}${now.getHours()}`)
 
-    const toInt = (event) => { parseInt(`${daysArr.indexOf(event.dow)}${event.start_time}`) }
+    const toInt = (event) => { return parseInt(`${daysArr.indexOf(event.dow)}${event.start_time}`) }
 
     let newevents = events.sort((a,b) => {
+      console.log(toInt(a))
+      console.log(a)
       return toInt(a) - toInt(b)
     })
-
+    console.log(newevents)
     while (toInt(newevents[0]) < nowInt) {
       let tail = newevents.shift()
       newevents.push(tail)
