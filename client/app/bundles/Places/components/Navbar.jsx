@@ -249,7 +249,7 @@ export default class NavBar extends React.Component {
             {viewButton}
             <FormControl type="text" placeholder="Search"
               onChange={this.handleSearchChange} id="keyword-input"/>
-            <Button onClick={this.handleUserPosition}>
+            <Button onClick={this.handleUserPosition} id="current-location">
               <i className="fa fa-map-marker" aria-hidden="true"></i>
             </Button>
             <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
