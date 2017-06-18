@@ -19,22 +19,22 @@ export default class PlaceMap extends React.Component {
     if (places.length < 1) return
 
     let list = places.map(place => {
+      
       let iconUrl = "assets/inactive.png"
       const position = [place.latitude, place.longitude]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
-      console.log(place)
+      const address = place.address1.replace(", USA", "")
+      const popup =  <Popup><div><span>{place.name}</span>
+                      <br /><span>{address}</span></div>
+                     </Popup>
+
       if (this.props.selected === place.id) {
+        icon.iconSize = 45
         return (
           <ActiveMarker position={position} key={place.id}
             zIndexOffset={100}
-            icon={L.icon({iconUrl: iconUrl, iconSize: 45})}>
-            <Popup>
-              <div>
-              <span>{place.name}</span>
-              <br />
-              <span>{place.address1 ? place.address1.replace(", USA", "") : ""}</span>
-              </div>
-            </Popup>
+            icon={icon}>
+            {popup}
           </ActiveMarker>
         )
       } else {
@@ -42,13 +42,7 @@ export default class PlaceMap extends React.Component {
           <Marker key={place.id}
             position={position}
             icon={icon}>
-            <Popup>
-              <div>
-              <span>{place.name}</span>
-              <br />
-              <span>{place.address1 ? place.address1.replace(", USA", "") : ""}</span>
-              </div>
-            </Popup>
+            {popup}
           </Marker>
         )}
     })
