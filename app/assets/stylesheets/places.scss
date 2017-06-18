@@ -2,33 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* Coolors Exported Palette - coolors.co/984447-d38b5d-2c497f-68b0ab-696d7d */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 
-/* HSL */
-$color1: hsla(358%, 38%, 43%, 1);
-$color2: hsla(23%, 57%, 60%, 1);
-$color3: hsla(219%, 49%, 34%, 1);
-$color4: hsla(176%, 31%, 55%, 1);
-$color5: hsla(228%, 9%, 45%, 1);
+$highlight-font: 'Roboto', sans-serif;
+$main-font: 'Open Sans', sans-serif;
 
-/* RGB */
-$color1: rgba(152, 68, 71, 1);
-$color2: rgba(211, 139, 93, 1);
-$color3: rgba(44, 73, 127, 1);
-$color4: rgba(9, 135, 126, 1);
-$color5: rgba(105, 109, 125, 1);
-
-$primary-color: #04a599;
+$primary-color: #516391;
 $secondary-color: #FFF;
-$active-color: #FFF;
-$inactive-color: rgba(138, 189, 185, 1);;
+$active-color: $primary-color;
+$inactive-color: #AEB4C2;
 
 $break-xs: 575px;
 $break-sm: 767px;
 $break-md: 991px;
 
-.body-container {
-  margin-top: 50px;
+body {
+  background-color: #dde4e4;
+  font-family: $main-font;
 }
 
 .body-container {
@@ -40,6 +30,10 @@ $break-md: 991px;
   &:hover, &:active, &:focus, &:active:hover, &:active:focus {
     color: $active-color;
   }
+}
+
+.btn-default {
+  border: none;
 }
 
 .btn-group.hour-group button {
@@ -56,10 +50,18 @@ $break-md: 991px;
   }
 }
 
+.container {
+  width: 100%;
+}
+
 .menu-item {
   display: inline-block;
   width: 50%;
   text-transform: capitalize;
+}
+
+.event-hours {
+  font-size: 16px;
 }
 
 .event-string {
@@ -79,7 +81,7 @@ $break-md: 991px;
 .leaflet-container {
   height: 80%;
   width: 100%;
-  max-width: 40vw;
+  max-width: 47vw;
   position: fixed;
   margin-top: 55px;
 
@@ -88,6 +90,13 @@ $break-md: 991px;
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.list-btn {
+  position: fixed;
+  margin-top: 55px;
+  right: 10px;
+  top: 0;
 }
 
 .navbar-icon-label {
@@ -103,11 +112,7 @@ $break-md: 991px;
 }
 
 .navbar-main {
-  background-color: $primary-color;
-}
-
-.navbar-lower {
-  margin-top: 50px;
+  background-color: #fff;
 }
 
 .navbar-lower {
@@ -129,28 +134,33 @@ $break-md: 991px;
   }
 }
 
+.panel-default > .panel-heading {
+  background-color: #fff;
+}
+
 .panel-group {
   margin-top: 55px;
 }
 
-.place-neighborhood, .place-title, {
+.place-neighborhood, .place-title, .event-hours {
   display: inline-block;
 }
 
-.place-neighborhood {
+.place-neighborhood, .event-hours {
   color: #858177;
   font-style: italic;
+  padding-top: 10px;
   margin: 7px;
   float: right;
 }
 
-.place-address {
-  font-size: 14px;
+.place-title {
+  font-size: 22px;
+  font-family: $highlight-font;
+  padding: 10px 0;
+  max-width: 55%;
 }
 
-.list-btn {
-  position: fixed;
-  margin-top: 55px;
-  right: 10px;
-  top: 0;
+.place-address {
+  font-size: 14px;
 }
