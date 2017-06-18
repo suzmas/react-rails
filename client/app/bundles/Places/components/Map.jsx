@@ -19,27 +19,32 @@ export default class PlaceMap extends React.Component {
     if (places.length < 1) return
 
     let list = places.map(place => {
-      let zIndexOffset = 0
+
       let iconUrl = "assets/inactive.png"
-      if (this.props.selected === place.id) {
-        zIndexOffset = 1000; iconUrl = "assets/active.png"
-      }
       const position = [place.latitude, place.longitude]
-      const icon = L.icon({iconUrl: iconUrl, iconSize: 35})
-      return (
-        <Marker key={place.id}
-          position={position}
-          zIndexOffset={zIndexOffset}
-          icon={icon}>
-          <Popup>
-            <div>
-            <span>{place.name}</span>
-            <br />
-            <span>{place.address1 ? place.address1.replace(", USA", "") : ""}</span>
-            </div>
-          </Popup>
-        </Marker>
-      )
+      const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
+      const address = place.address1.replace(", USA", "")
+      const popup =  <Popup><div><span>{place.name}</span>
+                      <br /><span>{address}</span></div>
+                     </Popup>
+
+      if (this.props.selected === place.id) {
+        icon.iconSize = 45
+        return (
+          <ActiveMarker position={position} key={place.id}
+            zIndexOffset={100}
+            icon={icon}>
+            {popup}
+          </ActiveMarker>
+        )
+      } else {
+        return (
+          <Marker key={place.id}
+            position={position}
+            icon={icon}>
+            {popup}
+          </Marker>
+        )}
     })
     return list
   }
@@ -71,11 +76,23 @@ export default class PlaceMap extends React.Component {
     return (
       <Map bounds={bounds}>
         <TileLayer
-          url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
-	        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
+          url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
           {this.placeMarker()}
+          {this.openPopup}
       </Map>
     )
+  }
+}
+
+// Create your own class, extending from the Marker class.
+class ActiveMarker extends Marker {
+	// "Hijack" the component lifecycle.
+  componentDidMount() {
+    // Call the Marker class componentDidMount (to make sure everything behaves as normal)
+    super.componentDidMount()
+
+    // Access the marker element and open the popup.
+    this.leafletElement.openPopup()
   }
 }
 
