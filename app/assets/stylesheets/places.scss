@@ -119,9 +119,20 @@ body {
   top: 0;
 }
 
+#list-view {
+  overflow-y: auto;
+  height: 80%;
+  position: fixed;
+  margin-top: 55px;
+}
+
 #location-submit {
   padding: 6px 0;
   font-size: 20px;
+}
+
+#map-view {
+  float: right;
 }
 
 .navbar-icon-label {
@@ -161,10 +172,6 @@ body {
 
 .panel-default > .panel-heading {
   background-color: #fff;
-}
-
-.panel-group {
-  margin-top: 55px;
 }
 
 .place-neighborhood, .place-title, .event-hours {
