@@ -301,7 +301,8 @@ export default class View extends React.Component {
           activeDay={this.state.activeDay}
           activeHour={this.state.activeHour}
           hasFood={this.state.hasFood}
-          hasDrink={this.state.hasDrink}/>
+          hasDrink={this.state.hasDrink}
+          view={this.props.view}/>
         <Clearfix visibleSmBlock visibleMdBlock visibleLgBlock><code>&lt;{"Clearfix visibleSmBlock"} /&gt;</code></Clearfix>
 
         <Grid className="body-container">

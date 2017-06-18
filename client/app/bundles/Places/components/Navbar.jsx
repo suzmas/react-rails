@@ -235,6 +235,10 @@ export default class NavBar extends React.Component {
   //   )
   // }
   firstNavbar() {
+    const viewButton = this.props.view === "place" ?
+      <Button onClick={() => this.handleViewChange("event")}>Places</Button> :
+      <Button onClick={() => this.handleViewChange("place")}>Events</Button>
+
     return (
       <Navbar fixedTop className="navbar-main" fluid>
             <Navbar.Brand>
@@ -242,10 +246,7 @@ export default class NavBar extends React.Component {
             </Navbar.Brand>
           <Navbar.Form pullLeft>
             <FormGroup>
-            <Button onClick={() => this.handleViewChange("place")}>
-            Places</Button>
-            <Button onClick={() => this.handleViewChange("event")}>
-            Events</Button>
+            {viewButton}
             <FormControl type="text" placeholder="Search"
               onChange={this.handleSearchChange} id="keyword-input"/>
             <Button onClick={this.handleUserPosition}>
