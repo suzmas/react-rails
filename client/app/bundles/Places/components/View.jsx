@@ -327,8 +327,12 @@ export default class View extends React.Component {
         <Row>
           <Col id="list-view" sm={12} md={6} hidden={this.state.hiddenList}>
             {panel}
-            <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>Prev</Button>
-            <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>Next</Button>
+            <Button id="prev-btn" onClick={() => this.setPage("prev") } disabled={this.state.prev}>
+              <i className="fa fa-arrow-left" aria-hidden="true"></i>
+            </Button>
+            <Button id="next-btn" onClick={() => this.setPage("next")} disabled={this.state.next}>
+              <i className="fa fa-arrow-right" aria-hidden="true"></i>
+            </Button>
             {toggleList}
           </Col>
           <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
