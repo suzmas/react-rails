@@ -8,21 +8,17 @@ $highlight-font: 'Roboto', sans-serif;
 $main-font: 'Open Sans', sans-serif;
 
 $primary-color: #516391;
-
 $secondary-color: #FFF;
-$active-color: #FFF;
-$inactive-color: rgba(138, 189, 185, 1);;
+$active-color: $primary-color;
+$inactive-color: #AEB4C2;
 
 $break-xs: 575px;
 $break-sm: 767px;
 $break-md: 991px;
 
-.body-container {
-  margin-top: 50px;
-}
-
-.body-container {
-  margin-top: 50px;
+body {
+  background-color: #dde4e4;
+  font-family: $main-font;
 }
 
 .btn-active {
@@ -30,6 +26,10 @@ $break-md: 991px;
   &:hover, &:active, &:focus, &:active:hover, &:active:focus {
     color: $active-color;
   }
+}
+
+.btn-default {
+  border: none;
 }
 
 .btn-group.hour-group button {
@@ -46,10 +46,18 @@ $break-md: 991px;
   }
 }
 
+.container {
+  width: 100%;
+}
+
 .menu-item {
   display: inline-block;
   width: 50%;
   text-transform: capitalize;
+}
+
+.event-hours {
+  font-size: 16px;
 }
 
 .event-string {
@@ -61,15 +69,10 @@ $break-md: 991px;
   padding: 0 10px 0 10px;
 }
 
-.form-control {
-  display: inline-block;
-  width: auto;
-}
-
 .leaflet-container {
-  height: 80%;
+  height: 88%;
   width: 100%;
-  max-width: 40vw;
+  max-width: 47vw;
   position: fixed;
   margin-top: 55px;
 
@@ -80,6 +83,13 @@ $break-md: 991px;
   }
 }
 
+.list-btn {
+  position: fixed;
+  margin-top: 55px;
+  right: 10px;
+  top: 0;
+}
+
 .navbar-icon-label {
   color: $secondary-color;
   display: inline-block;
@@ -87,21 +97,11 @@ $break-md: 991px;
 }
 
 .navbar-form {
-  // text-align: center;
-  border: 0;
-  padding: 0;
+  text-align: center;
 }
 
 .navbar-main {
-  background-color: $primary-color;
-}
-
-.navbar-lower {
-  margin-top: 50px;
-}
-
-.navbar-lower {
-  margin-top: 50px;
+  background-color: #fff;
 }
 
 .navbar-default .navbar-toggle {
@@ -119,28 +119,33 @@ $break-md: 991px;
   }
 }
 
+.panel-default > .panel-heading {
+  background-color: #fff;
+}
+
 .panel-group {
   margin-top: 55px;
 }
 
-.place-neighborhood, .place-title, {
+.place-neighborhood, .place-title, .event-hours {
   display: inline-block;
 }
 
-.place-neighborhood {
+.place-neighborhood, .event-hours {
   color: #858177;
   font-style: italic;
+  padding-top: 10px;
   margin: 7px;
   float: right;
 }
 
-.place-address {
-  font-size: 14px;
+.place-title {
+  font-size: 22px;
+  font-family: $highlight-font;
+  padding: 10px 0;
+  max-width: 55%;
 }
 
-.list-btn {
-  position: fixed;
-  margin-top: 55px;
-  right: 10px;
-  top: 0;
+.place-address {
+  font-size: 14px;
 }
