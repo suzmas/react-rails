@@ -74,7 +74,6 @@ export default class View extends React.Component {
   handleSelectedPanel = (id) => {
 
     let panel = this.state.selectedPanel === id ? 0 : id
-    console.log(id + "or" + panel)
     this.setState({selectedPanel: panel})
   }
 

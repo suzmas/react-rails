@@ -26,7 +26,6 @@ export default class PlaceMap extends React.Component {
       }
       const position = [place.latitude, place.longitude]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 35})
-      console.log(place)
       return (
         <Marker key={place.id}
           position={position}
