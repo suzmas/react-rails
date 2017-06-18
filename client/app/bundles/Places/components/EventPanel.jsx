@@ -15,7 +15,7 @@ export default class EventPanel extends React.Component {
     if (a > 12) {
       a = (a - 12).toString()
       amPm = "PM"
-    }    return `${a}:00 ${amPm}`
+    }    return `${a} ${amPm}`
   }
 
   // May need to find a way to tie in place and event together in this panel
@@ -24,7 +24,7 @@ export default class EventPanel extends React.Component {
     const headerString = (
       <div style={{fontSize: "12px"}}>
         <h4 className="place-title">{e.name}</h4>
-        <p className="place-neighborhood">{`${e.dow}: ${this.dateToTime(e.start_time)} - ${this.dateToTime(e.end_time)}`}</p>
+        <p className="event-hours">{`${e.dow}: ${this.dateToTime(e.start_time)} - ${this.dateToTime(e.end_time)}`}</p>
         <p className="place-address">{address}</p>
       </div>
     )
