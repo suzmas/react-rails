@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup, ButtonGroup} from "react-bootstrap"
+import {Navbar, Form, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup, ButtonGroup} from "react-bootstrap"
 
 
 export default class NavBar extends React.Component {
@@ -80,11 +80,13 @@ export default class NavBar extends React.Component {
   placeLocation = () => {
     return (
       <FormGroup className="filter-group">
-          <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter}/>
-          <InputGroup.Button>
-            <Button onClick={this.handleUserPosition}><i className="fa fa-map-marker" aria-hidden="true"></i></Button>
-          </InputGroup.Button>
-        <Button onClick={() => this.handleLocation()} type="submit" id="location-submit"><i className="fa fa-search" aria-hidden="true"></i></Button>
+        <Button onClick={this.handleUserPosition}>
+          <i className="fa fa-map-marker" aria-hidden="true"></i>
+        </Button>
+        <FormControl id="search-bar" type="text" placeholder="Where?" onKeyUp={this.handleEnter} />
+        <Button onClick={() => this.handleLocation()} type="submit" id="location-submit">
+          <i className="fa fa-search" aria-hidden="true"></i>
+        </Button>
       </FormGroup>
     )
   }
@@ -238,29 +240,27 @@ export default class NavBar extends React.Component {
   // }
   firstNavbar() {
     return (
-      <Navbar fixedTop className="navbar-main">
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#">A</a>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Navbar.Form pullLeft>
+      <Navbar fixedTop className="navbar-main" fluid>
+            <Navbar.Brand>
+              <a href="#">A</a>
+            </Navbar.Brand>
+          <Navbar.Form pullLeft>
           <div className="filter-group">
-            <Button onClick={() => this.handleViewChange("place")}>
-              Places</Button>
-            <Button onClick={() => this.handleViewChange("event")}>
-              Events</Button>
+          <Button onClick={() => this.handleViewChange("place")}>
+          Places</Button>
+          <Button onClick={() => this.handleViewChange("event")}>
+          Events</Button>
           </div>
           { this.keywordSearch() }
           { this.placeLocation() }
-        </Navbar.Form>
+          </Navbar.Form>
       </Navbar>
     )
   }
 
   secondNavbar() {
     return (
-      <Navbar fixedTop className="navbar-lower">
+      <Navbar fixedTop className="navbar-lower" fluid>
         <Navbar.Form pullLeft>
           { this.timeMenu() }
           <Button

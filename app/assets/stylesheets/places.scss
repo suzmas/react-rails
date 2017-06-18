@@ -67,6 +67,11 @@ $break-md: 991px;
   padding: 0 10px 0 10px;
 }
 
+.form-control {
+  display: inline-block;
+  width: auto;
+}
+
 .leaflet-container {
   height: 80%;
   width: 100%;
@@ -88,7 +93,9 @@ $break-md: 991px;
 }
 
 .navbar-form {
-  text-align: center;
+  // text-align: center;
+  border: 0;
+  padding: 0;
 }
 
 .navbar-main {
