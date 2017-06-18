@@ -21,6 +21,10 @@ body {
   font-family: $main-font;
 }
 
+.body-container {
+  margin-top: 50px;
+}
+
 .btn-active {
   color: $active-color;
   &:hover, &:active, &:focus, &:active:hover, &:active:focus {
@@ -102,6 +106,11 @@ body {
 
 .navbar-main {
   background-color: #fff;
+
+}
+
+.navbar-lower {
+  margin-top: 50px;
 }
 
 .navbar-default .navbar-toggle {
