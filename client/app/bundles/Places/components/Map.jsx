@@ -24,8 +24,9 @@ export default class PlaceMap extends React.Component {
       const position = [place.latitude, place.longitude]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
       const address = place.address1.replace(", USA", "")
+      const url = `https://www.google.com/maps/dir//${place.latitude},${place.longitude}`
       const popup =  <Popup><div><span>{place.name}</span>
-                      <br /><span>{address}</span></div>
+                      <br /><span><a href={url}>{address}</a></span></div>
                      </Popup>
 
       if (this.props.selected === place.id) {
