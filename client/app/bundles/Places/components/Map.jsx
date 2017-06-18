@@ -73,28 +73,12 @@ export default class PlaceMap extends React.Component {
       <Map bounds={bounds}>
         <TileLayer
           url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
-	         attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-        />
+	        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
           {this.placeMarker()}
       </Map>
     )
   }
 }
-
-	      //  attribution='Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        // url='http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png'
-
-// attribution='Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// url='http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}' />
-
-// attribution='&amp;copy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-// url='http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />
-
-// attribution='&amp;copy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// url='http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png' />
-
-// attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-// url='http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png' />
 
 PlaceMap.propTypes = {
   data: PropTypes.oneOfType([
