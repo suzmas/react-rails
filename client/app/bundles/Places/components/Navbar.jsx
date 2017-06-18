@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {Navbar, Form, FormGroup, FormControl, Button, Dropdown, DropdownButton, InputGroup, ButtonGroup} from "react-bootstrap"
+import {Navbar, FormGroup, FormControl, Button, Dropdown, DropdownButton, ButtonGroup} from "react-bootstrap"
 
 export default class NavBar extends React.Component {
 
@@ -222,4 +222,13 @@ NavBar.propTypes = {
   onTimeChange: PropTypes.func,
   onDayChange: PropTypes.func,
   resetFilters: PropTypes.func,
+  hasFood: PropTypes.bool,
+  hasDrink: PropTypes.bool,
+  activeAmPm: PropTypes.string,
+  activeHour: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  activeDay: PropTypes.string,
+  view: PropTypes.string
 }
