@@ -4,6 +4,11 @@ import {Panel, Accordion} from "react-bootstrap"
 
 export default class PlacePanel extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.showEvents = this.showEvents.bind(this)
+  }
+
   formatTime(hour) {
     let amPm = hour < 13 ? "AM" : "PM"
     if (hour > 12) hour = hour - 12
@@ -25,6 +30,9 @@ export default class PlacePanel extends React.Component {
     return stringArray
   }
 
+  /*
+  ** TODO: Make onClick showEvents more performant
+  */
   placePanel = (place, events) => {
     let address = place.address1.replace(", USA", "")
     const header = (
@@ -40,6 +48,7 @@ export default class PlacePanel extends React.Component {
              eventKey={place.id}
              onSelect={this.handleSelect}>
         {this.eventString(events)}
+        <a onClick={() => this.showEvents(place.id)}>Events <i className="fa fa-angle-double-right" aria-hidden="true"></i></a>
       </Panel>
     )}
 
@@ -49,6 +58,10 @@ export default class PlacePanel extends React.Component {
       return this.placePanel(place.place, place.events)
     })
     return list
+  }
+
+  showEvents = (id) => {
+    console.log(id)
   }
 
   handleSelect = (e) => {
