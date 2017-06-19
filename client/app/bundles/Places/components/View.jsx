@@ -24,6 +24,7 @@ export default class View extends React.Component {
       locationData: "",
       next: false,
       page: 0,
+      panelId: "",
       prev: false,
       selectedPanel: 0,
       showEvents: "",
@@ -36,11 +37,9 @@ export default class View extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.view !== nextProps.view) {
-      this.state.showing ?
-      this.setState({page: 0, selectedPanel: 0, showing: false, showEvents: ""}) :
-      this.setState({page: 0, selectedPanel: 0}, this.handleData)
-    }
+    this.state.showing ?
+      this.setState({page: 0, selectedPanel: 0, showing: false}, this.handleShowEvents) :
+      this.setState({page: 0, selectedPanel: 0, showEvents: ""}, this.handleData)
   }
 
   componentWillMount() {
@@ -73,6 +72,11 @@ export default class View extends React.Component {
 
   handleLocation = (loc) => {
     this.setState({page: 0, showEvents: "", locationData: loc.loc}, this.handleData)
+  }
+
+  handleId = (id) => {
+    this.setState({panelId: id, showing: true}, () =>
+      this.handleViewChange("events"))
   }
 
   handleSelectedPanel = (id) => {
@@ -206,16 +210,16 @@ export default class View extends React.Component {
     this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length}, this.setButtons)
   }
 
-  handleShowEvents = (id) => {
+  handleShowEvents = () => {
     const places = JSON.parse(this.props.all)
-    let place = places.find((place) => { return place.place.id === id })
+    let place = places.find((place) => { return place.place.id === this.state.panelId })
     let showEvents = []
 
     place.events.forEach(event => {
       showEvents.push(event)
     })
 
-    this.setState({showEvents: showEvents, showing: true}, this.handleViewChange("events"))
+    this.setState({showEvents: showEvents, length: showEvents.length}, this.setButtons)
   }
 
   setPage = (str) => {
@@ -320,7 +324,7 @@ export default class View extends React.Component {
         data={this.state.data}
         selected={this.state.selectedPanel}
         onSelectChange={this.handleSelectedPanel}
-        panelId={this.handleShowEvents} />
+        panelId={this.handleId} />
     : <EventPanel
         data={this.state.data}
         allEvents={this.state.allEvents}
