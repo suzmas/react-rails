@@ -48,7 +48,7 @@ export default class PlacePanel extends React.Component {
              eventKey={place.id}
              onSelect={this.handleSelect}>
         {this.eventString(events)}
-        <a onClick={() => this.showEvents(place.id)}>Events <i className="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        <a onClick={() => this.showEvents(place.id)} className="show-events">Events <i className="fa fa-angle-double-right" aria-hidden="true"></i></a>
       </Panel>
     )}
 
