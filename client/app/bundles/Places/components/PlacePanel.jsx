@@ -30,9 +30,6 @@ export default class PlacePanel extends React.Component {
     return stringArray
   }
 
-  /*
-  ** TODO: Make onClick showEvents more performant
-  */
   placePanel = (place, events) => {
     let address = place.address1.replace(", USA", "")
     const header = (
@@ -48,7 +45,7 @@ export default class PlacePanel extends React.Component {
              eventKey={place.id}
              onSelect={this.handleSelect}>
         {this.eventString(events)}
-        <a onClick={() => this.showEvents(place.id)} className="show-events">Events <i className="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        <a onClick={this.showEvents} className="show-events">Events <i className="fa fa-angle-double-right" aria-hidden="true"></i></a>
       </Panel>
     )}
 
@@ -60,8 +57,8 @@ export default class PlacePanel extends React.Component {
     return list
   }
 
-  showEvents = (id) => {
-    this.props.panelId(id)
+  showEvents() {
+    this.props.panelId(this.props.selected)
   }
 
   handleSelect = (e) => {
