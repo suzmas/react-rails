@@ -26,6 +26,8 @@ export default class View extends React.Component {
       page: 0,
       prev: false,
       selectedPanel: 0,
+      showEvents: "",
+      showing: false,
       text: "",
       width: "0",
     }
@@ -35,6 +37,8 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.view !== nextProps.view) {
+      this.state.showing ?
+      this.setState({page: 0, selectedPanel: 0, showing: false, showEvents: ""}) :
       this.setState({page: 0, selectedPanel: 0}, this.handleData)
     }
   }
@@ -60,30 +64,29 @@ export default class View extends React.Component {
 
   handleSearchChange = (text) => {
     text = text.toLowerCase().trim()
-    this.setState({page: 0, text: text}, this.handleData)
+    this.setState({page: 0, showEvents: "", text: text}, this.handleData)
   }
 
   handleBool = (obj) => {
-    this.setState({page: 0, hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
+    this.setState({page: 0, showEvents: "", hasFood: obj.hasFood, hasDrink: obj.hasDrink}, this.handleData)
   }
 
   handleLocation = (loc) => {
-    this.setState({page: 0, locationData: loc.loc}, this.handleData)
+    this.setState({page: 0, showEvents: "", locationData: loc.loc}, this.handleData)
   }
 
   handleSelectedPanel = (id) => {
-
     let panel = this.state.selectedPanel === id ? 0 : id
     this.setState({selectedPanel: panel})
   }
 
   handleTimeChange = (time) => {
     const hour = (time.amPm === "AM") ? time.hour : time.hour + 12
-    this.setState({page: 0, activeHour: hour, activeAmPm: time.amPm}, this.handleData)
+    this.setState({page: 0, showEvents: "", activeHour: hour, activeAmPm: time.amPm}, this.handleData)
   }
 
   handleDayChange = (day) => {
-    this.setState({page: 0, activeDay: day}, this.handleData)
+    this.setState({page: 0, showEvents: "", activeDay: day}, this.handleData)
   }
 
   handleViewChange = (view) => {
@@ -203,6 +206,18 @@ export default class View extends React.Component {
     this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length}, this.setButtons)
   }
 
+  handleShowEvents = (id) => {
+    const places = JSON.parse(this.props.all)
+    let place = places.find((place) => { return place.place.id === id })
+    let showEvents = []
+
+    place.events.forEach(event => {
+      showEvents.push(event)
+    })
+
+    this.setState({showEvents: showEvents, showing: true}, this.handleViewChange("events"))
+  }
+
   setPage = (str) => {
     (str === "prev") ?
       this.setState({page: this.state.page - 1}, this.handleData) :
@@ -260,6 +275,8 @@ export default class View extends React.Component {
       page: 0,
       prev: false,
       // selectedPanel: 0,
+      showEvents: "",
+      showing: false,
       text: ""
     }, this.handleData)
     // this.collapsePanels()
@@ -302,12 +319,14 @@ export default class View extends React.Component {
       <PlacePanel
         data={this.state.data}
         selected={this.state.selectedPanel}
-        onSelectChange={this.handleSelectedPanel} />
+        onSelectChange={this.handleSelectedPanel}
+        panelId={this.handleShowEvents} />
     : <EventPanel
         data={this.state.data}
         allEvents={this.state.allEvents}
         selected={this.state.selectedPanel}
-        onSelectChange={this.handleSelectedPanel} />
+        onSelectChange={this.handleSelectedPanel}
+        showEvents={this.state.showEvents} />
 
     const toggleList = (this.state.width <= 991) ? this.addListToggle() : null
     return (
@@ -345,7 +364,8 @@ export default class View extends React.Component {
                 data={this.state.data}
                 selected={this.state.selectedPanel}
                 allEvents={this.state.allEvents}
-                view={this.props.view}/>
+                view={this.props.view}
+                showEvents={this.state.showEvents}/>
             {toggleList}
           </Col>
         </Row>
