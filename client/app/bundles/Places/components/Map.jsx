@@ -14,7 +14,7 @@ export default class PlaceMap extends React.Component {
   placeMarker = () => {
     let places = (this.props.view === "place") ?
       this.props.data.map(place => {return place.place}) :
-      this.props.allEvents
+      (this.props.showEvents || this.props.allEvents)
 
     if (places.length < 1) return
 
@@ -53,7 +53,7 @@ export default class PlaceMap extends React.Component {
   getCoords = () => {
     let places = (this.props.view === "place") ?
       this.props.data.map(place => {return place.place}) :
-      this.props.allEvents
+      (this.props.showEvents || this.props.allEvents)
 
     const bounds = latLngBounds()
 

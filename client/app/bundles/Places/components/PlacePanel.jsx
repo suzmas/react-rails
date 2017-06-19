@@ -61,7 +61,7 @@ export default class PlacePanel extends React.Component {
   }
 
   showEvents = (id) => {
-    console.log(id)
+    this.props.panelId(id)
   }
 
   handleSelect = (e) => {
