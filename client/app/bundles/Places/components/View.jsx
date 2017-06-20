@@ -225,15 +225,17 @@ export default class View extends React.Component {
       place.events.forEach(event => {
         showEvents.push(event)
       })
+
+      this.setState({showEvents: showEvents, length: showEvents.length}, this.setButtons)
     } else if (this.state.showType === "single") {
       place.events.forEach(event => {
         if (event.id === this.state.panelEventId) {
           showEvents.push(event)
         }
       })
-    }
 
-    this.setState({showEvents: showEvents, length: showEvents.length}, this.setButtons)
+      this.setState({showEvents: showEvents, length: showEvents.length, selectedPanel: showEvents[0].id}, this.setButtons)
+    }
   }
 
   setPage = (str) => {
