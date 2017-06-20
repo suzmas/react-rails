@@ -245,15 +245,23 @@ export default class View extends React.Component {
 
   sortedEvents = (events) => {
     let daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    // const now = new Date
+    const now = new Date
+    const nowInt = (now.getDay() * 24) + now.getHours()
 
+    let timeInt = (event) => {
+      let dayInt = daysArr.indexOf(event.dow) * 24
+      return dayInt + event.start_time
+    }
     let newevents = events.sort((a,b) => {
-      if (a.dow === b.dow) {
-        return a.start_time - b.start_time
-      }
-      return (daysArr.indexOf(a.dow) - daysArr.indexOf(b.dow))
+      return timeInt(a) - timeInt(b)
     })
-    return newevents
+    let tail = []
+    newevents.forEach((each) => {
+      if (timeInt(each) < nowInt) {
+        tail.push(newevents.shift())
+      }
+    })
+    return newevents.concat(tail)
   }
 
   clearFilters = () => {
