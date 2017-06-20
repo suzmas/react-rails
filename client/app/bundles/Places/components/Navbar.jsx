@@ -164,8 +164,8 @@ export default class NavBar extends React.Component {
 
   mainNavbar() {
     const viewButton = this.props.view === "place" ?
-      <Button onClick={() => this.handleViewChange("event")}>Places</Button> :
-      <Button onClick={() => this.handleViewChange("place")}>Events</Button>
+      <Button className="view-btn" onClick={() => this.handleViewChange("event")}>Places</Button> :
+      <Button className="view-btn" onClick={() => this.handleViewChange("place")}>Events</Button>
 
     return (
       <Navbar fixedTop className="navbar-main" fluid>

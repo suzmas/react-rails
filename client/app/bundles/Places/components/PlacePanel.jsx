@@ -17,12 +17,15 @@ export default class PlacePanel extends React.Component {
 
   eventString = (events) => {
     let stringArray = events.map((event, i) => {
+      const _onClick = () => {
+        this.props.panelEventId(event.id)
+      }
       const start_time = this.formatTime(event.start_time)
       let end_time = this.formatTime(event.end_time) + ","
       if (i === events.length-1) { end_time = end_time.replace(",","") }
       return (
-        <p key={event.id} className="event-string">
-          <b>{event.dow}</b> : {start_time} - {end_time}&nbsp;
+        <p key={event.id} className="event-string" onClick={_onClick}>
+          <a><b>{event.dow}</b>:</a> {start_time} - {end_time}&nbsp;
         </p>
       )
     })

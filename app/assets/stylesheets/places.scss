@@ -90,6 +90,12 @@ body {
 
 .event-string {
   display: inline-block;
+  width: 50%;
+  cursor: pointer;
+
+  @media screen and (max-width: $break-xs) {
+    width: 100%;
+  }
 }
 
 .filter-group {
@@ -169,10 +175,22 @@ body {
   border: 0;
   padding: 0;
   margin-left: 20px;
+
+  @media screen and (max-width: $break-xs) {
+    margin-left: 0;
+  }
 }
 
 .navbar-main {
   background-color: #fff;
+}
+
+.navbar {
+  .container-fluid {
+    @media screen and (max-width: $break-xs) {
+      padding: 0;
+    }
+  }
 }
 
 .navbar-lower {
@@ -241,4 +259,10 @@ body {
   margin-right: 5px;
   width: 125px;
   text-align: center;
+}
+
+.view-btn {
+  @media screen and (max-width: $break-xs) {
+    padding: 5px;
+  }
 }
