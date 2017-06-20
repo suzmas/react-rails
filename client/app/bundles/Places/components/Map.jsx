@@ -20,31 +20,37 @@ export default class PlaceMap extends React.Component {
       let iconUrl = "assets/inactive.png"
       const position = [place.latitude, place.longitude]
       const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
-      const address = place.address1.replace(", USA", "")
-      const url = `https://www.google.com/maps/dir//${place.latitude},${place.longitude}`
-      const popup =  <Popup><div><span>{place.name}</span>
-                      <br /><span><a href={url}>{address}</a></span></div>
-                     </Popup>
+      const popup = this.getPopup(place.name, place.address1, position)
 
       if (this.props.selected === place.id) {
         icon.options.iconSize = 45
         return (
-          <ActiveMarker position={position} key={place.id}
-            zIndexOffset={100}
-            icon={icon}>
+          <ActiveMarker position={position} key={place.id} zIndexOffset={100} icon={icon}>
             {popup}
           </ActiveMarker>
         )
       } else {
         return (
-          <Marker key={place.id}
-            position={position}
-            icon={icon}>
+          <Marker key={place.id} position={position} icon={icon}>
             {popup}
           </Marker>
-        )}
+        )
+      }
     })
     return list
+  }
+
+  getPopup = (name, location, position) => {
+    const address = location.replace(", USA", "")
+    const url = `https://www.google.com/maps/dir//${position[0]},${position[1]}`
+    return (
+      <Popup>
+        <div>
+          <span>{name}</span><br />
+          <span><a href={url}>{address}</a></span>
+        </div>
+      </Popup>
+    )
   }
 
   getCoords = () => {
