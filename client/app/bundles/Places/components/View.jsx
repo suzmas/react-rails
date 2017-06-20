@@ -37,7 +37,7 @@ export default class View extends React.Component {
     this.updateWindow = this.updateWindow.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     this.state.showing ?
       this.setState({page: 0, showing: false}, this.handleShowEvents) :
       this.setState({page: 0, selectedPanel: 0, showEvents: "", showType: ""}, this.handleData)

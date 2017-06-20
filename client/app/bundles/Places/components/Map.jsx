@@ -111,4 +111,8 @@ PlaceMap.propTypes = {
     PropTypes.string,
     PropTypes.array
   ]),
+  showEvents: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ])
 }
