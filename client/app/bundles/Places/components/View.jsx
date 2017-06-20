@@ -29,6 +29,7 @@ export default class View extends React.Component {
       selectedPanel: 0,
       showEvents: "",
       showing: false,
+      showType: "",
       text: "",
       width: "0",
     }
@@ -38,8 +39,8 @@ export default class View extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.state.showing ?
-      this.setState({page: 0, selectedPanel: 0, showing: false}, this.handleShowEvents) :
-      this.setState({page: 0, selectedPanel: 0, showEvents: ""}, this.handleData)
+      this.setState({page: 0, showing: false}, this.handleShowEvents) :
+      this.setState({page: 0, selectedPanel: 0, showEvents: "", showType: ""}, this.handleData)
   }
 
   componentWillMount() {
@@ -75,7 +76,12 @@ export default class View extends React.Component {
   }
 
   handleId = (id) => {
-    this.setState({panelId: id, showing: true}, () =>
+    this.setState({panelId: id, showing: true, showType: "multi"}, () =>
+      this.handleViewChange("events"))
+  }
+
+  handlePanelEventId = (id) => {
+    this.setState({panelEventId: id, showing: true, showType: "single"}, () =>
       this.handleViewChange("events"))
   }
 
@@ -212,12 +218,20 @@ export default class View extends React.Component {
 
   handleShowEvents = () => {
     const places = JSON.parse(this.props.all)
-    let place = places.find((place) => { return place.place.id === this.state.panelId })
+    let place = places.find((place) => { return place.place.id === this.state.selectedPanel })
     let showEvents = []
 
-    place.events.forEach(event => {
-      showEvents.push(event)
-    })
+    if (this.state.showType === "multi") {
+      place.events.forEach(event => {
+        showEvents.push(event)
+      })
+    } else if (this.state.showType === "single") {
+      place.events.forEach(event => {
+        if (event.id === this.state.panelEventId) {
+          showEvents.push(event)
+        }
+      })
+    }
 
     this.setState({showEvents: showEvents, length: showEvents.length}, this.setButtons)
   }
@@ -281,6 +295,7 @@ export default class View extends React.Component {
       // selectedPanel: 0,
       showEvents: "",
       showing: false,
+      showType: "",
       text: ""
     }, this.handleData)
     // this.collapsePanels()
@@ -324,7 +339,8 @@ export default class View extends React.Component {
         data={this.state.data}
         selected={this.state.selectedPanel}
         onSelectChange={this.handleSelectedPanel}
-        panelId={this.handleId} />
+        panelId={this.handleId}
+        panelEventId={this.handlePanelEventId}/>
     : <EventPanel
         data={this.state.data}
         allEvents={this.state.allEvents}
