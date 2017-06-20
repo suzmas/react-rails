@@ -77,5 +77,9 @@ EventPanel.propTypes = {
     PropTypes.string
   ]),
   selected: PropTypes.number.isRequired,
-  onSelectChange: PropTypes.func
+  onSelectChange: PropTypes.func,
+  showEvents: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ])
 }

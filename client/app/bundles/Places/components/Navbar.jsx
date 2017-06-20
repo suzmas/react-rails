@@ -117,7 +117,6 @@ export default class NavBar extends React.Component {
     const hour = this.props.activeHour > 12 ? this.props.activeHour - 12 : this.props.activeHour
     const amPm = this.props.activeAmPm
     const day = this.props.activeDay
-    const timeNow = this.getNow()
     let label =
     (!day && !hour) ?
       "Time"
