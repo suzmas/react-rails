@@ -22,7 +22,7 @@ export default class PlaceMap extends React.Component {
       const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
       const popup = this.getPopup(place.name, place.address1, position)
 
-      if (this.props.selected === place.id) {
+      if (parseInt(this.props.selected) === place.id) {
         icon.options.iconSize = 45
         return (
           <ActiveMarker position={position} key={place.id} zIndexOffset={100} icon={icon}>

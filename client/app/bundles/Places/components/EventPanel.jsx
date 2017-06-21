@@ -32,7 +32,7 @@ export default class EventPanel extends React.Component {
       <Panel key={e.id}
              id={`panel-${e.id}`}
              header={headerString}
-             eventKey={e.id}
+             eventKey={e.id.toString()}
              onSelect={this.handleSelect}>
              <p><strong>{e.dow} Specials</strong></p>
              {Object.entries(e.menu).sort().map(([key,value]) => {
@@ -58,12 +58,10 @@ export default class EventPanel extends React.Component {
   }
 
   render() {
-    let defaultActive = this.props.showEvents.length > 1 ? this.props.showEvents[0]["id"] : 0
-    console.log(this.props.showEvents)
-    console.log(typeof defaultActive)
+    let defaultActive = this.props.selected ? this.props.selected : ""
 
     return (
-      <Accordion defaultActiveKey={defaultActive} onSelect={this.handleSelect}>
+      <Accordion activeKey={defaultActive} onSelect={this.handleSelect}>
         {this.eventList()}
       </Accordion>
     )
@@ -80,7 +78,7 @@ EventPanel.propTypes = {
     PropTypes.array,
     PropTypes.string
   ]),
-  selected: PropTypes.number.isRequired,
+  selected: PropTypes.any.isRequired,
   onSelectChange: PropTypes.func,
   showEvents: PropTypes.oneOfType([
     PropTypes.string,
