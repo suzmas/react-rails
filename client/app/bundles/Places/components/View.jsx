@@ -342,8 +342,8 @@ export default class View extends React.Component {
         panelEventId={this.handlePanelEventId}/>
     : <EventPanel
         data={this.state.data}
-        allEvents={this.state.allEvents}
         selected={this.state.selectedPanel}
+        allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel}
         showEvents={this.state.showEvents} />
 

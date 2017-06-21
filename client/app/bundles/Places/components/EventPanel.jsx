@@ -58,8 +58,10 @@ export default class EventPanel extends React.Component {
   }
 
   render() {
+    let defaultActive = this.props.showEvents.length === 1 ? this.props.showEvents[0]["id"] : 0
+    console.log(this.props.showEvents)
     return (
-      <Accordion onSelect={this.handleSelect}>
+      <Accordion defaultActiveKey={defaultActive} onSelect={this.handleSelect}>
         {this.eventList()}
       </Accordion>
     )
