@@ -36,7 +36,6 @@ export default class View extends React.Component {
 
     this.updateWindow = this.updateWindow.bind(this)
   }
-
   componentWillReceiveProps() {
     this.state.showing ?
       this.setState({page: 0, showing: false}, this.handleShowEvents) :
@@ -87,6 +86,7 @@ export default class View extends React.Component {
 
   handleSelectedPanel = (id) => {
     let panel = this.state.selectedPanel === id ? 0 : id
+    console.log("what is this", this.state.selectedPanel, id)
     this.setState({selectedPanel: panel})
   }
 
@@ -232,6 +232,7 @@ export default class View extends React.Component {
         }
       })
     }
+    console.log("ME", showEvents[0].id)
     this.setState({showEvents: showEvents, length: showEvents.length, selectedPanel: showEvents[0].id}, this.setButtons)
   }
 
