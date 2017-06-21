@@ -82,7 +82,7 @@ PlacePanel.propTypes = {
     PropTypes.array.isRequired,
     PropTypes.string.isRequired
   ]),
-  selected: PropTypes.number.isRequired,
+  selected: PropTypes.any.isRequired,
   onSelectChange: PropTypes.func,
   panelEventId: PropTypes.func,
   panelId: PropTypes.func

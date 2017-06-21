@@ -26,7 +26,7 @@ export default class View extends React.Component {
       page: 0,
       panelId: "",
       prev: false,
-      selectedPanel: 0,
+      selectedPanel: "",
       showEvents: "",
       showing: false,
       showType: "",
@@ -39,7 +39,7 @@ export default class View extends React.Component {
   componentWillReceiveProps() {
     this.state.showing ?
       this.setState({page: 0, showing: false}, this.handleShowEvents) :
-      this.setState({page: 0, selectedPanel: 0, showEvents: "", showType: ""}, this.handleData)
+      this.setState({page: 0, selectedPanel: "", showEvents: "", showType: ""}, this.handleData)
   }
 
   componentWillMount() {
@@ -85,8 +85,7 @@ export default class View extends React.Component {
   }
 
   handleSelectedPanel = (id) => {
-    let panel = this.state.selectedPanel === id ? 0 : id
-    console.log("what is this", this.state.selectedPanel, id)
+    let panel = this.state.selectedPanel === id ? "" : id
     this.setState({selectedPanel: panel})
   }
 
@@ -232,8 +231,7 @@ export default class View extends React.Component {
         }
       })
     }
-    console.log("ME", showEvents[0].id)
-    this.setState({showEvents: showEvents, length: showEvents.length, selectedPanel: showEvents[0].id}, this.setButtons)
+    this.setState({showEvents: showEvents, length: showEvents.length, selectedPanel: showEvents[0].id.toString()}, this.setButtons)
   }
 
   setPage = (str) => {

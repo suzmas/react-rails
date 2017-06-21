@@ -58,15 +58,7 @@ export default class EventPanel extends React.Component {
   }
 
   render() {
-    // let showEvents = this.props.showEvents ? this.props.showEvents : []
-    // let selected = this.props.selected ? this.props.selected.toString : ""
-    // let defaultActive = showEvents.length >= 1 ? showEvents[0]["id"].toString() : selected
-    // defaultActive = this.props.selected === defaultActive ? this.props.selected : defaultActive
-
-    let defaultActive = this.props.selected ? this.props.selected.toString() : ""
-    // console.log("What I want", showEvents, this.props.selected, defaultActive)
-    // console.log(typeof defaultActive, typeof this.props.selected)
-    console.log("This", defaultActive)
+    let defaultActive = this.props.selected ? this.props.selected : ""
 
     return (
       <Accordion activeKey={defaultActive} onSelect={this.handleSelect}>
