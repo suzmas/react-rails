@@ -266,15 +266,21 @@ export default class View extends React.Component {
       return dayInt + event.start_time
     }
     let newevents = events.sort((a,b) => {
-      return timeInt(a) - timeInt(b)
-    })
-    let tail = []
-    newevents.forEach((each) => {
-      if (timeInt(each) < nowInt) {
-        tail.push(newevents.shift())
+      let aToNow = timeInt(a) - nowInt
+      let bToNow = timeInt(b) - nowInt
+
+      if (aToNow && bToNow < 0) {
+        return aToNow - bToNow
       }
+      if (aToNow < 0) { aToNow = nowInt + aToNow }
+      if (bToNow < 0) { bToNow = nowInt + bToNow }
+
+      // console.log(a.dow + " " + a.start_time + " a value is " + aToNow)
+      // console.log(b.dow + " " + b.start_time + " b value " + bToNow)
+      // console.log("time now is " + nowInt)
+      return aToNow - bToNow
     })
-    return newevents.concat(tail)
+    return newevents
   }
 
   clearFilters = () => {
@@ -342,8 +348,8 @@ export default class View extends React.Component {
         panelEventId={this.handlePanelEventId}/>
     : <EventPanel
         data={this.state.data}
-        allEvents={this.state.allEvents}
         selected={this.state.selectedPanel}
+        allEvents={this.state.allEvents}
         onSelectChange={this.handleSelectedPanel}
         showEvents={this.state.showEvents} />
 
