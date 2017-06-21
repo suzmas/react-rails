@@ -58,7 +58,7 @@ export default class EventPanel extends React.Component {
   }
 
   render() {
-    let defaultActive = this.props.showEvents.length === 1 ? this.props.showEvents[0]["id"] : 0
+    let defaultActive = this.props.showEvents.length > 1 ? this.props.showEvents[0]["id"] : 0
     console.log(this.props.showEvents)
     console.log(typeof defaultActive)
 
