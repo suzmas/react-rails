@@ -51,6 +51,10 @@ export default class View extends React.Component {
     window.addEventListener("resize", this.updateWindow)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow)
+  }
+
   updateWindow = () => {
     this.setState({width: window.innerWidth}, function() {
       if (this.state.width <= 991) {
