@@ -18,8 +18,8 @@ export default class View extends React.Component {
       data: "",
       hasDrink: false,
       hasFood: false,
-      hiddenList: true,
-      hiddenMap: false,
+      hiddenList: false,
+      hiddenMap: true,
       length: 0,
       locationData: "",
       next: false,
@@ -51,10 +51,14 @@ export default class View extends React.Component {
     window.addEventListener("resize", this.updateWindow)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindow)
+  }
+
   updateWindow = () => {
     this.setState({width: window.innerWidth}, function() {
       if (this.state.width <= 991) {
-        this.setState({hiddenMap: false, hiddenList: true})
+        this.setState({hiddenMap: true, hiddenList: false})
       } else {
         this.setState({hiddenMap: false, hiddenList: false})
       }
@@ -350,6 +354,14 @@ export default class View extends React.Component {
         onSelectChange={this.handleSelectedPanel}
         showEvents={this.state.showEvents} />
 
+    const map = !this.state.hiddenMap ?
+      <PlaceMap
+        data={this.state.data}
+        selected={this.state.selectedPanel}
+        allEvents={this.state.allEvents}
+        view={this.props.view}
+        showEvents={this.state.showEvents}/>
+      : ""
     const toggleList = (this.state.width <= 991) ? this.addListToggle() : null
     return (
       <div>
@@ -382,12 +394,7 @@ export default class View extends React.Component {
             {toggleList}
           </Col>
           <Col id="map-view" sm={12} md={6} hidden={this.state.hiddenMap}>
-              <PlaceMap
-                data={this.state.data}
-                selected={this.state.selectedPanel}
-                allEvents={this.state.allEvents}
-                view={this.props.view}
-                showEvents={this.state.showEvents}/>
+            {map}
             {toggleList}
           </Col>
         </Row>
