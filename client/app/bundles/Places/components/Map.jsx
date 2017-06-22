@@ -11,20 +11,6 @@ export default class PlaceMap extends React.Component {
     zoom: 15,
   }
 
-  // componentDidMount() {
-  //   const mapApi = this.refs.map.leafletElement
-  //   setTimeout(() => {
-  //     mapApi.invalidateSize()
-  //   }, 5000)
-  // }
-  // componentDidUpdate() {
-  //   console.log("runs")
-  //   const mapApi = this.refs.map.leafletElement
-  //   setTimeout(() => {
-  //     mapApi.invalidateSize()
-  //   }, 5000)
-  // }
-
   placeMarker = () => {
     let places = this.getPlaces()
     if (places.length < 1) return
@@ -96,7 +82,7 @@ export default class PlaceMap extends React.Component {
   render() {
     const bounds = this.getCoords()
     return (
-      <Map bounds={bounds} ref="map" boundsOptions={ {padding: [10, 10]} }>
+      <Map bounds={bounds} boundsOptions={ {padding: [10, 10]} }>
         <TileLayer
           url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
           {this.placeMarker()}
