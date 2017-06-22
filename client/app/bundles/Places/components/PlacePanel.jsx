@@ -69,8 +69,9 @@ export default class PlacePanel extends React.Component {
   }
 
   render() {
+    let defaultActive = this.props.selected ? this.props.selected : ""
     return (
-      <Accordion onSelect={this.handleSelect}>
+      <Accordion onSelect={this.handleSelect} activeKey={defaultActive}>
         {this.placeList()}
       </Accordion>
     )
