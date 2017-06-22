@@ -180,9 +180,7 @@ export default class View extends React.Component {
     const start = this.state.page * 10
     const end = this.state.page * 10 + 10
 
-    if (this.props.view == "place") {
-      data = data.slice(start, end)
-    }
+    data = data.slice(start, end)
     allEvents = allEvents.slice(start, end)
 
     return {data: data, allEvents: allEvents, length: length}
@@ -301,7 +299,7 @@ export default class View extends React.Component {
       showing: false,
       showType: "",
       text: ""
-    }, this.handleData, console.log("runs", this.state.selectedPanel))
+    }, this.handleData)
     // this.collapsePanels()
     // this.handleSelectedPanel(this.state.selectedPanel)
   }
