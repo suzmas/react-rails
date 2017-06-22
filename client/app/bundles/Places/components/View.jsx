@@ -212,7 +212,7 @@ export default class View extends React.Component {
     tmp = this.filterPagination(tmp)
 
     let sortedEvents = this.sortedEvents(tmp.allEvents)
-    this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length}, this.setButtons)
+    this.setState({data: tmp.data, allEvents: sortedEvents, length: tmp.length, selectedPanel: ""}, this.setButtons)
   }
 
   handleShowEvents = () => {
@@ -296,12 +296,12 @@ export default class View extends React.Component {
       next: false,
       page: 0,
       prev: false,
-      // selectedPanel: 0,
+      selectedPanel: 0,
       showEvents: "",
       showing: false,
       showType: "",
       text: ""
-    }, this.handleData)
+    }, this.handleData, console.log("runs", this.state.selectedPanel))
     // this.collapsePanels()
     // this.handleSelectedPanel(this.state.selectedPanel)
   }
