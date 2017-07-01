@@ -16,10 +16,10 @@ RSpec.feature "LocationFilters", type: :feature, js: true do
         expect(page).to have_selector(".panel", count: 3)
       end
       When "I change to the Events view" do
-        click_button "Events"
+        click_button "Places"
       end
       Then "I should see all events for the first page" do
-        expect(page).to have_selector(".panel", count: 5)
+        expect(page).to have_selector(".panel", count: 7)
       end
     end
   end

@@ -21,7 +21,7 @@ RSpec.feature "SearchFilters", type: :feature, js: true do
     Steps "Input search in search bar for Events" do
       Given "I am on the Events view" do
         visit "/"
-        click_button "Events"
+        click_button "Places"
       end
       When "I enter an Event's name" do
         fill_in 'keyword-input', with: @e1.name

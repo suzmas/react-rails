@@ -10,19 +10,16 @@ RSpec.feature "Toggles", type: :feature, js: true do
         expect(page).to have_selector(".panel", count: 3)
       end
       And "I can click the 'Events' button to see the number of events" do
-        click_button "Events"
-        expect(page).to have_selector(".panel", count: 5)
+        click_button "Places"
+        expect(page).to have_selector(".panel", count: 7)
       end
       Then "I cannot click the 'Prev' button" do
-        expect(page).to have_button("Prev", disabled: true)
-      end
-      Then "I can click the 'Next' button to see the remaining events" do
-        click_button "Next"
-        expect(page).to have_selector(".panel", count: 2)
+        expect(page).to have_button("prev-btn", disabled: true)
       end
       And "I cannot click 'Next' again" do
-        click_button "Next"
-        expect(page).to have_button("Next", disabled: true)
+        # click_button "next-btn"
+        find('#next-btn').click
+        expect(page).to have_button("next-btn", disabled: true)
       end
     end
   end

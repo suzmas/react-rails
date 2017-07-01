@@ -28,7 +28,7 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
     Steps "I can select the time dropdown and click on AM/PM for Events" do
       Given "I am on the homepage and Events view" do
         visit "/"
-        click_button "Events"
+        click_button "Places"
       end
       When "I select a time from the dropdown" do
         click_button "time-dropdown"
@@ -62,7 +62,7 @@ RSpec.feature "TimeFilters", type: :feature, js: true do
         expect(page).to have_selector(".panel", count: 2)
       end
       And "I can switch to Events" do
-        click_button "Events"
+        click_button "Places"
       end
       Then "I should see the Events during this day" do
         expect(page).to have_selector(".panel", count: 2)
