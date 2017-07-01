@@ -23,7 +23,7 @@ RSpec.feature "ClearFilters", type: :feature, js: true do
     Steps "Input nonsense into search bar for Places" do
       Given "I am on events view" do
         visit "/"
-        click_button "Events"
+        click_button "Places"
       end
       When "I enter ridiculous characters into the search bar" do
         fill_in 'keyword-input', with: "xkdyshdlxjhsdflk"

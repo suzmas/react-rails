@@ -41,7 +41,7 @@ RSpec.feature "BoolFilters", type: :feature, js: true do
     Steps "Filter Events by those that have food" do
       Given "I am on the homepage and in the Events view" do
         visit "/"
-        click_button "Events"
+        click_button "Places"
       end
       When "I click the food button" do
         click_button "has-food"
@@ -53,14 +53,14 @@ RSpec.feature "BoolFilters", type: :feature, js: true do
         click_button "has-food"
       end
       Then "I should see a page of Events" do
-        expect(page).to have_selector(".panel", count: 5)
+        expect(page).to have_selector(".panel", count: 7)
       end
     end
 
     Steps "Filter Events by those that have drinks" do
       Given "I am on the homepage and in the Events view" do
         visit "/"
-        click_button "Events"
+        click_button "Places"
       end
       When "I click the drink button" do
         click_button "has-drink"
@@ -72,7 +72,7 @@ RSpec.feature "BoolFilters", type: :feature, js: true do
         click_button "has-drink"
       end
       Then "I should see a page of Events" do
-        expect(page).to have_selector(".panel", count: 5)
+        expect(page).to have_selector(".panel", count: 7)
       end
     end
   end
