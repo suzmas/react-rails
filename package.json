@@ -10,12 +10,5 @@
     "postinstall": "cd client && yarn install",
     "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
     "test": "rspec"
-  },
-  "dependencies": {
-    "leaflet": "^1.0.3",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-leaflet": "^1.1.6"
-  },
-  "devDependencies": {}
+  }
 }
