@@ -304,21 +304,7 @@ export default class View extends React.Component {
       showType: "",
       text: ""
     }, this.handleData)
-    // this.collapsePanels()
-    // this.handleSelectedPanel(this.state.selectedPanel)
   }
-
-  // collapsePanels = () => {
-  //   let panel = this.state.selectedPanel
-  //   panel = document.querySelector(`#panel-${panel}`)
-  //   if (panel.classList.contains("in")) {
-  //     panel.classList.remove("in")
-  //     console.log(panel.children)
-  //     panel.setAttribute("aria-hidden", true)
-  //     panel.setAttribute("style", "height: 0px;")
-  //
-  //   }
-  // }
 
   // Adds buttons for mobile view
   addListToggle = () => {
