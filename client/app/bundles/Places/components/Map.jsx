@@ -84,7 +84,7 @@ export default class PlaceMap extends React.Component {
     return (
       <Map bounds={bounds} boundsOptions={ {padding: [10, 10]} }>
         <TileLayer
-          url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
+          url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
           {this.placeMarker()}
           {this.openPopup}
       </Map>
@@ -123,3 +123,4 @@ PlaceMap.propTypes = {
     PropTypes.array
   ])
 }
+          // url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>' />
