@@ -1,7 +1,7 @@
 ## Start server
 
 ```
-foreman start -f Procfile.dev
+npm run rails-server
 ```
 
 ## Configure database
