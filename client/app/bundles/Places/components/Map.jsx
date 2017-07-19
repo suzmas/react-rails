@@ -22,6 +22,10 @@ export default class PlaceMap extends React.Component {
       const icon = L.icon({iconUrl: iconUrl, iconSize: 40})
       const popup = this.getPopup(place.name, place.address1, position)
 
+      var openPanel = () => {
+        this.props.onSelectChange(place.id)
+      }
+
       if (parseInt(this.props.selected) === place.id) {
         icon.options.iconSize = 45
         return (
@@ -31,7 +35,7 @@ export default class PlaceMap extends React.Component {
         )
       } else {
         return (
-          <Marker key={place.id} position={position} icon={icon}>
+          <Marker key={place.id} position={position} icon={icon} onClick={openPanel}>
             {popup}
           </Marker>
         )
