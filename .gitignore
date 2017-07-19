@@ -35,3 +35,6 @@ config/database.yml
 # Ignore environment variables
 .env
 .ENV
+
+# Ignore vim swp files
+*.swp
