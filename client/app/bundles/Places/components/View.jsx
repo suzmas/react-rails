@@ -346,7 +346,8 @@ export default class View extends React.Component {
         selected={this.state.selectedPanel}
         allEvents={this.state.allEvents}
         view={this.props.view}
-        showEvents={this.state.showEvents}/>
+        showEvents={this.state.showEvents}
+        onSelectChange={this.handleSelectedPanel}/>
       : ""
     const toggleList = (this.state.width <= 991) ? this.addListToggle() : null
     return (
