@@ -16,6 +16,12 @@ $break-xs: 575px;
 $break-sm: 767px;
 $break-md: 991px;
 
+// Removes all outline focuses
+// TODO:We should look into implementing our own style in the future
+:focus {
+  outline: none !important
+}
+
 a.navbar-brand {
   height: 60px;
   padding: 16px;
@@ -103,7 +109,6 @@ body {
   padding: 0 10px 0 10px;
 }
 
-// TODO: Find a way to show field is focused
 .form-control {
   flex-basis: 30%;
   min-width: 80px;
