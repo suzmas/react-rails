@@ -122,7 +122,7 @@ export default class View extends React.Component {
     events = events.filter(event => {
       const hoursOfEvent = hoursOfDay.slice(hoursOfDay[event.start_time],
                                             hoursOfDay[event.end_time])
-      // if filters not set, filter events by their own props (= return all)
+      // if filter not set, filter events by their own props (= return all)
       const activeHour = (this.state.activeHour || event.start_time)
       const activeDay = (this.state.activeDay || event.dow)
       return ((hoursOfEvent.includes(activeHour)) && (event.dow === activeDay))
