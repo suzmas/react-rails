@@ -240,7 +240,7 @@ export default class View extends React.Component {
     (str === "prev") ?
       this.setState({page: this.state.page - 1}, this.handleData) :
       this.setState({page: this.state.page + 1}, this.handleData)
-    document.getElementById('list-view').scrollTop = 0
+    document.getElementById("list-view").scrollTop = 0
   }
 
   setButtons() {

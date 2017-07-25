@@ -17,8 +17,27 @@ export default class EventPanel extends React.Component {
       amPm = "PM"
     }
     if (a === 12) { amPm = "PM" }
-    if (a === 24) { amPm = "AM" }  
+    if (a === 24) { amPm = "AM" }
     return `${a} ${amPm}`
+  }
+
+  formatMenu = (menuItems) => {
+    const foods = []
+    const drinks = []
+    console.log(Object.entries(menuItems))
+    for (let val in menuItems) {
+      if (val.startsWith("f: ")) {
+        const food = val.split("f: ")[1]
+        foods.push(food)
+      }
+      if (val.startsWith("d: ")) {
+        const drink = val.split("d: ")[1]
+        drinks.push(
+          <p className="menu-item" key={drink}>{drink}: ${menuItems[val]}</p>
+        )
+      }
+    }
+    console.log(foods + " " + drinks)
   }
 
   // May need to find a way to tie in place and event together in this panel
@@ -31,6 +50,8 @@ export default class EventPanel extends React.Component {
         <p className="place-address">{address}</p>
       </div>
     )
+    this.formatMenu(e.menu)
+
     const panel = (
       <Panel key={e.id}
              id={`panel-${e.id}`}
@@ -45,8 +66,6 @@ export default class EventPanel extends React.Component {
     )
     return panel
   }
-
-
 
   eventList = () => {
     let allEvents = this.props.showEvents || this.props.allEvents
