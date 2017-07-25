@@ -24,20 +24,36 @@ export default class EventPanel extends React.Component {
   formatMenu = (menuItems) => {
     const foods = []
     const drinks = []
-    console.log(Object.entries(menuItems))
     for (let val in menuItems) {
       if (val.startsWith("f: ")) {
         const food = val.split("f: ")[1]
-        foods.push(food)
+        foods.push(
+          <li className="menu-item" key={food}>{food}: ${menuItems[val]}</li>
+        )
       }
       if (val.startsWith("d: ")) {
         const drink = val.split("d: ")[1]
         drinks.push(
-          <p className="menu-item" key={drink}>{drink}: ${menuItems[val]}</p>
+          <li className="menu-item" key={drink}>{drink}: ${menuItems[val]}</li>
         )
       }
     }
-    console.log(foods + " " + drinks)
+    return (
+    <div>
+      <div style={{float: "left"}}>
+        <h4>Drinks</h4>
+        <ul>
+          { drinks }
+        </ul>
+      </div>
+      <div style={{float: "right", marginRight: "30px"}}>
+        <h4>Food</h4>
+        <ul>
+          { foods }
+        </ul>
+      </div>
+    </div>
+    )
   }
 
   // May need to find a way to tie in place and event together in this panel
@@ -59,9 +75,7 @@ export default class EventPanel extends React.Component {
              eventKey={e.id.toString()}
              onSelect={this.handleSelect}>
              <p><strong>{e.dow} Specials</strong></p>
-             {Object.entries(e.menu).sort().map(([key,value]) => {
-               return <p className="menu-item" key={key}>{key}: ${value}</p>
-             })}
+             { this.formatMenu(e.menu) }
       </Panel>
     )
     return panel
