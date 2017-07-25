@@ -15,7 +15,10 @@ export default class EventPanel extends React.Component {
     if (a > 12) {
       a = (a - 12).toString()
       amPm = "PM"
-    }    return `${a} ${amPm}`
+    }
+    if (a === 12) { amPm = "PM" }
+    if (a === 24) { amPm = "AM" }  
+    return `${a} ${amPm}`
   }
 
   // May need to find a way to tie in place and event together in this panel
