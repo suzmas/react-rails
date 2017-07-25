@@ -44,12 +44,12 @@ when "development", "production"
   end
 
   def make_menu(bool_food, bool_drink)
-    food = ["meat mouth pizza", "chorizo burger", "garlic parmesan wings", "french fries", "baked salmon", "new york strip steak",
-      "cobb salad", "greek salad", "california burrito", "shrimp cocktail",
-      "2 adobada tacos", "Suzan's Special", "bacon omelette", "the works bagel"]
-    drink = ["red wine", "white wine", "whiskey", "vodka", "tequila", "IPA",
-      "lager", "sour", "Bud Light", "Natty Ice", "mimosa", "champagne", "7&7",
-      "fireball", "soju", "gin", "sake"]
+    food = ["f: meat mouth pizza", "f: chorizo burger", "f: garlic parmesan wings", "f: french fries", "f: baked salmon", "f: new york strip steak",
+      "f: cobb salad", "f: greek salad", "f: california burrito", "f: shrimp cocktail",
+      "f: 2 adobada tacos", "f: Suzan's Special", "f: bacon omelette", "f: the works bagel"]
+    drink = ["d: red wine", "d: white wine", "d: whiskey", "d: vodka", "d: tequila", "d: IPA",
+      "d: lager", "d: sour", "d: Bud Light", "d: Natty Ice", "d: mimosa", "d: champagne", "d: 7&7",
+      "d: fireball", "d: soju", "d: gin", "d: sake"]
 
     combined = []
     menu = Hash.new
