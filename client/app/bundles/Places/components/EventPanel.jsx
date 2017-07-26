@@ -42,13 +42,13 @@ export default class EventPanel extends React.Component {
     <div>
       <div style={{float: "left"}}>
         <h4>Drinks</h4>
-        <ul>
+        <ul style={{listStylePosition: "inside", paddingLeft: 0}}>
           { drinks }
         </ul>
       </div>
       <div style={{float: "right", marginRight: "30px"}}>
         <h4>Food</h4>
-        <ul>
+        <ul style={{listStylePosition: "inside", paddingLeft: 0}}>
           { foods }
         </ul>
       </div>
