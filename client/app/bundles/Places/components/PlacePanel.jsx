@@ -70,10 +70,18 @@ export default class PlacePanel extends React.Component {
 
   render() {
     let defaultActive = this.props.selected ? this.props.selected : ""
-    return (
+    let placeCount = this.props.data.length
+
+    let panels = placeCount > 0 ?
       <Accordion onSelect={this.handleSelect} activeKey={defaultActive}>
         {this.placeList()}
-      </Accordion>
+      </Accordion> :
+      <p>There are no matching places</p>
+
+    return (
+      <div>
+        {panels}
+      </div>
     )
   }
 }
