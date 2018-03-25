@@ -38,3 +38,8 @@ config/database.yml
 
 # Ignore vim swp files
 *.swp
+
+# Ignore webscraper files
+/scripts/webscraper/.scrapy
+/scripts/webscraper/webscraper/__pycache__
+/scripts/webscraper/webscraper/spiders/__pycache__
